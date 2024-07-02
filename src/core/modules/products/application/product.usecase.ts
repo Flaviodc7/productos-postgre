@@ -6,9 +6,9 @@ export class ProductUseCase implements IProductUseCase {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async create(data: any): Promise<any> {
-    const templateValue = new ProductValue().create(data);
+    const productValue = new ProductValue().create(data);
 
-    return await this.productRepository.create(templateValue);
+    return await this.productRepository.create(productValue);
   }
 
   async findOneById(id: string): Promise<any> {

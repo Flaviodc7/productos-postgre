@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('TemplateAPI')
+    .setTitle('ProductAPI')
     .setDescription('Documentación para la API')
     .setVersion('1.0')
     .build();

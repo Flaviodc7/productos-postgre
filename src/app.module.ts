@@ -10,7 +10,7 @@ import config from './config';
       envFilePath: '.env',
       load: [config],
       isGlobal: true,
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

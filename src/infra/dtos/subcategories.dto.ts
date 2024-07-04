@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, IsNumber, IsOptional, IsArray, ArrayNotEmpty } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateSubcategoryDTO {
   @ApiProperty({ description: 'Subcategory name' })
@@ -21,15 +21,15 @@ export class UpdateSubcategoryDTO {
   @IsNumber()
   @IsNotEmpty()
   readonly id: string;
-  @ApiProperty({ description: 'Category name' })
+  @ApiPropertyOptional({ description: 'Category name' })
   @IsOptional()
   @IsString()
   readonly name: string;
-  @ApiProperty({ description: 'Category description' })
+  @ApiPropertyOptional({ description: 'Category description' })
   @IsOptional()
   @IsString()
   readonly description: string;
-  @ApiProperty({ description: 'Subcategory relation with a category' })
+  @ApiPropertyOptional({ description: 'Subcategory relation with a category' })
   @IsOptional()
   @IsString()
   readonly categoryId: string;
@@ -37,7 +37,8 @@ export class UpdateSubcategoryDTO {
 
 export class FindSubcategoriesDTO {
   @ApiProperty({ description: 'Subcategories ID' })
-  @IsNumber()
-  @IsNotEmpty()
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
   readonly ids: string[];
 }

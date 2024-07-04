@@ -1,5 +1,5 @@
-import { CategoryCreatePayload } from '../application/category.usecase.interface';
 import { v4 as uuid } from 'uuid';
+import { CategoryCreatePayload } from '@categoryApplication/category.usecase.interface';
 import { CategoryEntity } from './entities/category.entity';
 
 export class CategoryValue {

@@ -9,8 +9,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigType } from '@nestjs/config';
 import * as sharp from 'sharp';
-import { FilesService } from '../services/files.service';
-import config from '../../config';
+import { FilesService } from '@services/files.service';
+import config from '@src/config';
 
 @Controller('files')
 export class FilesController {

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { ProductEntity } from '../../core/modules/products/domain/entities/product.entity';
-import { ProductRepository } from '../../core/modules/products/domain/product.repository';
-import { ProductModel } from '../models/product.model';
+import { ProductEntity } from '@productDomain/entities/product.entity';
+import { ProductRepository } from '@productDomain/product.repository';
+import { ProductModel } from '@models/product.model';
 
 @Injectable()
 export class ProductPostgreRepository implements ProductRepository {

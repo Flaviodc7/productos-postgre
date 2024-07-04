@@ -1,5 +1,5 @@
-import { ProductRepository } from '../domain/product.repository';
-import { ProductValue } from '../domain/product.value';
+import { ProductRepository } from '@productDomain/product.repository';
+import { ProductValue } from '@productDomain/product.value';
 import { IProductUseCase } from './product.usecase.interface';
 
 export class ProductUseCase implements IProductUseCase {

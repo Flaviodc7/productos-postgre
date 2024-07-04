@@ -1,9 +1,9 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { ProductUseCase } from '../../core/modules/products/application/product.usecase';
 import { ProductPostgreRepository } from '../repository/product.repository';
-import { ProductController } from '../controllers/product.controller';
-import { ProductModel } from '../models/product.model';
+import { ProductController } from '@controllers/product.controller';
+import { ProductUseCase } from '@productApplication/product.usecase';
+import { ProductModel } from '@models/product.model';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ProductModel])],

@@ -10,12 +10,12 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ProductUseCase } from '../../core/modules/products/application/product.usecase';
+import { ProductUseCase } from '@productApplication/product.usecase';
 import {
   CreateProductDTO,
   FindProductsDTO,
   UpdateProductDTO,
-} from '../dtos/product.dto';
+} from '@dtos/product.dto';
 
 @ApiTags('Products')
 @Controller('products')

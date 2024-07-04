@@ -1,5 +1,5 @@
-import { CategoryRepository } from '../domain/category.repository';
-import { CategoryValue } from '../domain/category.value';
+import { CategoryRepository } from '@categoryDomain/category.repository';
+import { CategoryValue } from '@categoryDomain/category.value';
 import { ICategoryUseCase } from './category.usecase.interface';
 
 export class CategoryUseCase implements ICategoryUseCase {

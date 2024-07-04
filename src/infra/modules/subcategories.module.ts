@@ -1,7 +1,7 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { SubcategoryPostgreRepository } from '../repository/subcategories.repository';
 import { SubcategoryUseCase } from '@subcategoriesApplication/subcategories.usecase';
+import { SubcategoryPostgreRepository } from '@repository/subcategories.repository';
 import { SubcategoryController } from '@controllers/subcategories.controller';
 import { SubcategoryModel } from '@models/subcategories.model';
 
@@ -20,4 +20,4 @@ import { SubcategoryModel } from '@models/subcategories.model';
   ],
   exports: [SubcategoryPostgreRepository, TypeOrmModule],
 })
-export class CategoryModule {}
+export class SubcategoryModule {}

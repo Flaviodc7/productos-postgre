@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
 import { CategoryRepository } from '@categoriesDomain/categories.repository';
+import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
 import { CategoryModel } from '@models/categories.model';
 
 @Injectable()

@@ -17,12 +17,12 @@ import {
   UpdateSubcategoryDTO,
 } from '@dtos/subcategories.dto';
 
-@ApiTags('Categories')
-@Controller('categories')
+@ApiTags('Subcategories')
+@Controller('subcategories')
 export class SubcategoryController {
   constructor(private readonly subcategoryUseCase: SubcategoryUseCase) {}
 
-  @ApiOperation({ summary: 'Get all categories' })
+  @ApiOperation({ summary: 'Get all subcategories' })
   @Get()
   getAllsubcategorys() {
     return this.subcategoryUseCase.findAll();
@@ -41,7 +41,7 @@ export class SubcategoryController {
     return this.subcategoryUseCase.create(payload);
   }
 
-  @ApiOperation({ summary: 'Get categories by ids' })
+  @ApiOperation({ summary: 'Get subcategories by ids' })
   @Post('getsubcategorys')
   getsubcategorysByIds(@Body() payload: FindSubcategoriesDTO) {
     return this.subcategoryUseCase.findByIds(payload.ids);

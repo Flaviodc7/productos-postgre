@@ -1,11 +1,12 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { CategoryModule } from './infra/modules/categories.module';
-import { ProductModule } from './infra/modules/products.module';
-import { DatabaseModule } from './infra/db/database.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import config from './config';
+import { SubcategoryModule } from '@modules/subcategories.module';
+import { CategoryModule } from '@modules/categories.module';
+import { ProductModule } from '@modules/products.module';
+import { DatabaseModule } from '@db/database.module';
+import { AppController } from '@src/app.controller';
+import { AppService } from '@src/app.service';
+import config from '@src/config';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import config from './config';
     DatabaseModule,
     ProductModule,
     CategoryModule,
+    SubcategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

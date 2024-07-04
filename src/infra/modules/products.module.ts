@@ -1,6 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { ProductPostgreRepository } from '../repository/product.repository';
+import { ProductPostgreRepository } from '@repository/product.repository';
 import { ProductController } from '@controllers/product.controller';
 import { ProductUseCase } from '@productApplication/product.usecase';
 import { ProductModel } from '@models/product.model';
@@ -9,6 +9,7 @@ import { ProductModel } from '@models/product.model';
   imports: [TypeOrmModule.forFeature([ProductModel])],
   controllers: [ProductController],
   providers: [
+    ProductPostgreRepository,
     {
       provide: ProductUseCase,
       useFactory: (productRepo: ProductPostgreRepository) => {

@@ -1,4 +1,4 @@
-import { CategoryRepository } from '@categoriesDomain/category.repository';
+import { CategoryRepository } from '@categoriesDomain/categories.repository';
 import { CategoryValue } from '@categoriesDomain/category.value';
 import { ICategoriesUseCase } from './categories.usecase.interface';
 

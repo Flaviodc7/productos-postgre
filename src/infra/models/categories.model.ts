@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
-import { SubcategoryModel } from './subcategory.model';
+import { SubcategoryModel } from './subcategories.model';
 
 @Entity()
 export class CategoryModel implements CategoryEntity {

@@ -1,7 +1,7 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { CategoryPostgreRepository } from '../repository/category.repository';
-import { CategoryUseCase } from '@categoryApplication/category.usecase';
+import { CategoryPostgreRepository } from '../repository/categories.repository';
+import { CategoryUseCase } from '@categoriesApplication/categories.usecase';
 import { CategoryController } from '@controllers/categories.controller';
 import { CategoryModel } from '@models/categories.model';
 

@@ -9,5 +9,6 @@ export interface ISubcategoriesUseCase {
   export interface SubcategoriesCreatePayload {
     name: string;
     description: string;
+    categoryId: string;
   }
   

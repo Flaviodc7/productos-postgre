@@ -1,7 +1,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { CategoryModule } from './infra/modules/category.module';
-import { ProductModule } from './infra/modules/product.module';
+import { CategoryModule } from './infra/modules/categories.module';
+import { ProductModule } from './infra/modules/products.module';
 import { DatabaseModule } from './infra/db/database.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';

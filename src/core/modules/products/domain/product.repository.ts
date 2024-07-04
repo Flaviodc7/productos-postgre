@@ -1,4 +1,4 @@
-import { ProductModel } from 'src/infra/models/product.model';
+import { ProductModel } from '../../../../infra/models/product.model';
 import { ProductEntity } from './entities/product.entity';
 
 export interface ProductRepository {

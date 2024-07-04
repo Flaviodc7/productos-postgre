@@ -1,9 +1,9 @@
-import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
-import { ProductEntity } from '@productDomain/entities/product.entity';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
 import { SubcategoryModel } from './subcategory.model';
 
 @Entity()
-export class ProductModel implements ProductEntity {
+export class CategoryModel implements CategoryEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 
@@ -13,6 +13,6 @@ export class ProductModel implements ProductEntity {
   @Column({ type: 'text' })
   description: string;
 
-  @ManyToMany(() => SubcategoryModel, subcategory => subcategory.products)
+  @OneToMany(() => SubcategoryModel, subcategory => subcategory.category)
   subcategories: SubcategoryModel[];
 }

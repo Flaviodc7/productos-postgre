@@ -1,4 +1,4 @@
-export interface ICategoryUseCase {
+export interface ICategoriesUseCase {
   create: (data: any) => Promise<any>;
   findOneById(id: string): Promise<any>;
   findByIds(ids: string[]): Promise<any>;
@@ -6,7 +6,7 @@ export interface ICategoryUseCase {
   update(id: string, data: any): Promise<any>;
 }
 
-export interface CategoryCreatePayload {
+export interface CategoriesCreatePayload {
   name: string;
   description: string;
 }

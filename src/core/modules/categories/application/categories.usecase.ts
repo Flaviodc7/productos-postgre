@@ -1,8 +1,8 @@
-import { CategoryRepository } from '@categoryDomain/category.repository';
-import { CategoryValue } from '@categoryDomain/category.value';
-import { ICategoryUseCase } from './category.usecase.interface';
+import { CategoryRepository } from '@categoriesDomain/category.repository';
+import { CategoryValue } from '@categoriesDomain/category.value';
+import { ICategoriesUseCase } from './categories.usecase.interface';
 
-export class CategoryUseCase implements ICategoryUseCase {
+export class CategoryUseCase implements ICategoriesUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
   async create(data: any): Promise<any> {

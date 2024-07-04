@@ -2,8 +2,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { CategoryPostgreRepository } from '../repository/category.repository';
 import { CategoryUseCase } from '@categoryApplication/category.usecase';
-import { CategoryController } from '@controllers/category.controller';
-import { CategoryModel } from '@models/category.model';
+import { CategoryController } from '@controllers/categories.controller';
+import { CategoryModel } from '@models/categories.model';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CategoryModel])],

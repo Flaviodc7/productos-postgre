@@ -1,4 +1,4 @@
-import { CategoryModel } from '@models/category.model';
+import { CategoryModel } from '@models/categories.model';
 import { CategoryEntity } from './entities/category.entity';
 
 export interface CategoryRepository {

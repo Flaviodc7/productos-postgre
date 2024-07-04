@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigType } from '@nestjs/config';
-import imagemin from 'imagemin';
+import * as sharp from 'sharp';
 import { FilesService } from '../services/files.service';
 import config from '../../config';
 
@@ -27,7 +27,9 @@ export class FilesController {
   ): Promise<any> {
     const { bucketName } = this.configService.awsCredentials;
 
-    const optimizedFile = await imagemin.buffer(file.buffer);
+    const optimizedFile = await sharp(file.buffer)
+    .toFormat('webp', {quality: 80})
+    .toBuffer();
 
     const response = await this.filesService.uploadPublicFile(
       optimizedFile,

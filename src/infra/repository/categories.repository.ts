@@ -13,12 +13,13 @@ export class CategoryPostgreRepository implements CategoryRepository {
   ) {}
 
   findAll() {
-    return this.categoryRepository.find();
+    return this.categoryRepository.find({ relations: ['subcategories'] });
   }
 
   async findOneById(id: string) {
     const category = await this.categoryRepository.findOne({
       where: { id: id },
+      relations: ['subcategories'],
     });
     if (!category) {
       throw new NotFoundException(`Category #${id} no encontrado`);
@@ -27,7 +28,10 @@ export class CategoryPostgreRepository implements CategoryRepository {
   }
 
   async findByIds(ids: string[]) {
-    return this.categoryRepository.findBy({ id: In(ids) });
+    return this.categoryRepository.find({
+      where: { id: In(ids) },
+      relations: ['subcategories'],
+    });
   }
 
   async create(payload: CategoryEntity) {

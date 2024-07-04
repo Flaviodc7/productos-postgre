@@ -13,6 +13,6 @@ export class ProductModel implements ProductEntity {
   @Column({ type: 'text' })
   description: string;
 
-  @ManyToMany(() => SubcategoryModel, subcategory => subcategory.products)
+  @ManyToMany(() => SubcategoryModel, (subcategory) => subcategory.products)
   subcategories: SubcategoryModel[];
 }

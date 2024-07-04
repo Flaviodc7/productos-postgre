@@ -1,5 +1,12 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from 'typeorm';
-import { SubcategoryEntity } from "@subcategoriesDomain/entities/subcategory.entity";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
+import { SubcategoryEntity } from '@subcategoriesDomain/entities/subcategory.entity';
 import { ProductModel } from './product.model';
 import { CategoryModel } from './categories.model';
 
@@ -17,20 +24,20 @@ export class SubcategoryModel implements SubcategoryEntity {
   @Column({ type: 'varchar', length: 255 })
   categoryId: string;
 
-  @ManyToOne(() => CategoryModel, category => category.subcategories)
+  @ManyToOne(() => CategoryModel, (category) => category.subcategories)
   category: CategoryModel;
 
-  @ManyToMany(() => ProductModel, product => product.subcategories)
+  @ManyToMany(() => ProductModel, (product) => product.subcategories)
   @JoinTable({
     name: 'subcategory_products',
     joinColumn: {
       name: 'subcategory_id',
-      referencedColumnName: 'id'
+      referencedColumnName: 'id',
     },
     inverseJoinColumn: {
       name: 'product_id',
-      referencedColumnName: 'id'
-    }
+      referencedColumnName: 'id',
+    },
   })
   products: ProductModel[];
 }

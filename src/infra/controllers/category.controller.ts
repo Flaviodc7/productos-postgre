@@ -17,8 +17,8 @@ import {
   UpdateCategoryDTO,
 } from '../dtos/category.dto';
 
-@ApiTags('Categorys')
-@Controller('categorys')
+@ApiTags('Categories')
+@Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryUseCase: CategoryUseCase) {}
 

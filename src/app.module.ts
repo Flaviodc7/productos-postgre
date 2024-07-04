@@ -16,7 +16,7 @@ import config from './config';
     }),
     DatabaseModule,
     ProductModule,
-    CategoryModule
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

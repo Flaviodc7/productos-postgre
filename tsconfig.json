@@ -18,7 +18,6 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@modules/*": ["core/modules/*"],
       "@categoryApplication/*": ["core/modules/categories/application/*"],
       "@categoryDomain/*": ["core/modules/categories/domain/*"],
       "@controllers/*": ["infra/controllers/*"],

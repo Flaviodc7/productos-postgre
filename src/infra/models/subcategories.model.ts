@@ -6,12 +6,11 @@ import {
   ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { SubcategoryEntity } from '@subcategoriesDomain/entities/subcategory.entity';
 import { ProductModel } from './product.model';
 import { CategoryModel } from './categories.model';
 
 @Entity()
-export class SubcategoryModel implements SubcategoryEntity {
+export class SubcategoryModel {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

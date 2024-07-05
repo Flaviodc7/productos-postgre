@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { SubcategoryEntity } from '@subcategoriesDomain/entities/subcategory.entity';
 import { SubcategoryRepository } from '@subcategoriesDomain/subcategory.repository';
+import { CategoryPostgreRepository } from './categories.repository';
 import { SubcategoryModel } from '@models/subcategories.model';
 
 @Injectable()
@@ -10,40 +11,56 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
   constructor(
     @InjectRepository(SubcategoryModel)
     private subcategoryRepository: Repository<SubcategoryModel>,
+    private categoryRepository: CategoryPostgreRepository,
   ) {}
 
-  findAll() {
-    return this.subcategoryRepository.find();
+  async findAll(): Promise<SubcategoryEntity[]> {
+    return await this.subcategoryRepository.find();
   }
 
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<SubcategoryEntity> {
     const subcategory = await this.subcategoryRepository.findOne({
       where: { id: id },
     });
+
     if (!subcategory) {
-      throw new NotFoundException(`Subsubcategory #${id} no encontrado`);
+      throw new NotFoundException(`Subcategory #${id} not found`);
     }
+
     return subcategory;
   }
 
-  async findByIds(ids: string[]) {
-    return this.subcategoryRepository.findBy({ id: In(ids) });
+  async findByIds(ids: string[]): Promise<SubcategoryEntity[]> {
+    return await this.subcategoryRepository.findBy({ id: In(ids) });
   }
 
-  async create(payload: SubcategoryEntity) {
-    const newSubsubcategory = this.subcategoryRepository.create(payload);
+  async create(payload: SubcategoryEntity): Promise<SubcategoryEntity> {
+    const newSubcategory = this.subcategoryRepository.create(payload);
 
-    return this.subcategoryRepository.save(newSubsubcategory);
+    return await this.subcategoryRepository.save(newSubcategory);
   }
 
-  async update(id: string, payload: SubcategoryEntity) {
-    const subcategory = await this.findOneById(id);
+  async update(payload: SubcategoryEntity): Promise<SubcategoryEntity> {
+    const { id } = payload;
+
+    const subcategory = (await this.findOneById(id)) as any;
+
+    if (!subcategory) {
+      throw new NotFoundException(`Subcategory #${id} not found`);
+    }
+
+    if (payload.categoryId) {
+      const category = await this.categoryRepository.findOneById(
+        payload.categoryId,
+      );
+      subcategory.category = category;
+    }
 
     this.subcategoryRepository.merge(subcategory, payload);
-    return this.subcategoryRepository.save(subcategory);
+    return await this.subcategoryRepository.save(subcategory);
   }
 
-  delete(id: string) {
-    return this.subcategoryRepository.delete(id);
+  async delete(id: string): Promise<any> {
+    return await this.subcategoryRepository.delete(id);
   }
 }

@@ -3,4 +3,5 @@ export interface SubcategoryEntity {
   name: string;
   description: string;
   categoryId: string;
+  productIds?: string[];
 }

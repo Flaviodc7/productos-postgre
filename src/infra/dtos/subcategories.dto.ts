@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsOptional, IsArray, ArrayNotEmpty } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsArray,
+  ArrayNotEmpty,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateSubcategoryDTO {
@@ -14,6 +20,12 @@ export class CreateSubcategoryDTO {
   @IsString()
   @IsNotEmpty()
   readonly categoryId: string;
+  @ApiPropertyOptional({ description: 'Associated products' })
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  @IsOptional()
+  readonly productIds?: string[];
 }
 
 export class UpdateSubcategoryDTO {
@@ -22,17 +34,23 @@ export class UpdateSubcategoryDTO {
   @IsNotEmpty()
   readonly id: string;
   @ApiPropertyOptional({ description: 'Subcategory name' })
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   readonly name: string;
   @ApiPropertyOptional({ description: 'Subcategory description' })
   @IsOptional()
   @IsString()
-  readonly description: string;
+  readonly description?: string;
   @ApiPropertyOptional({ description: 'Subcategory relation with a category' })
   @IsOptional()
   @IsString()
-  readonly categoryId: string;
+  readonly categoryId?: string;
+  @ApiPropertyOptional({ description: 'Associated products' })
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  @IsOptional()
+  readonly productIds?: string[];
 }
 
 export class FindSubcategoriesDTO {

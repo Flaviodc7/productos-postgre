@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsOptional, IsArray, ArrayNotEmpty } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsArray,
+  ArrayNotEmpty,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCategoryDTO {
@@ -17,11 +23,11 @@ export class UpdateCategoryDTO {
   @IsString()
   @IsNotEmpty()
   readonly id: string;
-  @ApiPropertyOptional({ description: 'Category name'})
-  @IsOptional()
+  @ApiPropertyOptional({ description: 'Category name' })
   @IsString()
+  @IsNotEmpty()
   readonly name: string;
-  @ApiPropertyOptional({ description: 'Category description'})
+  @ApiPropertyOptional({ description: 'Category description' })
   @IsOptional()
   @IsString()
   readonly description: string;

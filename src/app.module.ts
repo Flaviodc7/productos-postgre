@@ -18,7 +18,7 @@ import config from '@src/config';
     DatabaseModule,
     ProductModule,
     CategoryModule,
-    SubcategoryModule
+    SubcategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
+import { SubcategoryPostgreRepository } from './subcategories.repository';
 import { ProductEntity } from '@productDomain/entities/product.entity';
 import { ProductRepository } from '@productDomain/product.repository';
 import { ProductModel } from '@models/product.model';
@@ -10,40 +11,60 @@ export class ProductPostgreRepository implements ProductRepository {
   constructor(
     @InjectRepository(ProductModel)
     private productRepository: Repository<ProductModel>,
+    private subcategoriesRepository: SubcategoryPostgreRepository,
   ) {}
 
-  findAll() {
-    return this.productRepository.find();
+  async findAll(): Promise<ProductEntity[]> {
+    return await this.productRepository.find();
   }
 
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<ProductEntity> {
     const product = await this.productRepository.findOne({
       where: { id: id },
     });
     if (!product) {
-      throw new NotFoundException(`Product #${id} no encontrado`);
+      throw new NotFoundException(`Product #${id} not found`);
     }
     return product;
   }
 
-  async findByIds(ids: string[]) {
-    return this.productRepository.findBy({ id: In(ids) });
+  async findByIds(ids: string[]): Promise<ProductEntity[]> {
+    const products = await this.productRepository.findBy({ id: In(ids) });
+
+    if (!products) {
+      throw new NotFoundException(`Products not found`);
+    }
+
+    return products;
   }
 
-  async create(payload: ProductEntity) {
+  async create(payload: ProductEntity): Promise<ProductEntity> {
     const newProduct = this.productRepository.create(payload);
 
-    return this.productRepository.save(newProduct);
+    return await this.productRepository.save(newProduct);
   }
 
-  async update(id: string, payload: ProductEntity) {
-    const product = await this.findOneById(id);
+  async update(payload: ProductEntity): Promise<ProductEntity> {
+    const { id } = payload;
+
+    const product = (await this.findOneById(id)) as any;
+
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    if (payload.subcategoryIds) {
+      const subcategories = await this.subcategoriesRepository.findByIds(
+        payload.subcategoryIds,
+      );
+      product.subcategories = subcategories;
+    }
 
     this.productRepository.merge(product, payload);
-    return this.productRepository.save(product);
+    return await this.productRepository.save(product);
   }
 
-  delete(id: string) {
-    return this.productRepository.delete(id);
+  async delete(id: string): Promise<any> {
+    return await this.productRepository.delete(id);
   }
 }

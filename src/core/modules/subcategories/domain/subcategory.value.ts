@@ -1,14 +1,14 @@
 import { v4 as uuid } from 'uuid';
-import { SubcategoriesCreatePayload } from '@subcategoriesApplication/subcategories.usecase.interface';
+import { CreateSubcategoriesPayload } from '@subcategoriesApplication/subcategories.usecase.interface';
 import { SubcategoryEntity } from './entities/subcategory.entity';
 
 export class SubcategoryValue {
   public create = (
-    categoryPayload: SubcategoriesCreatePayload,
+    subcategoryPayload: CreateSubcategoriesPayload,
   ): SubcategoryEntity => {
     return {
       id: uuid(),
-      ...categoryPayload,
+      ...subcategoryPayload,
     };
   };
 }

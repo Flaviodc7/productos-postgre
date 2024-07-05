@@ -1,13 +1,22 @@
 export interface ISubcategoriesUseCase {
-  create: (data: any) => Promise<any>;
+  create: (payload: CreateSubcategoriesPayload) => Promise<any>;
   findOneById(id: string): Promise<any>;
   findByIds(ids: string[]): Promise<any>;
   findAll(): Promise<any>;
-  update(id: string, data: any): Promise<any>;
+  update(payload: UpdateSubcategoriesPayload): Promise<any>;
 }
 
-export interface SubcategoriesCreatePayload {
+export interface CreateSubcategoriesPayload {
   name: string;
   description: string;
   categoryId: string;
+  productIds?: string[];
+}
+
+export interface UpdateSubcategoriesPayload {
+  id: string;
+  name: string;
+  description: string;
+  categoryId: string;
+  productIds?: string[];
 }

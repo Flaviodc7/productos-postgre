@@ -24,32 +24,32 @@ export class SubcategoryController {
 
   @ApiOperation({ summary: 'Get all subcategories' })
   @Get()
-  getAllsubcategorys() {
+  getAllSubcategories() {
     return this.subcategoryUseCase.findAll();
   }
 
   @ApiOperation({ summary: 'Get a subcategory by ID' })
   @Get(':subcategoryId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getsubcategory(@Param('subcategoryId') subcategoryId: string) {
+  getSubcategoryById(@Param('subcategoryId') subcategoryId: string) {
     return this.subcategoryUseCase.findOneById(subcategoryId);
   }
 
   @ApiOperation({ summary: 'Create a subcategory' })
   @Post()
-  create(@Body() payload: CreateSubcategoryDTO) {
+  createSubcategory(@Body() payload: CreateSubcategoryDTO) {
     return this.subcategoryUseCase.create(payload);
   }
 
   @ApiOperation({ summary: 'Get subcategories by ids' })
   @Post('getsubcategorys')
-  getsubcategorysByIds(@Body() payload: FindSubcategoriesDTO) {
+  getSubcategorysByIds(@Body() payload: FindSubcategoriesDTO) {
     return this.subcategoryUseCase.findByIds(payload.ids);
   }
 
   @ApiOperation({ summary: 'Modify a subcategory' })
   @Put(':subcategoryId')
-  update(
+  updateSubcategory(
     @Body() payload: UpdateSubcategoryDTO,
   ) {
     return this.subcategoryUseCase.update(payload);
@@ -57,7 +57,7 @@ export class SubcategoryController {
 
   @ApiOperation({ summary: 'Delete a subcategory' })
   @Delete('/:subcategoryId')
-  deletesubcategory(@Param('subcategoryId') subcategoryId: string) {
+  deleteSubcategory(@Param('subcategoryId') subcategoryId: string) {
     return this.subcategoryUseCase.delete(subcategoryId);
   }
 }

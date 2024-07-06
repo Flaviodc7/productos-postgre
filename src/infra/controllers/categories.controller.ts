@@ -24,20 +24,20 @@ export class CategoryController {
 
   @ApiOperation({ summary: 'Get all categories' })
   @Get()
-  getAllcategorys() {
+  getAllCategorys() {
     return this.categoryUseCase.findAll();
   }
 
   @ApiOperation({ summary: 'Get a category by ID' })
   @Get(':categoryId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getcategory(@Param('categoryId') categoryId: string) {
+  getCategoryById(@Param('categoryId') categoryId: string) {
     return this.categoryUseCase.findOneById(categoryId);
   }
 
   @ApiOperation({ summary: 'Create a category' })
   @Post()
-  create(@Body() payload: CreateCategoryDTO) {
+  createCategory(@Body() payload: CreateCategoryDTO) {
     return this.categoryUseCase.create(payload);
   }
 
@@ -49,7 +49,7 @@ export class CategoryController {
 
   @ApiOperation({ summary: 'Modify a category' })
   @Put(':categoryId')
-  update(
+  updateCategory(
     @Body() payload: UpdateCategoryDTO,
   ) {
     return this.categoryUseCase.update(payload);
@@ -57,7 +57,7 @@ export class CategoryController {
 
   @ApiOperation({ summary: 'Delete a category' })
   @Delete('/:categoryId')
-  deletecategory(@Param('categoryId') categoryId: string) {
+  deleteCategory(@Param('categoryId') categoryId: string) {
     return this.categoryUseCase.delete(categoryId);
   }
 }

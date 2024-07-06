@@ -14,8 +14,8 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class FilesController {
   constructor(private readonly filesUseCase: FilesUseCase) {}
 
-  @ApiOperation({ summary: 'Get all subcategories' })
-  @Post('upload')
+  @ApiOperation({ summary: 'Upload a single image to S3' })
+  @Post('uploadImage')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @Res() res: any,

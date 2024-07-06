@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { SubcategoryPostgreRepository } from './subcategories.repository';
+import { SubcategoryPostgreRepository } from '@repository/subcategories.repository';
 import { ProductEntity } from '@productDomain/entities/product.entity';
 import { ProductRepository } from '@productDomain/product.repository';
 import { ProductModel } from '@models/product.model';

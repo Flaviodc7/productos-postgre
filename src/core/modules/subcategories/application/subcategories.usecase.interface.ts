@@ -13,10 +13,6 @@ export interface CreateSubcategoriesPayload {
   productIds?: string[];
 }
 
-export interface UpdateSubcategoriesPayload {
+export interface UpdateSubcategoriesPayload extends CreateSubcategoriesPayload {
   id: string;
-  name: string;
-  description: string;
-  categoryId: string;
-  productIds?: string[];
 }

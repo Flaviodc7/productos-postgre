@@ -12,11 +12,11 @@ export class CategoryPostgreRepository implements CategoryRepository {
     private categoryRepository: Repository<CategoryModel>,
   ) {}
 
-  async findAll() {
+  async findAll(): Promise<CategoryEntity[]> {
     return await this.categoryRepository.find({ relations: ['subcategories'] });
   }
 
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<CategoryEntity> {
     const category = await this.categoryRepository.findOne({
       where: { id: id },
       relations: ['subcategories'],
@@ -27,23 +27,23 @@ export class CategoryPostgreRepository implements CategoryRepository {
     return category;
   }
 
-  async findByIds(ids: string[]) {
+  async findByIds(ids: string[]): Promise<CategoryEntity[]> {
     return await this.categoryRepository.find({
       where: { id: In(ids) },
       relations: ['subcategories'],
     });
   }
 
-  async create(payload: CategoryEntity) {
+  async create(payload: CategoryEntity): Promise<CategoryEntity> {
     const newCategory = this.categoryRepository.create(payload);
 
     return await this.categoryRepository.save(newCategory);
   }
 
-  async update(payload: CategoryEntity) {
+  async update(payload: CategoryEntity): Promise<CategoryEntity> {
     const { id } = payload;
 
-    const category = await this.findOneById(id);
+    const category = (await this.findOneById(id)) as any;
 
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`);
@@ -53,7 +53,7 @@ export class CategoryPostgreRepository implements CategoryRepository {
     return await this.categoryRepository.save(category);
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<any> {
     return await this.categoryRepository.delete(id);
   }
 }

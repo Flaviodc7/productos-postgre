@@ -1,11 +1,11 @@
-import { ProductEntity } from '@productDomain/entities/product.entity';
+import { ProductModel } from '@models/product.model';
 
 export interface IProductUseCase {
-  create: (payload: CreateProductPayload) => Promise<ProductEntity>;
-  findOneById(id: string): Promise<ProductEntity>;
-  findByIds(ids: string[]): Promise<ProductEntity[]>;
-  findAll(): Promise<ProductEntity[]>;
-  update(payload: UpdateProductPayload): Promise<ProductEntity>;
+  create: (payload: CreateProductPayload) => Promise<ProductModel>;
+  findOneById(id: string): Promise<ProductModel>;
+  findByIds(ids: string[]): Promise<ProductModel[]>;
+  findAll(): Promise<ProductModel[]>;
+  update(payload: UpdateProductPayload): Promise<ProductModel>;
   delete(id: string): Promise<any>;
 }
 

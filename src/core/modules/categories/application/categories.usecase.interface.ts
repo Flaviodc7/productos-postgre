@@ -1,11 +1,11 @@
-import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
+import { CategoryModel } from '@models/categories.model';
 
 export interface ICategoriesUseCase {
-  create: (payload: CreateCategoriesPayload) => Promise<CategoryEntity>;
-  findOneById(id: string): Promise<CategoryEntity>;
-  findByIds(ids: string[]): Promise<CategoryEntity[]>;
-  findAll(): Promise<CategoryEntity[]>;
-  update(payload: UpdateCategoriesPayload): Promise<CategoryEntity>;
+  create: (payload: CreateCategoriesPayload) => Promise<CategoryModel>;
+  findOneById(id: string): Promise<CategoryModel>;
+  findByIds(ids: string[]): Promise<CategoryModel[]>;
+  findAll(): Promise<CategoryModel[]>;
+  update(payload: UpdateCategoriesPayload): Promise<CategoryModel>;
   delete(id: string): Promise<any>;
 }
 

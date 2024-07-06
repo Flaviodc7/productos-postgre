@@ -14,11 +14,11 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
     private categoryRepository: CategoryPostgreRepository,
   ) {}
 
-  async findAll(): Promise<SubcategoryEntity[]> {
+  async findAll(): Promise<SubcategoryModel[]> {
     return await this.subcategoryRepository.find();
   }
 
-  async findOneById(id: string): Promise<SubcategoryEntity> {
+  async findOneById(id: string): Promise<SubcategoryModel> {
     const subcategory = await this.subcategoryRepository.findOne({
       where: { id: id },
     });
@@ -30,20 +30,20 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
     return subcategory;
   }
 
-  async findByIds(ids: string[]): Promise<SubcategoryEntity[]> {
+  async findByIds(ids: string[]): Promise<SubcategoryModel[]> {
     return await this.subcategoryRepository.findBy({ id: In(ids) });
   }
 
-  async create(payload: SubcategoryEntity): Promise<SubcategoryEntity> {
+  async create(payload: SubcategoryEntity): Promise<SubcategoryModel> {
     const newSubcategory = this.subcategoryRepository.create(payload);
 
     return await this.subcategoryRepository.save(newSubcategory);
   }
 
-  async update(payload: SubcategoryEntity): Promise<SubcategoryEntity> {
+  async update(payload: SubcategoryEntity): Promise<SubcategoryModel> {
     const { id } = payload;
 
-    const subcategory = (await this.findOneById(id)) as any;
+    const subcategory: any = await this.findOneById(id);
 
     if (!subcategory) {
       throw new NotFoundException(`Subcategory #${id} not found`);

@@ -1,4 +1,8 @@
-import { CreateCategoriesPayload, ICategoriesUseCase, UpdateCategoriesPayload } from './categories.usecase.interface';
+import {
+  CreateCategoriesPayload,
+  ICategoriesUseCase,
+  UpdateCategoriesPayload,
+} from './categories.usecase.interface';
 import { CategoryRepository } from '@categoriesDomain/categories.repository';
 import { CategoryValue } from '@categoriesDomain/category.value';
 import { CategoryModel } from '@models/categories.model';

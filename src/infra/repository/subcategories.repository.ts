@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { SubcategoryEntity } from '@subcategoriesDomain/entities/subcategory.entity';
 import { SubcategoryRepository } from '@subcategoriesDomain/subcategory.repository';
-import { CategoryPostgreRepository } from '@repository/categories.repository';
 import { SubcategoryModel } from '@models/subcategories.model';
 
 @Injectable()
@@ -11,7 +10,6 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
   constructor(
     @InjectRepository(SubcategoryModel)
     private subcategoryRepository: Repository<SubcategoryModel>,
-    private categoryRepository: CategoryPostgreRepository,
   ) {}
 
   async findAll(): Promise<SubcategoryModel[]> {
@@ -40,24 +38,13 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
     return await this.subcategoryRepository.save(newSubcategory);
   }
 
-  async update(payload: SubcategoryEntity): Promise<SubcategoryModel> {
-    const { id } = payload;
+  async update(
+    updatedSubcategory: SubcategoryModel,
+    payload: SubcategoryEntity,
+  ): Promise<SubcategoryModel> {
+    this.subcategoryRepository.merge(updatedSubcategory, payload);
 
-    const subcategory: any = await this.findOneById(id);
-
-    if (!subcategory) {
-      throw new NotFoundException(`Subcategory #${id} not found`);
-    }
-
-    if (payload.categoryId) {
-      const category = await this.categoryRepository.findOneById(
-        payload.categoryId,
-      );
-      subcategory.category = category;
-    }
-
-    this.subcategoryRepository.merge(subcategory, payload);
-    return await this.subcategoryRepository.save(subcategory);
+    return await this.subcategoryRepository.save(updatedSubcategory);
   }
 
   async delete(id: string): Promise<any> {

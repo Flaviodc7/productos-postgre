@@ -3,7 +3,6 @@ import {
   IProductUseCase,
   UpdateProductPayload,
 } from './product.usecase.interface';
-import { ProductEntity } from '@productDomain/entities/product.entity';
 import { ProductRepository } from '@productDomain/product.repository';
 import { ProductValue } from '@productDomain/product.value';
 import { ProductModel } from '@models/product.model';

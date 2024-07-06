@@ -49,9 +49,7 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Modify a product' })
   @Put(':productId')
-  updateProduct(
-    @Body() payload: UpdateProductDTO,
-  ) {
+  updateProduct(@Body() payload: UpdateProductDTO) {
     return this.productUseCase.update(payload);
   }
 

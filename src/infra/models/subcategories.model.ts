@@ -38,5 +38,5 @@ export class SubcategoryModel {
       referencedColumnName: 'id',
     },
   })
-  products: ProductModel[];
+  products?: ProductModel[];
 }

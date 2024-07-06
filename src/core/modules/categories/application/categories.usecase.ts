@@ -1,12 +1,12 @@
+import { CreateCategoriesPayload, ICategoriesUseCase, UpdateCategoriesPayload } from './categories.usecase.interface';
 import { CategoryRepository } from '@categoriesDomain/categories.repository';
 import { CategoryValue } from '@categoriesDomain/category.value';
-import { ICategoriesUseCase } from './categories.usecase.interface';
 import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
 
 export class CategoryUseCase implements ICategoriesUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
-  async create(data: any): Promise<CategoryEntity> {
+  async create(data: CreateCategoriesPayload): Promise<CategoryEntity> {
     const categoryValue = new CategoryValue().create(data);
 
     return await this.categoryRepository.create(categoryValue);
@@ -24,7 +24,7 @@ export class CategoryUseCase implements ICategoriesUseCase {
     return await this.categoryRepository.findAll();
   }
 
-  async update(payload: any): Promise<CategoryEntity> {
+  async update(payload: UpdateCategoriesPayload): Promise<CategoryEntity> {
     return await this.categoryRepository.update(payload);
   }
 

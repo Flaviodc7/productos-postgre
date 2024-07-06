@@ -1,5 +1,7 @@
 import {
   Controller,
+  HttpStatus,
+  ParseFilePipeBuilder,
   Post,
   Res,
   UploadedFile,
@@ -17,9 +19,21 @@ export class FilesController {
   @ApiOperation({ summary: 'Upload a single image to S3' })
   @Post('uploadImage')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(
+  async uploadImage(
     @Res() res: any,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+      .addFileTypeValidator({
+        fileType: /\.(jpg|jpeg|png|gif|bmp|tiff|webp)$/i,
+      })
+      .addMaxSizeValidator({
+        maxSize: 1000 * 1024 * 5
+      })
+      .build({
+        errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+      }),
+  )
+    file: Express.Multer.File,
   ): Promise<any> {
     return await this.filesUseCase.upload(res, file);
   }

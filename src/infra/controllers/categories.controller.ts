@@ -50,10 +50,9 @@ export class CategoryController {
   @ApiOperation({ summary: 'Modify a category' })
   @Put(':categoryId')
   update(
-    @Param('categoryId') categoryId: string,
     @Body() payload: UpdateCategoryDTO,
   ) {
-    return this.categoryUseCase.update(categoryId, payload);
+    return this.categoryUseCase.update(payload);
   }
 
   @ApiOperation({ summary: 'Delete a category' })

@@ -50,10 +50,9 @@ export class SubcategoryController {
   @ApiOperation({ summary: 'Modify a subcategory' })
   @Put(':subcategoryId')
   update(
-    @Param('subcategoryId') subcategoryId: string,
     @Body() payload: UpdateSubcategoryDTO,
   ) {
-    return this.subcategoryUseCase.update(subcategoryId, payload);
+    return this.subcategoryUseCase.update(payload);
   }
 
   @ApiOperation({ summary: 'Delete a subcategory' })

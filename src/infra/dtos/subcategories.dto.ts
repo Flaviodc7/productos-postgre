@@ -40,11 +40,11 @@ export class UpdateSubcategoryDTO {
   @ApiPropertyOptional({ description: 'Subcategory description' })
   @IsOptional()
   @IsString()
-  readonly description?: string;
+  readonly description: string;
   @ApiPropertyOptional({ description: 'Subcategory relation with a category' })
   @IsOptional()
   @IsString()
-  readonly categoryId?: string;
+  readonly categoryId: string;
   @ApiPropertyOptional({ description: 'Associated products' })
   @IsArray()
   @ArrayNotEmpty()

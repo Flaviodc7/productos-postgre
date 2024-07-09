@@ -19,6 +19,7 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
   async findOneById(id: string): Promise<SubcategoryModel> {
     const subcategory = await this.subcategoryRepository.findOne({
       where: { id: id },
+      relations: ['products', 'category'],
     });
 
     if (!subcategory) {
@@ -32,7 +33,7 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
     return await this.subcategoryRepository.findBy({ id: In(ids) });
   }
 
-  async create(payload: SubcategoryEntity): Promise<SubcategoryModel> {
+  async create(payload: SubcategoryModel): Promise<SubcategoryModel> {
     const newSubcategory = this.subcategoryRepository.create(payload);
 
     return await this.subcategoryRepository.save(newSubcategory);

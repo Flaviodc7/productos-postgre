@@ -20,9 +20,6 @@ export class SubcategoryModel {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  categoryId: string;
-
   @ManyToOne(() => CategoryModel, (category) => category.subcategories)
   category: CategoryModel;
 

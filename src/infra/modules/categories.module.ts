@@ -18,6 +18,6 @@ import { CategoryModel } from '@models/categories.model';
       inject: [CategoryPostgreRepository],
     },
   ],
-  exports: [CategoryPostgreRepository, TypeOrmModule],
+  exports: [CategoryUseCase],
 })
 export class CategoryModule {}

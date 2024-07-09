@@ -1,28 +1,24 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Module } from '@nestjs/common';
-import { SubcategoryUseCase } from '@subcategoriesApplication/subcategories.usecase';
-import { ProductPostgreRepository } from '@repository/product.repository';
+import { Module, forwardRef } from '@nestjs/common';
 import { ProductUseCase } from '@productApplication/product.usecase';
+import { ProductPostgreRepository } from '@repository/product.repository';
 import { ProductController } from '@controllers/product.controller';
+import { SubcategoryModule } from './subcategories.module';
 import { ProductModel } from '@models/product.model';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProductModel])],
+  imports: [
+    forwardRef(() => SubcategoryModule),
+    TypeOrmModule.forFeature([ProductModel]),
+  ],
   controllers: [ProductController],
   providers: [
-    ProductPostgreRepository,
-    SubcategoryUseCase,
     {
-      provide: ProductUseCase,
-      useFactory: (
-        productRepo: ProductPostgreRepository,
-        subcategoryUsecase: SubcategoryUseCase,
-      ) => {
-        return new ProductUseCase(productRepo, subcategoryUsecase);
-      },
-      inject: [ProductPostgreRepository, SubcategoryUseCase],
+      provide: 'ProductRepository',
+      useClass: ProductPostgreRepository,
     },
+    ProductUseCase,
   ],
-  exports: [ProductPostgreRepository, TypeOrmModule, ProductUseCase],
+  exports: [ProductUseCase, 'ProductRepository'],
 })
 export class ProductModule {}

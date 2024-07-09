@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateProductPayload,
   IProductUseCase,
@@ -11,7 +11,9 @@ import { ProductModel } from '@models/product.model';
 
 export class ProductUseCase implements IProductUseCase {
   constructor(
+    @Inject('ProductRepository')
     private readonly productRepository: ProductRepository,
+    @Inject(forwardRef(() => SubcategoryUseCase))
     private readonly subcategoryUsecase: SubcategoryUseCase,
   ) {}
 

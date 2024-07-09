@@ -29,6 +29,11 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
       const category = await this.categoryUsecase.findOneById(
         payload.categoryId,
       );
+      if (!category) {
+        throw new NotFoundException(
+          `Category #${payload.categoryId} not found`,
+        );
+      }
       subcategoryValue.category = category;
     }
 
@@ -42,7 +47,13 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
   }
 
   async findOneById(id: string): Promise<SubcategoryEntity> {
-    return await this.subcategoryRepository.findOneById(id);
+    const subcategory = await this.subcategoryRepository.findOneById(id);
+
+    if (!subcategory) {
+      throw new NotFoundException(`Subcategory #${id} not found`);
+    }
+
+    return subcategory;
   }
 
   async findByIds(ids: string[]): Promise<SubcategoryModel[]> {

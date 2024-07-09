@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { SubcategoryUseCase } from '@subcategoriesApplication/subcategories.usecase';
 import { SubcategoryPostgreRepository } from '@repository/subcategories.repository';
 import { SubcategoryController } from '@controllers/subcategories.controller';
+import { CategoryUseCase } from '@categoriesApplication/categories.usecase';
+import { ProductUseCase } from '@productApplication/product.usecase';
 import { SubcategoryModel } from '@models/subcategories.model';
 
 @Module({
@@ -10,12 +12,22 @@ import { SubcategoryModel } from '@models/subcategories.model';
   controllers: [SubcategoryController],
   providers: [
     SubcategoryPostgreRepository,
+    CategoryUseCase,
+    ProductUseCase,
     {
       provide: SubcategoryUseCase,
-      useFactory: (subcategoryRepo: SubcategoryPostgreRepository) => {
-        return new SubcategoryUseCase(subcategoryRepo);
+      useFactory: (
+        subcategoryRepo: SubcategoryPostgreRepository,
+        categoryUsecase: CategoryUseCase,
+        productUsecase: ProductUseCase,
+      ) => {
+        return new SubcategoryUseCase(
+          subcategoryRepo,
+          categoryUsecase,
+          productUsecase,
+        );
       },
-      inject: [SubcategoryPostgreRepository],
+      inject: [SubcategoryPostgreRepository, CategoryUseCase, ProductUseCase],
     },
   ],
   exports: [SubcategoryPostgreRepository, TypeOrmModule],

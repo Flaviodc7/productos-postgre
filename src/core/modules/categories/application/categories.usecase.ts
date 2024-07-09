@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import {
   CreateCategoriesPayload,
   ICategoriesUseCase,
@@ -17,7 +18,13 @@ export class CategoryUseCase implements ICategoriesUseCase {
   }
 
   async findOneById(id: string): Promise<CategoryModel> {
-    return await this.categoryRepository.findOneById(id);
+    const category = await this.categoryRepository.findOneById(id);
+
+    if (!category) {
+      throw new NotFoundException(`Category #${id} not found`);
+    }
+
+    return category;
   }
 
   async findByIds(ids: string[]): Promise<CategoryModel[]> {
@@ -29,7 +36,15 @@ export class CategoryUseCase implements ICategoriesUseCase {
   }
 
   async update(payload: UpdateCategoriesPayload): Promise<CategoryModel> {
-    return await this.categoryRepository.update(payload);
+    const { id } = payload;
+
+    const category = (await this.findOneById(id)) as CategoryModel;
+
+    if (!category) {
+      throw new NotFoundException(`Category #${id} not found`);
+    }
+
+    return await this.categoryRepository.update(category, payload);
   }
 
   async delete(id: string) {

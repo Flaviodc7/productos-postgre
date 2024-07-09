@@ -1,13 +1,13 @@
+import { NotFoundException } from '@nestjs/common';
 import {
   CreateProductPayload,
   IProductUseCase,
   UpdateProductPayload,
 } from './product.usecase.interface';
+import { SubcategoryUseCase } from '../../subcategories/application/subcategories.usecase';
 import { ProductRepository } from '@productDomain/product.repository';
 import { ProductValue } from '@productDomain/product.value';
 import { ProductModel } from '@models/product.model';
-import { NotFoundException } from '@nestjs/common';
-import { SubcategoryUseCase } from '../../subcategories/application/subcategories.usecase';
 
 export class ProductUseCase implements IProductUseCase {
   constructor(
@@ -16,21 +16,13 @@ export class ProductUseCase implements IProductUseCase {
   ) {}
 
   async create(payload: CreateProductPayload): Promise<ProductModel> {
-    const productValue = new ProductValue().create(payload);
-
-    const { id } = productValue;
-
-    const product = (await this.findOneById(id)) as ProductModel;
-
-    if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
-    }
+    const productValue = new ProductValue().create(payload) as ProductModel;
 
     if (payload.subcategoryIds) {
       const subcategories = await this.subcategoryUsecase.findByIds(
         payload.subcategoryIds,
       );
-      product.subcategories = subcategories;
+      productValue.subcategories = subcategories;
     }
 
     return await this.productRepository.create(productValue);
@@ -40,7 +32,7 @@ export class ProductUseCase implements IProductUseCase {
     const product = await this.productRepository.findOneById(id);
 
     if (!product) {
-      throw new NotFoundException(`Product not found`);
+      throw new NotFoundException(`Product #${id} not found`);
     }
 
     return product;

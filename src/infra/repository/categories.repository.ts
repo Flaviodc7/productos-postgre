@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { CategoryRepository } from '@categoriesDomain/categories.repository';
@@ -17,14 +17,10 @@ export class CategoryPostgreRepository implements CategoryRepository {
   }
 
   async findOneById(id: string): Promise<CategoryModel> {
-    const category = await this.categoryRepository.findOne({
+    return await this.categoryRepository.findOne({
       where: { id: id },
       relations: ['subcategories'],
     });
-    if (!category) {
-      throw new NotFoundException(`Category #${id} not found`);
-    }
-    return category;
   }
 
   async findByIds(ids: string[]): Promise<CategoryModel[]> {
@@ -40,15 +36,10 @@ export class CategoryPostgreRepository implements CategoryRepository {
     return await this.categoryRepository.save(newCategory);
   }
 
-  async update(payload: CategoryEntity): Promise<CategoryModel> {
-    const { id } = payload;
-
-    const category = (await this.findOneById(id)) as any;
-
-    if (!category) {
-      throw new NotFoundException(`Category #${id} not found`);
-    }
-
+  async update(
+    category: CategoryModel,
+    payload: CategoryEntity,
+  ): Promise<CategoryModel> {
     this.categoryRepository.merge(category, payload);
     return await this.categoryRepository.save(category);
   }

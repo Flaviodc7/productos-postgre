@@ -1,8 +1,9 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
+import { SubcategoryUseCase } from '@subcategoriesApplication/subcategories.usecase';
 import { ProductPostgreRepository } from '@repository/product.repository';
-import { ProductController } from '@controllers/product.controller';
 import { ProductUseCase } from '@productApplication/product.usecase';
+import { ProductController } from '@controllers/product.controller';
 import { ProductModel } from '@models/product.model';
 
 @Module({
@@ -10,14 +11,18 @@ import { ProductModel } from '@models/product.model';
   controllers: [ProductController],
   providers: [
     ProductPostgreRepository,
+    SubcategoryUseCase,
     {
       provide: ProductUseCase,
-      useFactory: (productRepo: ProductPostgreRepository) => {
-        return new ProductUseCase(productRepo);
+      useFactory: (
+        productRepo: ProductPostgreRepository,
+        subcategoryUsecase: SubcategoryUseCase,
+      ) => {
+        return new ProductUseCase(productRepo, subcategoryUsecase);
       },
-      inject: [ProductPostgreRepository],
+      inject: [ProductPostgreRepository, SubcategoryUseCase],
     },
   ],
-  exports: [ProductPostgreRepository, TypeOrmModule],
+  exports: [ProductPostgreRepository, TypeOrmModule, ProductUseCase],
 })
 export class ProductModule {}

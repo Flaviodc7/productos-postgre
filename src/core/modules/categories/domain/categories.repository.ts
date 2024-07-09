@@ -6,6 +6,6 @@ export interface CategoryRepository {
   findOneById(id: string): Promise<CategoryModel>;
   findByIds(ids: string[]): Promise<CategoryModel[]>;
   findAll(): Promise<CategoryModel[]>;
-  update(data: CategoryEntity): Promise<CategoryModel>;
+  update(category: CategoryModel, data: CategoryEntity): Promise<CategoryModel>;
   delete(id: string): Promise<any>;
 }

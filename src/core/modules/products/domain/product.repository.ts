@@ -6,6 +6,6 @@ export interface ProductRepository {
   findOneById(id: string): Promise<ProductModel>;
   findByIds(ids: string[]): Promise<ProductModel[]>;
   findAll(): Promise<ProductModel[]>;
-  update(payload: ProductEntity): Promise<ProductModel>;
+  update(product: ProductModel, payload: ProductEntity): Promise<ProductModel>;
   delete(id: string): Promise<any>;
 }

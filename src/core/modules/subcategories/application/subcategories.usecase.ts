@@ -45,7 +45,7 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     return await this.subcategoryRepository.findOneById(id);
   }
 
-  async findByIds(ids: string[]): Promise<SubcategoryEntity[]> {
+  async findByIds(ids: string[]): Promise<SubcategoryModel[]> {
     return await this.subcategoryRepository.findByIds(ids);
   }
 

@@ -6,22 +6,54 @@ import {
 import { ProductRepository } from '@productDomain/product.repository';
 import { ProductValue } from '@productDomain/product.value';
 import { ProductModel } from '@models/product.model';
+import { NotFoundException } from '@nestjs/common';
+import { SubcategoryUseCase } from '../../subcategories/application/subcategories.usecase';
 
 export class ProductUseCase implements IProductUseCase {
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly subcategoryUsecase: SubcategoryUseCase,
+  ) {}
 
-  async create(data: CreateProductPayload): Promise<ProductModel> {
-    const productValue = new ProductValue().create(data);
+  async create(payload: CreateProductPayload): Promise<ProductModel> {
+    const productValue = new ProductValue().create(payload);
+
+    const { id } = productValue;
+
+    const product = (await this.findOneById(id)) as ProductModel;
+
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    if (payload.subcategoryIds) {
+      const subcategories = await this.subcategoryUsecase.findByIds(
+        payload.subcategoryIds,
+      );
+      product.subcategories = subcategories;
+    }
 
     return await this.productRepository.create(productValue);
   }
 
   async findOneById(id: string): Promise<ProductModel> {
-    return await this.productRepository.findOneById(id);
+    const product = await this.productRepository.findOneById(id);
+
+    if (!product) {
+      throw new NotFoundException(`Product not found`);
+    }
+
+    return product;
   }
 
   async findByIds(ids: string[]): Promise<ProductModel[]> {
-    return await this.productRepository.findByIds(ids);
+    const products = await this.productRepository.findByIds(ids);
+
+    if (!products) {
+      throw new NotFoundException(`Products not found`);
+    }
+
+    return products;
   }
 
   async findAll(): Promise<ProductModel[]> {
@@ -29,7 +61,22 @@ export class ProductUseCase implements IProductUseCase {
   }
 
   async update(payload: UpdateProductPayload): Promise<ProductModel> {
-    return await this.productRepository.update(payload);
+    const { id } = payload;
+
+    const product = (await this.findOneById(id)) as ProductModel;
+
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    if (payload.subcategoryIds) {
+      const subcategories = await this.subcategoryUsecase.findByIds(
+        payload.subcategoryIds,
+      );
+      product.subcategories = subcategories;
+    }
+
+    return await this.productRepository.update(product, payload);
   }
 
   async delete(id: string): Promise<any> {

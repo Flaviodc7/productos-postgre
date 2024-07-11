@@ -26,6 +26,8 @@
       "@filesApplication/*": ["core/modules/files/application/*"],
       "@models/*": ["infra/models/*"],
       "@modules/*": ["infra/modules/*"],
+      "@orderApplication/*": ["core/modules/orders/application/*"],
+      "@orderDomain/*": ["core/modules/orders/domain/*"],
       "@productApplication/*": ["core/modules/products/application/*"],
       "@productDomain/*": ["core/modules/products/domain/*"],
       "@repository/*": ["infra/repository/*"],

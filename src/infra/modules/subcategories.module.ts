@@ -3,9 +3,9 @@ import { Module, forwardRef } from '@nestjs/common';
 import { SubcategoryUseCase } from '@subcategoriesApplication/subcategories.usecase';
 import { SubcategoryPostgreRepository } from '@repository/subcategories.repository';
 import { SubcategoryController } from '@controllers/subcategories.controller';
+import { SubcategoryModel } from '@models/subcategories.model';
 import { CategoryModule } from './categories.module';
 import { ProductModule } from './products.module';
-import { SubcategoryModel } from '@models/subcategories.model';
 
 @Module({
   imports: [

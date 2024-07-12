@@ -48,7 +48,7 @@ export class SubcategoryController {
   }
 
   @ApiOperation({ summary: 'Modify a subcategory' })
-  @Put(':subcategoryId')
+  @Put()
   updateSubcategory(@Body() payload: UpdateSubcategoryDTO) {
     return this.subcategoryUseCase.update(payload);
   }

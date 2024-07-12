@@ -1,6 +1,10 @@
 export interface ProductEntity {
-  id: string;
+  sku: string;
   name: string;
+  photoUrl: string;
+  price: number;
+  stock: number;
+  ean?: string;
   description?: string;
   subcategoryIds?: string[];
 }

@@ -13,7 +13,7 @@ import {
 import { ProductUseCase } from '@productApplication/product.usecase';
 import {
   CreateProductDTO,
-  FindProductsDTO,
+  FindProductsSkusDTO,
   UpdateProductDTO,
 } from '@dtos/product.dto';
 
@@ -28,11 +28,11 @@ export class ProductController {
     return this.productUseCase.findAll();
   }
 
-  @ApiOperation({ summary: 'Get a product by ID' })
-  @Get(':productId')
+  @ApiOperation({ summary: 'Get a product by SKU' })
+  @Get(':productSku')
   @HttpCode(HttpStatus.ACCEPTED)
-  getProductById(@Param('productId') productId: string) {
-    return this.productUseCase.findOneById(productId);
+  getProductById(@Param('productSku') productSku: string) {
+    return this.productUseCase.findOneBySku(productSku);
   }
 
   @ApiOperation({ summary: 'Create a product' })
@@ -41,21 +41,21 @@ export class ProductController {
     return this.productUseCase.create(payload);
   }
 
-  @ApiOperation({ summary: 'Get products by ids' })
+  @ApiOperation({ summary: 'Get products by SKUs' })
   @Post('getproducts')
-  getProductsByIds(@Body() payload: FindProductsDTO) {
-    return this.productUseCase.findByIds(payload.ids);
+  getProductsByIds(@Body() payload: FindProductsSkusDTO) {
+    return this.productUseCase.findBySkus(payload.skus);
   }
 
   @ApiOperation({ summary: 'Modify a product' })
-  @Put(':productId')
+  @Put()
   updateProduct(@Body() payload: UpdateProductDTO) {
     return this.productUseCase.update(payload);
   }
 
   @ApiOperation({ summary: 'Delete a product' })
-  @Delete('/:productId')
-  deleteProduct(@Param('productId') productId: string) {
-    return this.productUseCase.delete(productId);
+  @Delete('/:productSku')
+  deleteProduct(@Param('productSku') productSku: string) {
+    return this.productUseCase.delete(productSku);
   }
 }

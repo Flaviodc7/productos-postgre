@@ -5,7 +5,6 @@ import { ProductEntity } from './entities/product.entity';
 export class ProductValue {
   public create = (productPayload: CreateProductPayload): ProductEntity => {
     return {
-      id: uuid(),
       ...productPayload,
     };
   };

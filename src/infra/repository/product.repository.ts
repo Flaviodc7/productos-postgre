@@ -16,14 +16,14 @@ export class ProductPostgreRepository implements ProductRepository {
     return await this.productRepository.find();
   }
 
-  async findOneById(id: string): Promise<ProductModel> {
+  async findOneBySku(sku: string): Promise<ProductModel> {
     return await this.productRepository.findOne({
-      where: { id: id },
+      where: { sku: sku },
     });
   }
 
-  async findByIds(ids: string[]): Promise<ProductModel[]> {
-    return await this.productRepository.findBy({ id: In(ids) });
+  async findBySkus(skus: string[]): Promise<ProductModel[]> {
+    return await this.productRepository.findBy({ sku: In(skus) });
   }
 
   async create(payload: ProductEntity): Promise<ProductModel> {
@@ -41,7 +41,7 @@ export class ProductPostgreRepository implements ProductRepository {
     return await this.productRepository.save(product);
   }
 
-  async delete(id: string): Promise<any> {
-    return await this.productRepository.delete(id);
+  async delete(sku: string): Promise<any> {
+    return await this.productRepository.delete(sku);
   }
 }

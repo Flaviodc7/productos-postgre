@@ -30,18 +30,18 @@ export class ProductUseCase implements IProductUseCase {
     return await this.productRepository.create(productValue);
   }
 
-  async findOneById(id: string): Promise<ProductModel> {
-    const product = await this.productRepository.findOneById(id);
+  async findOneBySku(sku: string): Promise<ProductModel> {
+    const product = await this.productRepository.findOneBySku(sku);
 
     if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
+      throw new NotFoundException(`Product #${sku} not found`);
     }
 
     return product;
   }
 
-  async findByIds(ids: string[]): Promise<ProductModel[]> {
-    const products = await this.productRepository.findByIds(ids);
+  async findBySkus(skus: string[]): Promise<ProductModel[]> {
+    const products = await this.productRepository.findBySkus(skus);
 
     if (!products) {
       throw new NotFoundException(`Products not found`);
@@ -55,12 +55,12 @@ export class ProductUseCase implements IProductUseCase {
   }
 
   async update(payload: UpdateProductPayload): Promise<ProductModel> {
-    const { id } = payload;
+    const { sku } = payload;
 
-    const product = (await this.findOneById(id)) as ProductModel;
+    const product = (await this.findOneBySku(sku)) as ProductModel;
 
     if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
+      throw new NotFoundException(`Product #${sku} not found`);
     }
 
     if (payload.subcategoryIds) {
@@ -73,7 +73,7 @@ export class ProductUseCase implements IProductUseCase {
     return await this.productRepository.update(product, payload);
   }
 
-  async delete(id: string): Promise<any> {
-    return await this.productRepository.delete(id);
+  async delete(sku: string): Promise<any> {
+    return await this.productRepository.delete(sku);
   }
 }

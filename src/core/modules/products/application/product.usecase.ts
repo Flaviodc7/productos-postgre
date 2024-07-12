@@ -1,4 +1,9 @@
-import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import {
   CreateProductPayload,
   IProductUseCase,
@@ -57,7 +62,7 @@ export class ProductUseCase implements IProductUseCase {
   async update(payload: UpdateProductPayload): Promise<ProductModel> {
     const { sku } = payload;
 
-    const product = (await this.findOneBySku(sku)) as ProductModel;
+    const product = await this.findOneBySku(sku);
 
     if (!product) {
       throw new NotFoundException(`Product #${sku} not found`);
@@ -71,6 +76,24 @@ export class ProductUseCase implements IProductUseCase {
     }
 
     return await this.productRepository.update(product, payload);
+  }
+
+  async updateStockOrder(sku: string, quantity: number): Promise<ProductModel> {
+    const product = await this.findOneBySku(sku);
+
+    if (!product) {
+      throw new NotFoundException(`Product #${sku} not found`);
+    }
+
+    if (product.stock > quantity) {
+      product.stock -= quantity;
+    } else {
+      throw new BadRequestException(
+        'Product has not enough stock for this operation',
+      );
+    }
+
+    return await this.productRepository.updateStockOrder(product);
   }
 
   async delete(sku: string): Promise<any> {

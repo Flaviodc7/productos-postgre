@@ -7,5 +7,6 @@ export interface ProductRepository {
   findBySkus(skus: string[]): Promise<ProductModel[]>;
   findAll(): Promise<ProductModel[]>;
   update(product: ProductModel, payload: ProductEntity): Promise<ProductModel>;
+  updateStockOrder(product: ProductModel): Promise<ProductModel>;
   delete(id: string): Promise<any>;
 }

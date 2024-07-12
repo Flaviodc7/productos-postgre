@@ -6,6 +6,7 @@ export interface IProductUseCase {
   findBySkus(ids: string[]): Promise<ProductModel[]>;
   findAll(): Promise<ProductModel[]>;
   update(payload: UpdateProductPayload): Promise<ProductModel>;
+  updateStockOrder(sku: string, quantity: number): Promise<ProductModel>;
   delete(id: string): Promise<any>;
 }
 

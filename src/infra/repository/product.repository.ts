@@ -41,6 +41,10 @@ export class ProductPostgreRepository implements ProductRepository {
     return await this.productRepository.save(product);
   }
 
+  async updateStockOrder(product: ProductModel): Promise<ProductModel> {
+    return await this.productRepository.save(product);
+  }
+
   async delete(sku: string): Promise<any> {
     return await this.productRepository.delete(sku);
   }

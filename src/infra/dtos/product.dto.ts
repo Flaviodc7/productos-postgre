@@ -4,9 +4,9 @@ import {
   IsOptional,
   IsArray,
   ArrayNotEmpty,
-  IsNumber,
   IsInt,
   IsPositive,
+  IsUrl,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -19,10 +19,6 @@ export class CreateProductDTO {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
-  @ApiProperty({ description: 'Product photo URL' })
-  @IsString()
-  @IsNotEmpty()
-  readonly photoUrl: string;
   @ApiProperty({ description: 'Product price' })
   @IsInt()
   @IsPositive()
@@ -33,14 +29,18 @@ export class CreateProductDTO {
   @IsPositive()
   @IsNotEmpty()
   readonly stock: number;
-  @ApiPropertyOptional({ description: 'Product EAN (European Article Number)' })
-  @IsOptional()
-  @IsString()
-  readonly ean?: string;
   @ApiPropertyOptional({ description: 'Product description' })
   @IsOptional()
   @IsString()
   readonly description?: string;
+  @ApiPropertyOptional({ description: 'Product photo URL' })
+  @IsOptional()
+  @IsUrl()
+  readonly photoUrl?: string;
+  @ApiPropertyOptional({ description: 'Product EAN (European Article Number)' })
+  @IsOptional()
+  @IsString()
+  readonly ean?: string;
   @ApiPropertyOptional({ description: 'Associated subcategories' })
   @IsArray()
   @ArrayNotEmpty()

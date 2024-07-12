@@ -10,9 +10,6 @@ export class ProductModel implements ProductEntity {
   @Column({ type: 'text' })
   name: string;
 
-  @Column({ type: 'text' })
-  photoUrl: string;
-
   @Column({ type: 'number' })
   price: number;
 
@@ -20,11 +17,14 @@ export class ProductModel implements ProductEntity {
   stock: number;
 
   @Column({ type: 'text' })
-  ean?: string;
+  description?: string;
 
   @Column({ type: 'text' })
-  description: string;
+  photoUrl?: string;
+
+  @Column({ type: 'text' })
+  ean?: string;
 
   @ManyToMany(() => SubcategoryModel, (subcategory) => subcategory.products)
-  subcategories: SubcategoryModel[];
+  subcategories?: SubcategoryModel[];
 }

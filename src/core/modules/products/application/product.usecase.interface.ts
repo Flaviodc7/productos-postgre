@@ -12,9 +12,9 @@ export interface IProductUseCase {
 export interface CreateProductPayload {
   sku: string;
   name: string;
-  photoUrl: string;
   price: number;
   stock: number;
+  photoUrl?: string;
   ean?: string;
   description?: string;
   subcategoryIds?: string[];

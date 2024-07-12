@@ -1,6 +1,6 @@
 export interface ProductOrderEntity {
-  id: string;
+  sku: string;
   name: string;
-  description?: string;
-  subcategoryIds?: string[];
+  price: number;
+  quantity: number;
 }

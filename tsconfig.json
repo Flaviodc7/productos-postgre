@@ -20,6 +20,8 @@
     "paths": {
       "@categoriesApplication/*": ["core/modules/categories/application/*"],
       "@categoriesDomain/*": ["core/modules/categories/domain/*"],
+      "@customersApplication/*": ["core/modules/customers/application/*"],
+      "@customersDomain/*": ["core/modules/customers/domain/*"],
       "@controllers/*": ["infra/controllers/*"],
       "@db/*": ["infra/db/*"],
       "@dtos/*": ["infra/dtos/*"],

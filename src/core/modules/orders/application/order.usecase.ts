@@ -3,9 +3,9 @@ import {
   CreateOrderPayload,
   IOrderUseCase,
   UpdateOrderPayload,
-} from './categories.usecase.interface';
-import { OrderRepository } from '@categoriesDomain/order.repository';
-import { OrderValue } from '@categoriesDomain/order.value';
+} from './order.usecase.interface';
+import { OrderRepository } from '@orderDomain/order.repository';
+import { OrderValue } from '@orderDomain/order.value';
 import { OrderModel } from '@models/order.model';
 
 export class OrderUseCase implements IOrderUseCase {

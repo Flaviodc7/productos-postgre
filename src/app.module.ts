@@ -4,6 +4,7 @@ import { SubcategoryModule } from '@modules/subcategories.module';
 import { CategoryModule } from '@modules/categories.module';
 import { ProductModule } from '@modules/products.module';
 import { DatabaseModule } from '@db/database.module';
+import { OrderModule } from '@modules/order.module';
 import { AppController } from '@src/app.controller';
 import { AppService } from '@src/app.service';
 import config from '@src/config';
@@ -19,6 +20,7 @@ import config from '@src/config';
     ProductModule,
     CategoryModule,
     SubcategoryModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

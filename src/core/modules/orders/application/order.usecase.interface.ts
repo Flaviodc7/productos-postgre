@@ -11,8 +11,7 @@ export interface IOrderUseCase {
 
 export interface CreateOrderPayload {
   customerId: string;
-  paymentDetailsId: string;
-  productsOrderId: string;
+  orderDetailsId: string;
 }
 
 export interface UpdateOrderPayload extends CreateOrderPayload {

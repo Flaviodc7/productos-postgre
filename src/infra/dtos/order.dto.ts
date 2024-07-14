@@ -33,7 +33,7 @@ export class UpdateOrderDTO {
   readonly description: string;
 }
 
-export class FindCategoriesDTO {
+export class FindOrdersIdsDTO {
   @ApiProperty({ description: 'Categories ID' })
   @IsArray()
   @ArrayNotEmpty()

@@ -11,6 +11,9 @@ import { FilesUseCase } from '@filesApplication/files.usecase';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+const imageRegex = /\.(jpg|jpeg|png|gif|bmp|tiff|webp)$/i;
+const maxSizeImage = 1000 * 1024 * 5;
+
 @ApiTags('Files')
 @Controller('files')
 export class FilesController {
@@ -24,10 +27,10 @@ export class FilesController {
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addFileTypeValidator({
-          fileType: /\.(jpg|jpeg|png|gif|bmp|tiff|webp)$/i,
+          fileType: imageRegex,
         })
         .addMaxSizeValidator({
-          maxSize: 1000 * 1024 * 5,
+          maxSize: maxSizeImage,
         })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,

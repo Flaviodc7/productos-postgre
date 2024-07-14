@@ -11,7 +11,11 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { OrderUseCase } from '@orderApplication/order.usecase';
-import { CreateOrderDTO, FindOrdersDTO, UpdateOrderDTO } from '@dtos/order.dto';
+import {
+  CreateOrderDTO,
+  FindOrdersIdsDTO,
+  UpdateOrderDTO,
+} from '@dtos/order.dto';
 
 @ApiTags('Categories')
 @Controller('order')
@@ -39,7 +43,7 @@ export class OrderController {
 
   @ApiOperation({ summary: 'Get order by ids' })
   @Post('getorders')
-  getOrdersByIds(@Body() payload: FindOrdersDTO) {
+  getOrdersByIds(@Body() payload: FindOrdersIdsDTO) {
     return this.orderUseCase.findByIds(payload.ids);
   }
 

@@ -30,6 +30,8 @@
       "@modules/*": ["infra/modules/*"],
       "@orderApplication/*": ["core/modules/orders/application/*"],
       "@orderDomain/*": ["core/modules/orders/domain/*"],
+      "@orderDetailsApplication/*": ["core/modules/orderDetails/application/*"],
+      "@orderDetailsDomain/*": ["core/modules/orderDetails/domain/*"],
       "@productApplication/*": ["core/modules/products/application/*"],
       "@productDomain/*": ["core/modules/products/domain/*"],
       "@repository/*": ["infra/repository/*"],

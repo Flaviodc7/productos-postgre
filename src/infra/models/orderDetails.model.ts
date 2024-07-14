@@ -1,8 +1,8 @@
 import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
-import { OrderDetailsModel } from './orderDetails.model';
+import { OrderModel } from './order.model';
 
 @Entity()
-export class OrderModel {
+export class OrderDetailsModel {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 
@@ -12,6 +12,6 @@ export class OrderModel {
   @Column({ type: 'text' })
   description: string;
 
-  @OneToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.order)
-  orderDetails: OrderDetailsModel[];
+  @OneToOne(() => OrderModel, (order) => order.orderDetails)
+  order: OrderModel[];
 }

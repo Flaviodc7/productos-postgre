@@ -1,5 +1,4 @@
-export interface PaymentDetails {
+export interface PaymentDetailsEntity {
   method: 'CASH' | 'DEBIT' | 'CREDIT';
   paymentStatus: 'Approved' | 'Failed' | 'Pending';
-  delivery: boolean;
 }

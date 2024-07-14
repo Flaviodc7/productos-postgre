@@ -11,11 +11,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { OrderUseCase } from '@orderApplication/order.usecase';
-import {
-  CreateOrderDTO,
-  FindOrdersDTO,
-  UpdateOrderDTO,
-} from '@dtos/order.dto';
+import { CreateOrderDTO, FindOrdersDTO, UpdateOrderDTO } from '@dtos/order.dto';
 
 @ApiTags('Categories')
 @Controller('order')

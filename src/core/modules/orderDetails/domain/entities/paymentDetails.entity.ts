@@ -1,4 +1,7 @@
+type methodType = 'CASH' | 'DEBIT' | 'CREDIT';
+type paymentStatus = 'Approved' | 'Failed' | 'Pending';
+
 export interface PaymentDetailsEntity {
-  method: 'CASH' | 'DEBIT' | 'CREDIT';
-  paymentStatus: 'Approved' | 'Failed' | 'Pending';
+  method: methodType;
+  paymentStatus: paymentStatus;
 }

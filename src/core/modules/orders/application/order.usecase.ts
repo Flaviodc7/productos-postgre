@@ -11,8 +11,8 @@ import { OrderModel } from '@models/order.model';
 export class OrderUseCase implements IOrderUseCase {
   constructor(private readonly orderRepository: OrderRepository) {}
 
-  async create(data: CreateOrderPayload): Promise<OrderModel> {
-    const orderValue = new OrderValue().create(data);
+  async create(payload: CreateOrderPayload): Promise<OrderModel> {
+    const orderValue = new OrderValue().create(payload);
 
     return await this.orderRepository.create(orderValue);
   }

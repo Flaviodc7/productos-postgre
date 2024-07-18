@@ -8,6 +8,7 @@ export class OrderDetailsValue {
   ): OrderDetailsEntity => {
     return {
       id: uuid(),
+      orderId: uuid(),
       ...orderDetailsPayload,
     };
   };

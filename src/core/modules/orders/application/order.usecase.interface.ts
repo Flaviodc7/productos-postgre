@@ -1,3 +1,5 @@
+import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
+import { OrderStatus } from '@orderDomain/entities/orderStatus.entity';
 import { OrderModel } from '@models/order.model';
 
 export interface IOrderUseCase {
@@ -9,12 +11,20 @@ export interface IOrderUseCase {
   delete(id: string): Promise<any>;
 }
 
+export interface OrderDetailsPayload
+  extends Pick<
+    OrderDetailsEntity,
+    Exclude<keyof OrderDetailsEntity, 'id' | 'orderId'>
+  > {}
+
 export interface CreateOrderPayload {
   customerId: string;
-  orderDetailsId: string;
+  status: OrderStatus;
+  details: OrderDetailsPayload;
 }
 
 export interface UpdateOrderPayload extends CreateOrderPayload {
   id: string;
   createdAt: string;
+  orderDetailsId: string;
 }

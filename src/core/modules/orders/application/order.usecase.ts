@@ -7,12 +7,16 @@ import {
 import { OrderRepository } from '@orderDomain/order.repository';
 import { OrderValue } from '@orderDomain/order.value';
 import { OrderModel } from '@models/order.model';
+import { OrderDetailsValue } from '@orderDetailsDomain/orderDetails.value';
 
 export class OrderUseCase implements IOrderUseCase {
   constructor(private readonly orderRepository: OrderRepository) {}
 
   async create(payload: CreateOrderPayload): Promise<OrderModel> {
-    const orderValue = new OrderValue().create(payload);
+    const { details } = payload;
+    const orderDetailsValue = new OrderDetailsValue().create(details);
+
+    const orderValue = new OrderValue().create(payload, orderDetailsValue.id);
 
     return await this.orderRepository.create(orderValue);
   }

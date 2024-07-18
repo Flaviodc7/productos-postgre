@@ -14,8 +14,10 @@ import { Type } from 'class-transformer';
 
 const ARRAY_PAYMENT_METHOD = ['CASH', 'DEBIT', 'CREDIT'];
 const ARRAY_PAYMENT_STATUS = ['Approved', 'Failed', 'Pending'];
+const ARRAY_ORDER_STATUS = ['CREATED', 'STAND-BY', 'CANCELED', 'COMPLETE'];
 type PAYMENT_METHOD = 'CASH' | 'DEBIT' | 'CREDIT';
 type PAYMENT_STATUS = 'Approved' | 'Failed' | 'Pending';
+type ORDER_STATUS = 'CREATED' | 'STAND-BY' | 'CANCELED' | 'COMPLETE';
 
 export class PaymentDetailsDTO {
   @ApiProperty({ description: 'Payment method' })
@@ -52,18 +54,33 @@ export class ProductOrderDTO {
 }
 
 export class OrderDeliveryDTO {
-  @ApiProperty({ description: 'Delivery information' })
+  @ApiProperty({ description: 'Delivery Address' })
   @IsString()
   @IsOptional()
-  readonly details?: string;
+  readonly address: string;
+
+  @ApiProperty({ description: 'Delivery City' })
+  @IsString()
+  @IsOptional()
+  readonly city: string;
+
+  @ApiProperty({ description: 'Delivery Postal Code' })
+  @IsString()
+  @IsOptional()
+  readonly postalCode: string;
+
+  @ApiProperty({ description: 'Delivery State' })
+  @IsString()
+  @IsOptional()
+  readonly state: string;
+
+  @ApiProperty({ description: 'Delivery Country' })
+  @IsString()
+  @IsOptional()
+  readonly country: string;
 }
 
-export class CreateOrderDTO {
-  @ApiProperty({ description: 'Order Customer ID' })
-  @IsString()
-  @IsNotEmpty()
-  readonly customerId: string;
-
+export class OrderDetailsDTO {
   @ApiProperty({ description: 'Payment details' })
   @ValidateNested()
   @Type(() => PaymentDetailsDTO)
@@ -85,11 +102,37 @@ export class CreateOrderDTO {
   readonly delivery?: OrderDeliveryDTO;
 }
 
+export class CreateOrderDTO {
+  @ApiProperty({ description: 'Order Customer ID' })
+  @IsString()
+  @IsNotEmpty()
+  readonly customerId: string;
+
+  @ApiPropertyOptional({ description: 'Order Details' })
+  @ValidateNested()
+  @Type(() => OrderDetailsDTO)
+  @IsOptional()
+  readonly details: OrderDetailsDTO;
+
+  @ApiPropertyOptional({ description: 'Order Details' })
+  @IsEnum(ARRAY_ORDER_STATUS)
+  @IsNotEmpty()
+  readonly status: ORDER_STATUS;
+}
+
 export class UpdateOrderDTO extends CreateOrderDTO {
   @ApiProperty({ description: 'Order ID' })
   @IsString()
   @IsNotEmpty()
   readonly id: string;
+  @ApiProperty({ description: 'Order Creation Date' })
+  @IsString()
+  @IsNotEmpty()
+  readonly createdAt: string;
+  @ApiProperty({ description: 'Order Details ID' })
+  @IsString()
+  @IsNotEmpty()
+  readonly orderDetailsId: string;
 }
 
 export class FindOrdersIdsDTO {

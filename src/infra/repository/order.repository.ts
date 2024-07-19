@@ -9,41 +9,40 @@ import { OrderModel } from '@models/order.model';
 export class OrderPostgreRepository implements OrderRepository {
   constructor(
     @InjectRepository(OrderModel)
-    private categoryRepository: Repository<OrderModel>,
+    private orderRepository: Repository<OrderModel>,
   ) {}
 
   async findAll(): Promise<OrderModel[]> {
-    return await this.categoryRepository.find({ relations: ['subcategories'] });
+    return await this.orderRepository.find();
   }
 
   async findOneById(id: string): Promise<OrderModel> {
-    return await this.categoryRepository.findOne({
+    return await this.orderRepository.findOne({
       where: { id: id },
-      relations: ['subcategories'],
     });
   }
 
   async findByIds(ids: string[]): Promise<OrderModel[]> {
-    return await this.categoryRepository.find({
+    return await this.orderRepository.find({
       where: { id: In(ids) },
     });
   }
 
   async create(payload: OrderEntity): Promise<OrderModel> {
-    const newOrder = this.categoryRepository.create(payload);
+    const newOrder = this.orderRepository.create(payload);
 
-    return await this.categoryRepository.save(newOrder);
+    return await this.orderRepository.save(newOrder);
   }
 
   async update(
     category: OrderModel,
     payload: OrderEntity,
   ): Promise<OrderModel> {
-    this.categoryRepository.merge(category, payload);
-    return await this.categoryRepository.save(category);
+    this.orderRepository.merge(category, payload);
+    return await this.orderRepository.save(category);
   }
 
   async delete(id: string): Promise<any> {
-    return await this.categoryRepository.delete(id);
+    return await this.orderRepository.delete(id);
   }
 }

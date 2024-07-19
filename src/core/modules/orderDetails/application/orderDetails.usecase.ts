@@ -7,7 +7,7 @@ import { OrderDetailsRepository } from '@orderDetailsDomain/orderDetails.reposit
 import { OrderDetailsModel } from '@models/orderDetails.model';
 import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
 
-export class OrderUseCase implements IOrderDetailsUseCase {
+export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   constructor(
     private readonly orderDetailsRepository: OrderDetailsRepository,
   ) {}
@@ -20,7 +20,7 @@ export class OrderUseCase implements IOrderDetailsUseCase {
     const order = await this.orderDetailsRepository.findOneById(id);
 
     if (!order) {
-      throw new NotFoundException(`Order #${id} not found`);
+      throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
     return order;
@@ -30,17 +30,13 @@ export class OrderUseCase implements IOrderDetailsUseCase {
     return await this.orderDetailsRepository.findByIds(ids);
   }
 
-  async findAll(): Promise<OrderDetailsModel[]> {
-    return await this.orderDetailsRepository.findAll();
-  }
-
   async update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsModel> {
     const { id } = payload;
 
     const order = (await this.findOneById(id)) as OrderDetailsModel;
 
     if (!order) {
-      throw new NotFoundException(`Order #${id} not found`);
+      throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
     return await this.orderDetailsRepository.update(order, payload);

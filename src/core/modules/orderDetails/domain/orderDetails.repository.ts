@@ -5,7 +5,6 @@ export interface OrderDetailsRepository {
   create: (data: OrderDetailsEntity) => Promise<OrderDetailsModel>;
   findOneById(id: string): Promise<OrderDetailsModel>;
   findByIds(ids: string[]): Promise<OrderDetailsModel[]>;
-  findAll(): Promise<OrderDetailsModel[]>;
   update(
     category: OrderDetailsModel,
     data: OrderDetailsEntity,

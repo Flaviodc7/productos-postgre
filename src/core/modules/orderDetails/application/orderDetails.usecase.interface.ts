@@ -5,7 +5,6 @@ export interface IOrderDetailsUseCase {
   create: (payload: OrderDetailsEntity) => Promise<OrderDetailsModel>;
   findOneById(id: string): Promise<OrderDetailsModel>;
   findByIds(ids: string[]): Promise<OrderDetailsModel[]>;
-  findAll(): Promise<OrderDetailsModel[]>;
   update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsModel>;
   delete(id: string): Promise<any>;
 }

@@ -1,4 +1,3 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
   IsEnum,
@@ -10,25 +9,20 @@ import {
   Min,
   ArrayNotEmpty,
 } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-
-const ARRAY_PAYMENT_METHOD = ['CASH', 'DEBIT', 'CREDIT'];
-const ARRAY_PAYMENT_STATUS = ['Approved', 'Failed', 'Pending'];
-const ARRAY_ORDER_STATUS = ['CREATED', 'STAND-BY', 'CANCELED', 'COMPLETE'];
-type PAYMENT_METHOD = 'CASH' | 'DEBIT' | 'CREDIT';
-type PAYMENT_STATUS = 'Approved' | 'Failed' | 'Pending';
-type ORDER_STATUS = 'CREATED' | 'STAND-BY' | 'CANCELED' | 'COMPLETE';
+import { MethodType, OrderStatus, PaymentStatus } from '../utils/enum.types';
 
 export class PaymentDetailsDTO {
   @ApiProperty({ description: 'Payment method' })
-  @IsEnum(ARRAY_PAYMENT_METHOD)
+  @IsEnum(MethodType)
   @IsNotEmpty()
-  readonly method: PAYMENT_METHOD;
+  readonly method: MethodType;
 
   @ApiProperty({ description: 'Payment status' })
-  @IsEnum(ARRAY_PAYMENT_STATUS)
+  @IsEnum(PaymentStatus)
   @IsNotEmpty()
-  readonly paymentStatus: PAYMENT_STATUS;
+  readonly paymentStatus: PaymentStatus;
 }
 
 export class ProductOrderDTO {
@@ -115,9 +109,9 @@ export class CreateOrderDTO {
   readonly details: OrderDetailsDTO;
 
   @ApiPropertyOptional({ description: 'Order Details' })
-  @IsEnum(ARRAY_ORDER_STATUS)
+  @IsEnum(OrderStatus)
   @IsNotEmpty()
-  readonly status: ORDER_STATUS;
+  readonly status: OrderStatus;
 }
 
 export class UpdateOrderDTO extends CreateOrderDTO {

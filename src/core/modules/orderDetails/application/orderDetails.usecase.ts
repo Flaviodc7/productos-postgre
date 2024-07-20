@@ -1,19 +1,24 @@
 import { NotFoundException } from '@nestjs/common';
 import {
+  CreateOrderDetailsPayload,
   IOrderDetailsUseCase,
   UpdateOrderDetailsPayload,
 } from './orderDetails.usecase.interface';
 import { OrderDetailsRepository } from '@orderDetailsDomain/orderDetails.repository';
+import { OrderDetailsValue } from '@orderDetailsDomain/orderDetails.value';
 import { OrderDetailsModel } from '@models/orderDetails.model';
-import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
+import { ProductUseCase } from '@productApplication/product.usecase';
 
 export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   constructor(
     private readonly orderDetailsRepository: OrderDetailsRepository,
+    private readonly productsUseCase: ProductUseCase,
   ) {}
 
-  async create(payload: OrderDetailsEntity): Promise<OrderDetailsModel> {
-    return await this.orderDetailsRepository.create(payload);
+  async create(payload: CreateOrderDetailsPayload): Promise<OrderDetailsModel> {
+    const orderDetailsValue = new OrderDetailsValue().create(payload);
+
+    return await this.orderDetailsRepository.create(orderDetailsValue);
   }
 
   async findOneById(id: string): Promise<OrderDetailsModel> {
@@ -33,13 +38,13 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   async update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsModel> {
     const { id } = payload;
 
-    const order = (await this.findOneById(id)) as OrderDetailsModel;
+    const orderDetails = (await this.findOneById(id)) as OrderDetailsModel;
 
-    if (!order) {
+    if (!orderDetails) {
       throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
-    return await this.orderDetailsRepository.update(order, payload);
+    return await this.orderDetailsRepository.update(orderDetails, payload);
   }
 
   async delete(id: string) {

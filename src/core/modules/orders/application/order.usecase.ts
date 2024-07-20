@@ -4,17 +4,20 @@ import {
   IOrderUseCase,
   UpdateOrderPayload,
 } from './order.usecase.interface';
+import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.usecase';
 import { OrderRepository } from '@orderDomain/order.repository';
 import { OrderValue } from '@orderDomain/order.value';
 import { OrderModel } from '@models/order.model';
-import { OrderDetailsValue } from '@orderDetailsDomain/orderDetails.value';
 
 export class OrderUseCase implements IOrderUseCase {
-  constructor(private readonly orderRepository: OrderRepository) {}
+  constructor(
+    private readonly orderRepository: OrderRepository,
+    private readonly orderDetailsUseCase: OrderDetailsUseCase,
+  ) {}
 
   async create(payload: CreateOrderPayload): Promise<OrderModel> {
     const { details } = payload;
-    const orderDetailsValue = new OrderDetailsValue().create(details);
+    const orderDetailsValue = await this.orderDetailsUseCase.create(details);
 
     const orderValue = new OrderValue().create(payload, orderDetailsValue.id);
 

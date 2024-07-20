@@ -17,12 +17,12 @@ import {
   UpdateOrderDTO,
 } from '@dtos/order.dto';
 
-@ApiTags('Categories')
+@ApiTags('Orders')
 @Controller('order')
 export class OrderController {
   constructor(private readonly orderUseCase: OrderUseCase) {}
 
-  @ApiOperation({ summary: 'Get all order' })
+  @ApiOperation({ summary: 'Get all orders' })
   @Get()
   getAllOrders() {
     return this.orderUseCase.findAll();
@@ -42,7 +42,7 @@ export class OrderController {
   }
 
   @ApiOperation({ summary: 'Get order by ids' })
-  @Post('getorders')
+  @Post('getordersbyids')
   getOrdersByIds(@Body() payload: FindOrdersIdsDTO) {
     return this.orderUseCase.findByIds(payload.ids);
   }

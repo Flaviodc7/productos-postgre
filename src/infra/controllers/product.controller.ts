@@ -42,7 +42,7 @@ export class ProductController {
   }
 
   @ApiOperation({ summary: 'Get products by SKUs' })
-  @Post('getproducts')
+  @Post('getproductsbyskus')
   getProductsByIds(@Body() payload: FindProductsSkusDTO) {
     return this.productUseCase.findBySkus(payload.skus);
   }

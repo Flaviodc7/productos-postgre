@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { OrderDetailsRepository } from '@orderDetailsDomain/orderDetails.repository';
 import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
-import { OrderDetailsModel } from '@models/orderDetails.model';
+import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 
 @Injectable()
 export class OrderDetailsPostgreRepository implements OrderDetailsRepository {

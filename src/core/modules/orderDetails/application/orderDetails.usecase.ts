@@ -6,7 +6,7 @@ import {
 } from './orderDetails.usecase.interface';
 import { OrderDetailsRepository } from '@orderDetailsDomain/orderDetails.repository';
 import { OrderDetailsValue } from '@orderDetailsDomain/orderDetails.value';
-import { OrderDetailsModel } from '@models/orderDetails.model';
+import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 import { ProductUseCase } from '@productApplication/product.usecase';
 
 export class OrderDetailsUseCase implements IOrderDetailsUseCase {

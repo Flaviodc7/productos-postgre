@@ -15,8 +15,8 @@ import {
   UpdateOrderDetailsDTO,
 } from '@dtos/orderDetails.dto';
 
-@ApiTags('Categories')
-@Controller('order')
+@ApiTags('Order Details')
+@Controller('order-details')
 export class OrderDetailsController {
   constructor(private readonly orderDetailsUseCase: OrderDetailsUseCase) {}
 
@@ -28,7 +28,7 @@ export class OrderDetailsController {
   }
 
   @ApiOperation({ summary: 'Get order Details by ids' })
-  @Post('getorderdetails')
+  @Post('getorderdetailsbyids')
   getOrderDetailsByIds(@Body() payload: FindOrderDetailsIdsDTO) {
     return this.orderDetailsUseCase.findByIds(payload.ids);
   }

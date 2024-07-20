@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.usecase';
 import { OrderDetailsPostgreRepository } from '@repository/orderDetails.repository';
 import { OrderDetailsController } from '@controllers/orderDetails.controller';
-import { OrderDetailsModel } from '@models/orderDetails.model';
+import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 import { ProductModule } from './products.module';
 
 @Module({

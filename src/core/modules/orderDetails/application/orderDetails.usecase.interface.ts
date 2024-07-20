@@ -1,5 +1,5 @@
 import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
-import { OrderDetailsModel } from '@models/orderDetails.model';
+import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 
 export interface IOrderDetailsUseCase {
   create: (payload: CreateOrderDetailsPayload) => Promise<OrderDetailsModel>;

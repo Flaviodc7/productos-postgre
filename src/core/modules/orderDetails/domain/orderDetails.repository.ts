@@ -1,5 +1,5 @@
 import { OrderDetailsEntity } from './entities/orderDetails.entity';
-import { OrderDetailsModel } from '@models/orderDetails.model';
+import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 
 export interface OrderDetailsRepository {
   create: (data: OrderDetailsEntity) => Promise<OrderDetailsModel>;

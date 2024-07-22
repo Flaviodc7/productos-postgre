@@ -42,8 +42,8 @@ export class SubcategoryController {
   }
 
   @ApiOperation({ summary: 'Get subcategories by ids' })
-  @Post('getsubcategorysbyids')
-  getSubcategorysByIds(@Body() payload: FindSubcategoriesDTO) {
+  @Post('getsubcategoriesbyids')
+  getSubcategoriesByIds(@Body() payload: FindSubcategoriesDTO) {
     return this.subcategoryUseCase.findByIds(payload.ids);
   }
 

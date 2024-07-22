@@ -17,43 +17,43 @@ import {
   UpdateInventoryDTO,
 } from '@dtos/inventory.dto';
 
-@ApiTags('Categories')
-@Controller('categories')
+@ApiTags('Inventories')
+@Controller('inventories')
 export class InventoryController {
   constructor(private readonly inventoryUseCase: InventoryUseCase) {}
 
-  @ApiOperation({ summary: 'Get all categories' })
+  @ApiOperation({ summary: 'Get all inventories' })
   @Get()
   getAllInventorys() {
     return this.inventoryUseCase.findAll();
   }
 
-  @ApiOperation({ summary: 'Get a inventory by ID' })
+  @ApiOperation({ summary: 'Get an inventory by ID' })
   @Get(':inventoryId')
   @HttpCode(HttpStatus.ACCEPTED)
   getInventoryById(@Param('inventoryId') inventoryId: string) {
     return this.inventoryUseCase.findOneById(inventoryId);
   }
 
-  @ApiOperation({ summary: 'Create a inventory' })
+  @ApiOperation({ summary: 'Create an inventory' })
   @Post()
   createInventory(@Body() payload: CreateInventoryDTO) {
     return this.inventoryUseCase.create(payload);
   }
 
-  @ApiOperation({ summary: 'Get categories by ids' })
+  @ApiOperation({ summary: 'Get inventories by ids' })
   @Post('getinventorysbyids')
   getinventorysByIds(@Body() payload: FindInventoriesDTO) {
     return this.inventoryUseCase.findByIds(payload.ids);
   }
 
-  @ApiOperation({ summary: 'Modify a inventory' })
+  @ApiOperation({ summary: 'Modify an inventory' })
   @Put()
   updateInventory(@Body() payload: UpdateInventoryDTO) {
     return this.inventoryUseCase.update(payload);
   }
 
-  @ApiOperation({ summary: 'Delete a inventory' })
+  @ApiOperation({ summary: 'Delete an inventory' })
   @Delete('/:inventoryId')
   deleteInventory(@Param('inventoryId') inventoryId: string) {
     return this.inventoryUseCase.delete(inventoryId);

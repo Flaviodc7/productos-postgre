@@ -24,7 +24,7 @@ export class CategoryController {
 
   @ApiOperation({ summary: 'Get all categories' })
   @Get()
-  getAllCategorys() {
+  getAllCategories() {
     return this.categoryUseCase.findAll();
   }
 
@@ -42,8 +42,8 @@ export class CategoryController {
   }
 
   @ApiOperation({ summary: 'Get categories by ids' })
-  @Post('getcategorysbyids')
-  getcategorysByIds(@Body() payload: FindCategoriesDTO) {
+  @Post('getcategoriesbyids')
+  getcategoriesByIds(@Body() payload: FindCategoriesDTO) {
     return this.categoryUseCase.findByIds(payload.ids);
   }
 

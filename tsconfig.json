@@ -26,6 +26,8 @@
       "@db/*": ["infra/db/*"],
       "@dtos/*": ["infra/dtos/*"],
       "@filesApplication/*": ["core/modules/files/application/*"],
+      "@inventoryApplication/*": ["core/modules/inventory/application/*"],
+      "@inventoryDomain/*": ["core/modules/inventory/domain/*"],
       "@models/*": ["infra/models/*"],
       "@modules/*": ["infra/modules/*"],
       "@orderApplication/*": ["core/modules/orders/application/*"],

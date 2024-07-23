@@ -1,3 +1,4 @@
+import { InventoryProducts, InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
 import { InventoryModel } from '@models/inventory.model';
 
 export interface IInventoryUseCase {
@@ -10,11 +11,11 @@ export interface IInventoryUseCase {
 }
 
 export interface CreateInventoryPayload {
-  name: string;
-  description: string;
+  inventoryProducts: InventoryProducts[];
 }
 
 export interface UpdateInventoryPayload extends CreateInventoryPayload {
   id: string;
   createdAt: string;
+  status: InventoryStatus;
 }

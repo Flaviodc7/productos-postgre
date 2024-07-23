@@ -1,7 +1,7 @@
 type methodType = 'CASH' | 'DEBIT' | 'CREDIT';
 type paymentStatus = 'Approved' | 'Failed' | 'Pending';
 
-export interface PaymentDetailsEntity {
+export interface OrderPaymentEntity {
   method: methodType;
   paymentStatus: paymentStatus;
 }

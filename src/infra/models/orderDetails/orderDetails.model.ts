@@ -8,8 +8,8 @@ import {
   JoinTable,
 } from 'typeorm';
 import { OrderDeliveryModel } from './orderDelivery.model';
-import { PaymentDetailsModel } from './orderPayment.model';
-import { ProductOrderModel } from './orderProduct.model';
+import { OrderPaymentModel } from './orderPayment.model';
+import { OrderProductModel } from './orderProduct.model';
 import { OrderModel } from '../order.model';
 
 @Entity()
@@ -20,13 +20,13 @@ export class OrderDetailsModel {
   @Column({ type: 'varchar', length: 255 })
   orderId: string;
 
-  @OneToOne(() => PaymentDetailsModel, { cascade: true, eager: true })
+  @OneToOne(() => OrderPaymentModel, { cascade: true, eager: true })
   @JoinColumn()
-  paymentDetails: PaymentDetailsModel;
+  payment: OrderPaymentModel;
 
-  @ManyToMany(() => ProductOrderModel, { cascade: true, eager: true })
+  @ManyToMany(() => OrderProductModel, { cascade: true, eager: true })
   @JoinTable()
-  productsOrder: ProductOrderModel[];
+  products: OrderProductModel[];
 
   @OneToOne(() => OrderDeliveryModel, { cascade: true, eager: true })
   @JoinColumn()

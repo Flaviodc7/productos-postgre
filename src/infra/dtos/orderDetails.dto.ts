@@ -60,12 +60,12 @@ export class UpdateOrderDetailsDTO {
 
   @ValidateNested()
   @Type(() => PaymentDetailsDto)
-  paymentDetails: PaymentDetailsDto;
+  payment: PaymentDetailsDto;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ProductOrderDto)
-  productsOrder: ProductOrderDto[];
+  products: ProductOrderDto[];
 
   @IsOptional()
   @ValidateNested()

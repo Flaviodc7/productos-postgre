@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class PaymentDetailsModel {
+export class OrderPaymentModel {
   @Column({ type: 'varchar', length: 255 })
   method: string;
 

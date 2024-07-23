@@ -1,4 +1,4 @@
-export interface ProductOrderEntity {
+export interface OrderProductEntity {
   sku: string;
   name: string;
   price: number;

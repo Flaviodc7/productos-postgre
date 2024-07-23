@@ -8,6 +8,7 @@ export class InventoryValue {
   ): InventoryEntity => {
     return {
       id: uuid(),
+      status: 'PENDING',
       createdAt: new Date().toISOString(),
       ...inventoryPayload,
     };

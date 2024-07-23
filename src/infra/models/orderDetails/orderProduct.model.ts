@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class ProductOrderModel {
+export class OrderProductModel {
   @Column({ type: 'varchar', length: 255 })
   sku: string;
 

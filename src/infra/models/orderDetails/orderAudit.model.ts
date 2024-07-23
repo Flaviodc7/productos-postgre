@@ -2,22 +2,19 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { OrderDetailsModel } from './orderDetails.model';
 
 @Entity()
-export class OrderProductModel {
+export class OrderAuditModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 255 })
-  sku: string;
+  date: string;
 
   @Column({ type: 'varchar', length: 255 })
-  name: string;
+  description: string;
 
-  @Column({ type: 'decimal' })
-  price: number;
+  @Column({ type: 'varchar', length: 255 })
+  responsible: string;
 
-  @Column({ type: 'int' })
-  quantity: number;
-
-  @ManyToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.products)
+  @ManyToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.audit)
   orderDetails: OrderDetailsModel;
 }

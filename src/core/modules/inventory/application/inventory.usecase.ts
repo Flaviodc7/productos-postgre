@@ -11,8 +11,8 @@ import { InventoryModel } from '@models/inventory.model';
 export class InventoryUseCase implements IInventoryUseCase {
   constructor(private readonly inventoryRepository: InventoryRepository) {}
 
-  async create(data: CreateInventoryPayload): Promise<InventoryModel> {
-    const inventoryValue = new InventoryValue().create(data);
+  async create(payload: CreateInventoryPayload): Promise<InventoryModel> {
+    const inventoryValue = new InventoryValue().create(payload);
 
     return await this.inventoryRepository.create(inventoryValue);
   }

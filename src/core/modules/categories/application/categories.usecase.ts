@@ -11,8 +11,8 @@ import { CategoryModel } from '@models/categories.model';
 export class CategoryUseCase implements ICategoriesUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
-  async create(data: CreateCategoriesPayload): Promise<CategoryModel> {
-    const categoryValue = new CategoryValue().create(data);
+  async create(payload: CreateCategoriesPayload): Promise<CategoryModel> {
+    const categoryValue = new CategoryValue().create(payload);
 
     return await this.categoryRepository.create(categoryValue);
   }

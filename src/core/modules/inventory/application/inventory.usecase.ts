@@ -38,13 +38,15 @@ export class InventoryUseCase implements IInventoryUseCase {
   async update(payload: UpdateInventoryPayload): Promise<InventoryModel> {
     const { id } = payload;
 
-    const inventory = (await this.findOneById(id)) as InventoryModel;
+    const inventory = await this.findOneById(id);
 
     if (!inventory) {
       throw new NotFoundException(`Inventory #${id} not found`);
     }
 
-    return await this.inventoryRepository.update(inventory, payload);
+    const inventoryValue = new InventoryValue().update(payload);
+
+    return await this.inventoryRepository.update(inventory, inventoryValue);
   }
 
   async delete(id: string) {

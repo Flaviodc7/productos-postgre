@@ -4,8 +4,6 @@ import {
   OneToOne,
   PrimaryColumn,
   JoinColumn,
-  ManyToMany,
-  JoinTable,
   OneToMany,
 } from 'typeorm';
 import { OrderDeliveryModel } from './orderDelivery.model';
@@ -22,14 +20,20 @@ export class OrderDetailsModel {
   @Column({ type: 'varchar', length: 255 })
   orderId: string;
 
-  @OneToMany(() => OrderAuditModel, (audit) => audit.orderDetails, { cascade: true, eager: true })
+  @OneToMany(() => OrderAuditModel, (audit) => audit.orderDetails, {
+    cascade: true,
+    eager: true,
+  })
   audit: OrderAuditModel[];
 
   @OneToOne(() => OrderPaymentModel, { cascade: true, eager: true })
   @JoinColumn()
   payment: OrderPaymentModel;
 
-  @OneToMany(() => OrderProductModel, (product) => product.orderDetails, { cascade: true, eager: true })
+  @OneToMany(() => OrderProductModel, (product) => product.orderDetails, {
+    cascade: true,
+    eager: true,
+  })
   products: OrderProductModel[];
 
   @OneToOne(() => OrderDeliveryModel, { cascade: true, eager: true })

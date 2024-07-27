@@ -6,7 +6,7 @@ import {
 } from './inventory.usecase.interface';
 import { InventoryRepository } from '@inventoryDomain/inventory.repository';
 import { InventoryValue } from '@inventoryDomain/Inventory.value';
-import { InventoryModel } from '@models/inventory.model';
+import { InventoryModel } from '@models/inventory/inventory.model';
 
 export class InventoryUseCase implements IInventoryUseCase {
   constructor(private readonly inventoryRepository: InventoryRepository) {}

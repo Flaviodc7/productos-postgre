@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { InventoryRepository } from '@inventoryDomain/inventory.repository';
 import { InventoryEntity } from '@inventoryDomain/entities/inventory.entity';
-import { InventoryModel } from '@models/inventory.model';
+import { InventoryModel } from '@models/inventory/inventory.model';
 
 @Injectable()
 export class InventoryPostgreRepository implements InventoryRepository {

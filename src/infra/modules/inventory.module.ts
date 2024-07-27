@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { InventoryPostgreRepository } from '@repository/inventory.repository';
 import { InventoryUseCase } from '@inventoryApplication/inventory.usecase';
 import { InventoryController } from '@controllers/inventory.controller';
-import { InventoryModel } from '@models/inventory.model';
+import { InventoryModel } from '@models/inventory/inventory.model';
 
 @Module({
   imports: [TypeOrmModule.forFeature([InventoryModel])],

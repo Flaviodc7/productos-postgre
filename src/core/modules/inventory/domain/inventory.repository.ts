@@ -1,5 +1,5 @@
 import { InventoryEntity } from './entities/inventory.entity';
-import { InventoryModel } from '@models/inventory.model';
+import { InventoryModel } from '@models/inventory/inventory.model';
 
 export interface InventoryRepository {
   create: (data: InventoryEntity) => Promise<InventoryModel>;

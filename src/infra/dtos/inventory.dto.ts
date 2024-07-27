@@ -4,37 +4,77 @@ import {
   IsOptional,
   IsArray,
   ArrayNotEmpty,
+  ValidateNested,
+  Min,
+  IsNumber,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
 
-export class CreateInventoryDTO {
-  @ApiProperty({ description: 'Inventory name' })
+export class AuditStatusDTO {
+  @ApiProperty({ description: 'Inventory Audit New Status' })
+  @IsString()
+  @IsNotEmpty()
+  readonly newStatus: string;
+
+  @ApiPropertyOptional({ description: 'Inventory Audit Previous Status' })
+  @IsString()
+  @IsOptional()
+  readonly previousStatus?: string;
+
+  @ApiProperty({ description: 'Inventory Audit Responsible' })
+  @IsNumber()
+  @Min(1)
+  readonly responsible: string;
+}
+
+export class InventoryProductDTO {
+  @ApiProperty({ description: 'Inventory Product SKU' })
+  @IsString()
+  @IsNotEmpty()
+  readonly sku: string;
+
+  @ApiProperty({ description: 'Inventory Product name' })
   @IsString()
   @IsNotEmpty()
   readonly name: string;
-  @ApiProperty({ description: 'Inventory description' })
-  @IsString()
-  @IsNotEmpty()
-  readonly description: string;
+
+  @ApiProperty({ description: 'Inventory Product quantity' })
+  @IsNumber()
+  @Min(1)
+  readonly quantity: number;
 }
 
-export class UpdateInventoryDTO {
+export class CreateInventoryDTO {
+  @ApiProperty({ description: 'Inventory Products' })
+  @ValidateNested({ each: true })
+  @Type(() => InventoryProductDTO)
+  @IsArray()
+  readonly inventoryProducts: InventoryProductDTO[];
+}
+
+export class UpdateInventoryDTO extends CreateInventoryDTO {
   @ApiProperty({ description: 'Inventory ID' })
   @IsString()
   @IsNotEmpty()
   readonly id: string;
-  @ApiPropertyOptional({ description: 'Inventory name' })
-  @IsString()
-  @IsNotEmpty()
-  readonly name: string;
-  @ApiPropertyOptional({ description: 'Inventory Creation Date' })
+
+  @ApiProperty({ description: 'Inventory Audit Status' })
+  @ValidateNested({ each: true })
+  @Type(() => AuditStatusDTO)
+  @IsArray()
+  readonly auditStatus: AuditStatusDTO[];
+
+  @ApiProperty({ description: 'Inventory Creation Date' })
   @IsString()
   @IsNotEmpty()
   readonly createdAt: string;
-  @ApiPropertyOptional({ description: 'Inventory description' })
-  @IsOptional()
+
+  @ApiProperty({ description: 'Inventory Current Status' })
   @IsString()
-  readonly description: string;
+  @IsNotEmpty()
+  readonly currentStatus: InventoryStatus;
 }
 
 export class FindInventoriesDTO {

@@ -1,5 +1,9 @@
-import { InventoryProducts, InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
-import { InventoryModel } from '@models/inventory.model';
+import {
+  AuditStatus,
+  InventoryProducts,
+  InventoryStatus,
+} from '@inventoryDomain/entities/inventory.entity';
+import { InventoryModel } from '@models/inventory/inventory.model';
 
 export interface IInventoryUseCase {
   create: (payload: CreateInventoryPayload) => Promise<InventoryModel>;
@@ -16,6 +20,7 @@ export interface CreateInventoryPayload {
 
 export interface UpdateInventoryPayload extends CreateInventoryPayload {
   id: string;
+  auditStatus: AuditStatus[];
   createdAt: string;
-  status: InventoryStatus;
+  currentStatus: InventoryStatus;
 }

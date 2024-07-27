@@ -1,8 +1,16 @@
 export interface InventoryEntity {
   id: string;
   createdAt: string;
+  auditStatus: AuditStatus[];
   inventoryProducts: InventoryProducts[];
-  status: InventoryStatus;
+  currentStatus: InventoryStatus;
+}
+
+export interface AuditStatus {
+  newStatus: string;
+  previousStatus?: string;
+  responsible: string;
+  updateDate: string;
 }
 
 export interface InventoryProducts {
@@ -11,7 +19,4 @@ export interface InventoryProducts {
   quantity: number;
 }
 
-export type InventoryStatus =
-  | 'PENDING'
-  | 'APPROVED'
-  | 'REJECTED';
+export type InventoryStatus = 'PENDING' | 'APPROVED' | 'REJECTED';

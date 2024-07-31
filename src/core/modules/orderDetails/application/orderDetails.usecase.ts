@@ -38,13 +38,21 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   async update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsModel> {
     const { id } = payload;
 
-    const orderDetails = (await this.findOneById(id)) as OrderDetailsModel;
+    const orderDetails = await this.findOneById(id);
 
     if (!orderDetails) {
       throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
-    return await this.orderDetailsRepository.update(orderDetails, payload);
+    const updatedOrderDetailsValue = new OrderDetailsValue().update(
+      orderDetails,
+      payload,
+    );
+
+    return await this.orderDetailsRepository.update(
+      orderDetails,
+      updatedOrderDetailsValue,
+    );
   }
 
   async delete(id: string) {

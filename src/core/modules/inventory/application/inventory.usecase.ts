@@ -52,7 +52,7 @@ export class InventoryUseCase implements IInventoryUseCase {
       await this.productUsecase.updateStockInventory(inventoryProducts);
     }
 
-    const inventoryValue = new InventoryValue().update(payload);
+    const inventoryValue = new InventoryValue().update(inventory, payload);
 
     return await this.inventoryRepository.update(inventory, inventoryValue);
   }

@@ -1,9 +1,9 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { OrderDetailsModel } from './orderDetails.model';
 
 @Entity()
 export class OrderAuditModel {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 
   @Column({ type: 'varchar', length: 255 })

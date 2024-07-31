@@ -1,5 +1,4 @@
 import {
-  AuditStatus,
   InventoryProducts,
   InventoryStatus,
 } from '@inventoryDomain/entities/inventory.entity';
@@ -20,7 +19,6 @@ export interface CreateInventoryPayload {
 
 export interface UpdateInventoryPayload extends CreateInventoryPayload {
   id: string;
-  auditStatus: AuditStatus[];
   createdAt: string;
   currentStatus: InventoryStatus;
 }

@@ -7,6 +7,7 @@ export interface InventoryEntity {
 }
 
 export interface AuditStatus {
+  id: string;
   newStatus: string;
   previousStatus?: string;
   responsible: string;

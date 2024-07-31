@@ -34,7 +34,7 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     }
 
     if (productIds) {
-      const products = await this.productsUsecase.findByIds(productIds);
+      const products = await this.productsUsecase.findBySkus(productIds);
 
       subcategoryFormatted.products = products;
     }
@@ -77,7 +77,9 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     }
 
     if (payload.productIds) {
-      const products = await this.productsUsecase.findByIds(payload.productIds);
+      const products = await this.productsUsecase.findBySkus(
+        payload.productIds,
+      );
 
       updatedSubcategory.products = products;
     }

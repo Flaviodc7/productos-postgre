@@ -12,7 +12,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { MethodType, PaymentStatus } from '../utils/enum.types';
 
-class OrderDeliveryDto {
+class OrderDeliveryDTO {
   @IsString()
   address: string;
 
@@ -29,7 +29,7 @@ class OrderDeliveryDto {
   country: string;
 }
 
-class PaymentDetailsDto {
+class OrderPaymentDTO {
   @IsEnum(MethodType)
   method: MethodType;
 
@@ -37,7 +37,7 @@ class PaymentDetailsDto {
   paymentStatus: PaymentStatus;
 }
 
-class ProductOrderDto {
+class OrderProductDTO {
   @IsString()
   sku: string;
 
@@ -59,18 +59,18 @@ export class UpdateOrderDetailsDTO {
   orderId: string;
 
   @ValidateNested()
-  @Type(() => PaymentDetailsDto)
-  payment: PaymentDetailsDto;
+  @Type(() => OrderPaymentDTO)
+  payment: OrderPaymentDTO;
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ProductOrderDto)
-  products: ProductOrderDto[];
+  @Type(() => OrderProductDTO)
+  products: OrderProductDTO[];
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => OrderDeliveryDto)
-  delivery?: OrderDeliveryDto;
+  @Type(() => OrderDeliveryDTO)
+  delivery?: OrderDeliveryDTO;
 }
 
 export class FindOrderDetailsIdsDTO {

@@ -78,7 +78,7 @@ export class OrderDetailsDTO {
   @ApiProperty({ description: 'Payment details' })
   @ValidateNested()
   @Type(() => PaymentDetailsDTO)
-  readonly paymentDetails: PaymentDetailsDTO;
+  readonly payment: PaymentDetailsDTO;
 
   @ApiProperty({
     description: 'Products in the order',
@@ -87,7 +87,7 @@ export class OrderDetailsDTO {
   @ValidateNested({ each: true })
   @Type(() => ProductOrderDTO)
   @IsArray()
-  readonly productsOrder: ProductOrderDTO[];
+  readonly products: ProductOrderDTO[];
 
   @ApiPropertyOptional({ description: 'Delivery details' })
   @ValidateNested()

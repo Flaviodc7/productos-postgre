@@ -4,6 +4,7 @@ import {
   UpdateInventoryPayload,
 } from '@inventoryApplication/inventory.usecase.interface';
 import { InventoryEntity } from './entities/inventory.entity';
+import { InventoryModel } from '@models/inventory/inventory.model';
 
 export class InventoryValue {
   public create = (
@@ -14,6 +15,7 @@ export class InventoryValue {
     return {
       auditStatus: [
         {
+          id: uuid(),
           newStatus: createdStatus,
           responsible: 'Admin', // TODO: responsible extracted from authentication user
           updateDate: new Date().toISOString(),
@@ -27,20 +29,20 @@ export class InventoryValue {
   };
 
   public update = (
+    inventoryModel: InventoryModel,
     inventoryPayload: UpdateInventoryPayload,
   ): InventoryEntity => {
-    const lastItemAuditStatus = inventoryPayload.auditStatus.length - 1;
+    const lastItemAuditStatus = inventoryModel.auditStatus.length - 1;
 
-    const updatedAuditStatus = [
-      ...inventoryPayload.auditStatus,
-      {
-        newStatus: inventoryPayload.currentStatus,
-        previousStatus:
-          inventoryPayload.auditStatus[lastItemAuditStatus].newStatus,
-        responsible: 'Admin', // TODO: responsible extracted from authentication user
-        updateDate: new Date().toISOString(),
-      },
-    ];
+    const newAuditStatus = {
+      id: uuid(),
+      newStatus: inventoryPayload.currentStatus,
+      previousStatus: inventoryModel.auditStatus[lastItemAuditStatus].newStatus,
+      responsible: 'Admin', // TODO: responsible extracted from authentication user
+      updateDate: new Date().toISOString(),
+    };
+
+    const updatedAuditStatus = [...inventoryModel.auditStatus, newAuditStatus];
 
     return {
       ...inventoryPayload,

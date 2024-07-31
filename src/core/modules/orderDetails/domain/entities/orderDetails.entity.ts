@@ -5,8 +5,8 @@ import { OrderProductEntity } from './orderProduct.entity';
 
 export interface OrderDetailsEntity {
   id: string;
-  audit: OrderAuditEntity[];
   orderId: string;
+  audit: OrderAuditEntity[];
   payment: OrderPaymentEntity;
   products: OrderProductEntity[];
   delivery?: OrderDeliveryEntity;

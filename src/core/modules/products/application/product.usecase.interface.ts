@@ -7,6 +7,9 @@ export interface IProductUseCase {
   findAll(): Promise<ProductModel[]>;
   update(payload: UpdateProductPayload): Promise<ProductModel>;
   updateStockOrder(sku: string, quantity: number): Promise<ProductModel>;
+  updateStockInventory: (
+    productsInventory: UpdateProductsInventoryPayload[],
+  ) => Promise<ProductModel[]>;
   delete(id: string): Promise<any>;
 }
 
@@ -22,3 +25,9 @@ export interface CreateProductPayload {
 }
 
 export interface UpdateProductPayload extends CreateProductPayload {}
+
+export interface UpdateProductsInventoryPayload {
+  sku: string;
+  name: string;
+  quantity: number;
+}

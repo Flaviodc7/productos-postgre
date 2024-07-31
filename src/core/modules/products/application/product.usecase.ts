@@ -8,6 +8,7 @@ import {
   CreateProductPayload,
   IProductUseCase,
   UpdateProductPayload,
+  UpdateProductsInventoryPayload,
 } from './product.usecase.interface';
 import { SubcategoryUseCase } from '../../subcategories/application/subcategories.usecase';
 import { ProductRepository } from '@productDomain/product.repository';
@@ -93,7 +94,27 @@ export class ProductUseCase implements IProductUseCase {
       );
     }
 
-    return await this.productRepository.updateStockOrder(product);
+    return await this.productRepository.updateStock(product);
+  }
+
+  async updateStockInventory(
+    productsInventory: UpdateProductsInventoryPayload[],
+  ): Promise<ProductModel[]> {
+    const updatedProducts: ProductModel[] = [];
+
+    for (const productDetail of productsInventory) {
+      const { sku, quantity } = productDetail;
+      const product = await this.findOneBySku(sku);
+
+      if (!product) {
+        throw new NotFoundException(`Product #${sku} not found`);
+      }
+      product.stock += quantity;
+      await this.productRepository.updateStock(product);
+      updatedProducts.push(product);
+    }
+
+    return updatedProducts;
   }
 
   async delete(sku: string): Promise<any> {

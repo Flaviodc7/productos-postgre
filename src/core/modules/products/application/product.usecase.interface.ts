@@ -2,7 +2,7 @@ import { ProductModel } from '@models/product.model';
 
 export interface IProductUseCase {
   create: (payload: CreateProductPayload) => Promise<ProductModel>;
-  findOneBySku(id: string): Promise<ProductModel>;
+  findOneBySku(sku: string): Promise<ProductModel>;
   findBySkus(ids: string[]): Promise<ProductModel[]>;
   findAll(): Promise<ProductModel[]>;
   update(payload: UpdateProductPayload): Promise<ProductModel>;
@@ -10,7 +10,7 @@ export interface IProductUseCase {
   updateStockInventory: (
     productsInventory: UpdateProductsInventoryPayload[],
   ) => Promise<ProductModel[]>;
-  delete(id: string): Promise<any>;
+  delete(sku: string): Promise<any>;
 }
 
 export interface CreateProductPayload {

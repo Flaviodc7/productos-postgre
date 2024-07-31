@@ -32,7 +32,7 @@ export class SubcategoryModel {
     },
     inverseJoinColumn: {
       name: 'product_id',
-      referencedColumnName: 'id',
+      referencedColumnName: 'sku',
     },
   })
   products?: ProductModel[];

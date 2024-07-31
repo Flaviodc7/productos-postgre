@@ -11,12 +11,10 @@ import { OrderModel } from '@models/order.model';
   providers: [
     OrderPostgreRepository,
     {
-      provide: OrderUseCase,
-      useFactory: (orderRepo: OrderPostgreRepository) => {
-        return new OrderUseCase(orderRepo);
-      },
-      inject: [OrderPostgreRepository],
+      provide: 'OrderRepository',
+      useClass: OrderPostgreRepository,
     },
+    OrderUseCase,
   ],
   exports: [OrderUseCase],
 })

@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { InventoryModel } from './inventory.model';
 
 @Entity()
-export class AuditStatusModel {
+export class InventoryAuditModel {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

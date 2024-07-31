@@ -1,6 +1,6 @@
 import { InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { AuditStatusModel } from './inventoryAudit.model';
+import { InventoryAuditModel } from './inventoryAudit.model';
 import { InventoryProductsModel } from './inventoryProducts.model';
 
 @Entity()
@@ -11,10 +11,14 @@ export class InventoryModel {
   @Column({ type: 'varchar' })
   createdAt: string;
 
-  @OneToMany(() => AuditStatusModel, (auditStatus) => auditStatus.inventory, {
-    cascade: true,
-  })
-  auditStatus: AuditStatusModel[];
+  @OneToMany(
+    () => InventoryAuditModel,
+    (auditStatus) => auditStatus.inventory,
+    {
+      cascade: true,
+    },
+  )
+  auditStatus: InventoryAuditModel[];
 
   @OneToMany(
     () => InventoryProductsModel,

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { v4 as uuid } from 'uuid';
 import { S3 } from 'aws-sdk';
@@ -6,7 +6,9 @@ import config from '@src/config';
 
 @Injectable()
 export class FilesService {
-  constructor(private configService: ConfigType<typeof config>) {}
+  constructor(
+    @Inject(config.KEY) private configService: ConfigType<typeof config>
+  ) {}
 
   async uploadPublicFile(dataBuffer: Buffer, filename: string, bucket: string) {
     const { accessKeyId, region, secretAccessKey } =

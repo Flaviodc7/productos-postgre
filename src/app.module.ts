@@ -4,6 +4,7 @@ import { OrderDetailsModule } from '@modules/orderDetails.module';
 import { SubcategoryModule } from '@modules/subcategories.module';
 import { InventoryModule } from '@modules/inventory.module';
 import { CategoryModule } from '@modules/categories.module';
+import { CustomerModule } from '@modules/customer.module';
 import { ProductModule } from '@modules/products.module';
 import { DatabaseModule } from '@db/database.module';
 import { OrderModule } from '@modules/order.module';
@@ -21,6 +22,7 @@ import config from '@src/config';
     }),
     DatabaseModule,
     CategoryModule,
+    CustomerModule,
     FilesModule,
     InventoryModule,
     OrderModule,

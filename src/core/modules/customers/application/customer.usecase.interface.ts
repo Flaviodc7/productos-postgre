@@ -17,7 +17,7 @@ export interface CreateCustomerPayload {
   postalCode: string;
   state: string;
   country: string;
-  mail: string;
+  email: string;
   phone: string;
 }
 

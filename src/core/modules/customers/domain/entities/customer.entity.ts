@@ -7,6 +7,6 @@ export interface CustomerEntity {
   postalCode: string;
   state: string;
   country: string;
-  mail: string;
+  email: string;
   phone: string;
 }

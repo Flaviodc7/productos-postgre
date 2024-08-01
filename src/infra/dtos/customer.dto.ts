@@ -17,40 +17,40 @@ export class CreateCustomerDTO {
   @IsNotEmpty()
   readonly surname: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer address' })
   @IsString()
   @IsNotEmpty()
   readonly address: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer city' })
   @IsString()
   @IsNotEmpty()
   readonly city: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer Postal Code' })
   @IsString()
   @IsNotEmpty()
   readonly postalCode: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer State' })
   @IsString()
   @IsNotEmpty()
   readonly state: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer Country' })
   @IsString()
   @IsNotEmpty()
   readonly country: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer email' })
   @IsString()
   @IsNotEmpty()
-  readonly mail: string;
+  readonly email: string;
 
-  @ApiProperty({ description: 'Customer surname' })
+  @ApiProperty({ description: 'Customer phone' })
   @IsString()
   @IsNotEmpty()
-  readonly telephone: string;
+  readonly phone: string;
 }
 
 export class UpdateCustomerDTO extends CreateCustomerDTO {}

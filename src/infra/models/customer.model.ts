@@ -27,7 +27,7 @@ export class CustomerModel {
   country: string;
 
   @Column({ type: 'varchar', length: 255 })
-  mail: string;
+  email: string;
 
   @Column({ type: 'varchar', length: 255 })
   phone: string;

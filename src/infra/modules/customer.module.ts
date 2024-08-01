@@ -1,23 +1,23 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { CategoryPostgreRepository } from '@repository/categories.repository';
-import { CategoryUseCase } from '@categoriesApplication/categories.usecase';
-import { CategoryController } from '@controllers/categories.controller';
-import { CategoryModel } from '@models/categories.model';
+import { CustomerController } from '@controllers/customer.controller';
+import { CustomerPostgreRepository } from '@repository/customer.repository';
+import { CustomerUseCase } from '@customersApplication/customer.usecase';
+import { CustomerModel } from '@models/customer.model';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CategoryModel])],
-  controllers: [CategoryController],
+  imports: [TypeOrmModule.forFeature([CustomerModel])],
+  controllers: [CustomerController],
   providers: [
-    CategoryPostgreRepository,
+    CustomerPostgreRepository,
     {
-      provide: CategoryUseCase,
-      useFactory: (categoryRepo: CategoryPostgreRepository) => {
-        return new CategoryUseCase(categoryRepo);
+      provide: CustomerUseCase,
+      useFactory: (customerRepo: CustomerPostgreRepository) => {
+        return new CustomerUseCase(customerRepo);
       },
-      inject: [CategoryPostgreRepository],
+      inject: [CustomerPostgreRepository],
     },
   ],
-  exports: [CategoryUseCase],
+  exports: [CustomerUseCase],
 })
 export class CustomerModule {}

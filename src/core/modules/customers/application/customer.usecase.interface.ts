@@ -9,6 +9,7 @@ export interface ICustomerUseCase {
 }
 
 export interface CreateCustomerPayload {
+  id: string;
   name: string;
   surname: string;
   address: string;
@@ -17,9 +18,7 @@ export interface CreateCustomerPayload {
   state: string;
   country: string;
   mail: string;
-  telephone: string;
+  phone: string;
 }
 
-export interface UpdateCustomerPayload extends CreateCustomerPayload {
-  id: string;
-}
+export interface UpdateCustomerPayload extends CreateCustomerPayload {}

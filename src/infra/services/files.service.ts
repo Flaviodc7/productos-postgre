@@ -7,7 +7,7 @@ import config from '@src/config';
 @Injectable()
 export class FilesService {
   constructor(
-    @Inject(config.KEY) private configService: ConfigType<typeof config>
+    @Inject(config.KEY) private configService: ConfigType<typeof config>,
   ) {}
 
   async uploadPublicFile(dataBuffer: Buffer, filename: string, bucket: string) {

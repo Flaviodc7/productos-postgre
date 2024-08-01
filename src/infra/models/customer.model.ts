@@ -30,5 +30,5 @@ export class CustomerModel {
   mail: string;
 
   @Column({ type: 'varchar', length: 255 })
-  telephone: string;
+  phone: string;
 }

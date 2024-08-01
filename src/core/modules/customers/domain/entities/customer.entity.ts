@@ -8,5 +8,5 @@ export interface CustomerEntity {
   state: string;
   country: string;
   mail: string;
-  telephone: string;
+  phone: string;
 }

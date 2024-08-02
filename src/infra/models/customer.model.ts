@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { OrderModel } from './order.model';
 
 @Entity()
 export class CustomerModel {
@@ -31,4 +32,7 @@ export class CustomerModel {
 
   @Column({ type: 'varchar', length: 255 })
   phone: string;
+
+  @OneToMany(() => OrderModel, (order) => order.customer)
+  orders: OrderModel[];
 }

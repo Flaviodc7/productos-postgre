@@ -1,5 +1,7 @@
-import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import { OrderStatus } from '@orderDomain/entities/orderStatus.entity';
 import { OrderDetailsModel } from './orderDetails/orderDetails.model';
+import { CustomerModel } from './customer.model';
 
 @Entity()
 export class OrderModel {
@@ -7,11 +9,14 @@ export class OrderModel {
   id: string;
 
   @Column({ type: 'text' })
-  name: string;
+  createdAt: string;
 
   @Column({ type: 'text' })
-  description: string;
+  status: OrderStatus;
 
   @OneToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.order)
-  orderDetails: OrderDetailsModel[];
+  orderDetails: OrderDetailsModel;
+
+  @ManyToOne(() => CustomerModel, (customer) => customer.orders)
+  customer: CustomerModel;
 }

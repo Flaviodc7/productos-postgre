@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import { In, Repository } from 'typeorm';
+import { CustomerEntity } from '@customersDomain/entities/customer.entity';
 import { OrderRepository } from '@orderDomain/order.repository';
 import { OrderEntity } from '@orderDomain/entities/order.entity';
 import { OrderModel } from '@models/order.model';
@@ -28,8 +29,16 @@ export class OrderPostgreRepository implements OrderRepository {
     });
   }
 
-  async create(payload: OrderEntity): Promise<OrderModel> {
-    const newOrder = this.orderRepository.create(payload);
+  async create(
+    payload: OrderEntity,
+    customer: CustomerEntity,
+  ): Promise<OrderModel> {
+    const order = {
+      ...payload,
+      customer: customer,
+    };
+
+    const newOrder = this.orderRepository.create(order);
 
     return await this.orderRepository.save(newOrder);
   }

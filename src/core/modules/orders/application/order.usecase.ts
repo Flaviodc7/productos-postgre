@@ -5,6 +5,8 @@ import {
   UpdateOrderPayload,
 } from './order.usecase.interface';
 import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.usecase';
+import { CustomerEntity } from '@customersDomain/entities/customer.entity';
+import { CustomerUseCase } from '@customersApplication/customer.usecase';
 import { OrderRepository } from '@orderDomain/order.repository';
 import { OrderValue } from '@orderDomain/order.value';
 import { OrderModel } from '@models/order.model';
@@ -13,15 +15,25 @@ export class OrderUseCase implements IOrderUseCase {
   constructor(
     private readonly orderRepository: OrderRepository,
     private readonly orderDetailsUseCase: OrderDetailsUseCase,
+    private readonly customerUseCase: CustomerUseCase,
   ) {}
 
   async create(payload: CreateOrderPayload): Promise<OrderModel> {
-    const { details } = payload;
-    const orderDetailsValue = await this.orderDetailsUseCase.create(details);
+    const { details, customerId } = payload;
 
-    const orderValue = new OrderValue().create(payload, orderDetailsValue.id);
+    const customer = (await this.customerUseCase.findOneById(
+      customerId,
+    )) as CustomerEntity;
 
-    return await this.orderRepository.create(orderValue);
+    if (!customer) {
+      throw new NotFoundException(`Customer #${customerId} not found`);
+    }
+
+    const orderDetails = await this.orderDetailsUseCase.create(details);
+
+    const orderValue = new OrderValue().create(payload, orderDetails.id);
+
+    return await this.orderRepository.create(orderValue, customer);
   }
 
   async findOneById(id: string): Promise<OrderModel> {

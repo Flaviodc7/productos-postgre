@@ -15,13 +15,13 @@ export class ProductModel {
   @Column({ type: 'int' })
   stock: number;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', default: '' })
   description?: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', default: '' })
   photoUrl?: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', default: '' })
   ean?: string;
 
   @ManyToMany(() => SubcategoryModel, (subcategory) => subcategory.products)

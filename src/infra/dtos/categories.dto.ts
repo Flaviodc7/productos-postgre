@@ -12,10 +12,10 @@ export class CreateCategoryDTO {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
-  @ApiProperty({ description: 'Category description' })
+  @ApiPropertyOptional({ description: 'Category description' })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  readonly description: string;
+  readonly description?: string;
 }
 
 export class UpdateCategoryDTO {
@@ -30,7 +30,7 @@ export class UpdateCategoryDTO {
   @ApiPropertyOptional({ description: 'Category description' })
   @IsOptional()
   @IsString()
-  readonly description: string;
+  readonly description?: string;
 }
 
 export class FindCategoriesDTO {

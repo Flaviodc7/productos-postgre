@@ -1,5 +1,5 @@
 export interface CategoryEntity {
   id: string;
   name: string;
-  description: string;
+  description?: string;
 }

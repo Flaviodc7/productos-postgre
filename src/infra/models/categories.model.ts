@@ -10,8 +10,8 @@ export class CategoryModel implements CategoryEntity {
   @Column({ type: 'text' })
   name: string;
 
-  @Column({ type: 'text' })
-  description: string;
+  @Column({ type: 'text', default: '' })
+  description?: string;
 
   @OneToMany(() => SubcategoryModel, (subcategory) => subcategory.category)
   subcategories: SubcategoryModel[];

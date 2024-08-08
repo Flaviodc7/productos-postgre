@@ -11,7 +11,7 @@ export interface ICategoriesUseCase {
 
 export interface CreateCategoriesPayload {
   name: string;
-  description: string;
+  description?: string;
 }
 
 export interface UpdateCategoriesPayload extends CreateCategoriesPayload {

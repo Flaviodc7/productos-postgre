@@ -13,8 +13,8 @@ export class CreateSubcategoryDTO {
   @IsNotEmpty()
   readonly name: string;
   @ApiProperty({ description: 'Subcategory description' })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   readonly description: string;
   @ApiProperty({ description: 'Subcategory relation with a category' })
   @IsString()
@@ -33,7 +33,7 @@ export class UpdateSubcategoryDTO {
   @IsString()
   @IsNotEmpty()
   readonly id: string;
-  @ApiPropertyOptional({ description: 'Subcategory name' })
+  @ApiProperty({ description: 'Subcategory name' })
   @IsString()
   @IsNotEmpty()
   readonly name: string;

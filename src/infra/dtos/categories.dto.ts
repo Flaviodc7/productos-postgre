@@ -15,7 +15,7 @@ export class CreateCategoryDTO {
   @ApiPropertyOptional({ description: 'Category description' })
   @IsOptional()
   @IsString()
-  readonly description?: string;
+  readonly description: string;
 }
 
 export class UpdateCategoryDTO {
@@ -30,7 +30,7 @@ export class UpdateCategoryDTO {
   @ApiPropertyOptional({ description: 'Category description' })
   @IsOptional()
   @IsString()
-  readonly description?: string;
+  readonly description: string;
 }
 
 export class FindCategoriesDTO {

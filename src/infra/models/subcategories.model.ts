@@ -17,8 +17,8 @@ export class SubcategoryModel {
   @Column({ type: 'text' })
   name: string;
 
-  @Column({ type: 'text' })
-  description: string;
+  @Column({ type: 'text', default: ''  })
+  description?: string;
 
   @ManyToOne(() => CategoryModel, (category) => category.subcategories)
   category: CategoryModel;

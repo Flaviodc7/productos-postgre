@@ -88,6 +88,12 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
   }
 
   async delete(id: string): Promise<any> {
-    return await this.subcategoryRepository.delete(id);
+    const result = await this.subcategoryRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    return result;
   }
 }

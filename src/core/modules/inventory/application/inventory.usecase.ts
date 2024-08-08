@@ -58,6 +58,12 @@ export class InventoryUseCase implements IInventoryUseCase {
   }
 
   async delete(id: string) {
-    return await this.inventoryRepository.delete(id);
+    const result = await this.inventoryRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    return result;
   }
 }

@@ -48,6 +48,12 @@ export class CategoryUseCase implements ICategoriesUseCase {
   }
 
   async delete(id: string) {
-    return await this.categoryRepository.delete(id);
+    const result = await this.categoryRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    return result;
   }
 }

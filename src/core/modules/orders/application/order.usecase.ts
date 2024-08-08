@@ -67,6 +67,12 @@ export class OrderUseCase implements IOrderUseCase {
   }
 
   async delete(id: string) {
-    return await this.orderRepository.delete(id);
+    const result = await this.orderRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    return result;
   }
 }

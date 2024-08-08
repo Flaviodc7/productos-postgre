@@ -118,6 +118,12 @@ export class ProductUseCase implements IProductUseCase {
   }
 
   async delete(sku: string): Promise<any> {
-    return await this.productRepository.delete(sku);
+    const result = await this.productRepository.delete(sku);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product #${sku} not found`);
+    }
+
+    return result;
   }
 }

@@ -44,6 +44,12 @@ export class CustomerUseCase implements ICustomerUseCase {
   }
 
   async delete(id: string) {
-    return await this.customerRepository.delete(id);
+    const result = await this.customerRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+
+    return result;
   }
 }

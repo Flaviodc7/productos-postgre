@@ -18,6 +18,8 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   async create(payload: CreateOrderDetailsPayload): Promise<OrderDetailsModel> {
     const orderDetailsValue = new OrderDetailsValue().create(payload);
 
+    await this.productsUseCase.updateStockOrder(payload.products);
+
     return await this.orderDetailsRepository.create(orderDetailsValue);
   }
 

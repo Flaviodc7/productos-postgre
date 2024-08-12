@@ -9,6 +9,7 @@ import {
   IProductUseCase,
   UpdateProductPayload,
   UpdateProductsInventoryPayload,
+  UpdateProductsOrderPayload,
 } from './product.usecase.interface';
 import { SubcategoryUseCase } from '../../subcategories/application/subcategories.usecase';
 import { ProductRepository } from '@productDomain/product.repository';
@@ -49,8 +50,17 @@ export class ProductUseCase implements IProductUseCase {
   async findBySkus(skus: string[]): Promise<ProductModel[]> {
     const products = await this.productRepository.findBySkus(skus);
 
-    if (!products) {
+    if (!products || products.length === 0) {
       throw new NotFoundException(`Products not found`);
+    }
+
+    const foundProducts = products.map((product) => product.sku);
+    const missingProducts = skus.filter((sku) => !foundProducts.includes(sku));
+
+    if (missingProducts.length > 0) {
+      throw new BadRequestException(
+        `Products not found for SKUs: ${missingProducts.join(', ')}`,
+      );
     }
 
     return products;
@@ -79,22 +89,34 @@ export class ProductUseCase implements IProductUseCase {
     return await this.productRepository.update(product, payload);
   }
 
-  async updateStockOrder(sku: string, quantity: number): Promise<ProductModel> {
-    const product = await this.findOneBySku(sku);
+  async updateStockOrder(
+    productsOrder: UpdateProductsOrderPayload[],
+  ): Promise<ProductModel[]> {
+    const updatedProducts: ProductModel[] = [];
 
-    if (!product) {
-      throw new NotFoundException(`Product #${sku} not found`);
-    }
+    for (const productDetail of productsOrder) {
+      const { sku, quantity } = productDetail;
+      const product = await this.findOneBySku(sku);
 
-    if (product.stock > quantity) {
+      if (!product) {
+        throw new NotFoundException(`Product #${sku} not found`);
+      }
       product.stock -= quantity;
-    } else {
-      throw new BadRequestException(
-        'Product has not enough stock for this operation',
-      );
+
+      if (product.stock < 0) {
+        throw new BadRequestException(`Product #${sku} has not enough stock`);
+      }
+
+      updatedProducts.push(product);
     }
 
-    return await this.productRepository.updateStock(product);
+    for (const productUpdated of updatedProducts) {
+      const { sku } = productUpdated;
+      const product = await this.findOneBySku(sku);
+      await this.productRepository.updateStock(product);
+    }
+
+    return updatedProducts;
   }
 
   async updateStockInventory(
@@ -110,8 +132,13 @@ export class ProductUseCase implements IProductUseCase {
         throw new NotFoundException(`Product #${sku} not found`);
       }
       product.stock += quantity;
-      await this.productRepository.updateStock(product);
       updatedProducts.push(product);
+    }
+
+    for (const productUpdated of updatedProducts) {
+      const { sku } = productUpdated;
+      const product = await this.findOneBySku(sku);
+      await this.productRepository.updateStock(product);
     }
 
     return updatedProducts;

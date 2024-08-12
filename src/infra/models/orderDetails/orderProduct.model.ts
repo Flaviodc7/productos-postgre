@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { OrderDetailsModel } from './orderDetails.model';
+import { OrderProductEntity } from '@orderDetailsDomain/entities/orderProduct.entity';
 
 @Entity()
-export class OrderProductModel {
+export class OrderProductModel implements OrderProductEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

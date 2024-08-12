@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 import { SubcategoryModel } from './subcategories.model';
+import { ProductEntity } from '@productDomain/entities/product.entity';
 
 @Entity()
-export class ProductModel {
+export class ProductModel implements ProductEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   sku: string;
 

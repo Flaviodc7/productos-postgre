@@ -1,8 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { OrderModel } from './order.model';
+import { CustomerEntity } from '@customersDomain/entities/customer.entity';
 
 @Entity()
-export class CustomerModel {
+export class CustomerModel implements CustomerEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

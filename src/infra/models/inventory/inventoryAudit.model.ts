@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { InventoryModel } from './inventory.model';
+import { InventoryAuditStatusEntity } from '@inventoryDomain/entities/inventoryAudit.entity';
 
 @Entity()
-export class InventoryAuditModel {
+export class InventoryAuditModel implements InventoryAuditStatusEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

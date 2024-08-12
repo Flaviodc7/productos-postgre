@@ -11,9 +11,10 @@ import { OrderPaymentModel } from './orderPayment.model';
 import { OrderProductModel } from './orderProduct.model';
 import { OrderAuditModel } from './orderAudit.model';
 import { OrderModel } from '../order.model';
+import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
 
 @Entity()
-export class OrderDetailsModel {
+export class OrderDetailsModel implements OrderDetailsEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

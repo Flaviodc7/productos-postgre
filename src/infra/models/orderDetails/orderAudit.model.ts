@@ -1,8 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { OrderDetailsModel } from './orderDetails.model';
+import { OrderAuditEntity } from '@orderDetailsDomain/entities/orderAudit.entity';
 
 @Entity()
-export class OrderAuditModel {
+export class OrderAuditModel implements OrderAuditEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

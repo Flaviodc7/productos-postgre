@@ -14,5 +14,5 @@ export class CategoryModel implements CategoryEntity {
   description?: string;
 
   @OneToMany(() => SubcategoryModel, (subcategory) => subcategory.category)
-  subcategories: SubcategoryModel[];
+  subcategories?: SubcategoryModel[];
 }

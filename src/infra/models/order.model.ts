@@ -2,9 +2,10 @@ import { Column, Entity, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
 import { OrderStatus } from '@orderDomain/entities/orderStatus.entity';
 import { OrderDetailsModel } from './orderDetails/orderDetails.model';
 import { CustomerModel } from './customer.model';
+import { OrderEntity } from '@orderDomain/entities/order.entity';
 
 @Entity()
-export class OrderModel {
+export class OrderModel implements OrderEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 

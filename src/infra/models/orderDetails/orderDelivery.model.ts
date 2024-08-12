@@ -1,7 +1,8 @@
+import { OrderDeliveryEntity } from '@orderDetailsDomain/entities/orderDelivery.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class OrderDeliveryModel {
+export class OrderDeliveryModel implements OrderDeliveryEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

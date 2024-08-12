@@ -6,5 +6,5 @@ export interface SubcategoryEntity {
   name: string;
   description?: string;
   category: CategoryEntity;
-  productIds?: ProductEntity[];
+  products?: ProductEntity[];
 }

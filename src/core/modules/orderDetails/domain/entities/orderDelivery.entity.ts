@@ -1,4 +1,5 @@
 export interface OrderDeliveryEntity {
+  id: string;
   address: string;
   city: string;
   postalCode: string;

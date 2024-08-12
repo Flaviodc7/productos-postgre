@@ -1,3 +1,5 @@
+import { OrderEntity } from "@orderDomain/entities/order.entity";
+
 export interface CustomerEntity {
   id: string;
   name: string;
@@ -9,4 +11,5 @@ export interface CustomerEntity {
   country: string;
   email: string;
   phone: string;
+  orders: OrderEntity[];
 }

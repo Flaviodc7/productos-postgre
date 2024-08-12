@@ -1,3 +1,5 @@
+import { SubcategoryEntity } from "@src/core/modules/subcategories/domain/entities/subcategory.entity";
+
 export interface ProductEntity {
   sku: string;
   name: string;
@@ -6,5 +8,5 @@ export interface ProductEntity {
   description?: string;
   photoUrl?: string;
   ean?: string;
-  subcategoryIds?: string[];
+  subcategories?: SubcategoryEntity[];
 }

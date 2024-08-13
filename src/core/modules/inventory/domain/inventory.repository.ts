@@ -1,14 +1,13 @@
 import { InventoryEntity } from './entities/inventory.entity';
-import { InventoryModel } from '@models/inventory/inventory.model';
 
 export interface InventoryRepository {
-  create: (data: InventoryEntity) => Promise<InventoryModel>;
-  findOneById(id: string): Promise<InventoryModel>;
-  findByIds(ids: string[]): Promise<InventoryModel[]>;
-  findAll(): Promise<InventoryModel[]>;
+  create: (data: InventoryEntity) => Promise<InventoryEntity>;
+  findOneById(id: string): Promise<InventoryEntity>;
+  findByIds(ids: string[]): Promise<InventoryEntity[]>;
+  findAll(): Promise<InventoryEntity[]>;
   update(
-    category: InventoryModel,
+    category: InventoryEntity,
     data: InventoryEntity,
-  ): Promise<InventoryModel>;
+  ): Promise<InventoryEntity>;
   delete(id: string): Promise<any>;
 }

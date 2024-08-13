@@ -1,12 +1,14 @@
 import { ProductEntity } from './entities/product.entity';
-import { ProductModel } from '@models/product.model';
 
 export interface ProductRepository {
-  create: (payload: ProductEntity) => Promise<ProductModel>;
-  findOneBySku(sku: string): Promise<ProductModel>;
-  findBySkus(skus: string[]): Promise<ProductModel[]>;
-  findAll(): Promise<ProductModel[]>;
-  update(product: ProductModel, payload: ProductEntity): Promise<ProductModel>;
-  updateStock(product: ProductModel): Promise<ProductModel>;
+  create: (payload: ProductEntity) => Promise<ProductEntity>;
+  findOneBySku(sku: string): Promise<ProductEntity>;
+  findBySkus(skus: string[]): Promise<ProductEntity[]>;
+  findAll(): Promise<ProductEntity[]>;
+  update(
+    product: ProductEntity,
+    payload: ProductEntity,
+  ): Promise<ProductEntity>;
+  updateStock(product: ProductEntity): Promise<ProductEntity>;
   delete(sku: string): Promise<any>;
 }

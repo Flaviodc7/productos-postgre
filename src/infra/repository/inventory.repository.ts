@@ -12,32 +12,32 @@ export class InventoryPostgreRepository implements InventoryRepository {
     private inventoryRepository: Repository<InventoryModel>,
   ) {}
 
-  async findAll(): Promise<InventoryModel[]> {
+  async findAll(): Promise<InventoryEntity[]> {
     return await this.inventoryRepository.find({
       relations: ['subcategories'],
     });
   }
 
-  async findOneById(id: string): Promise<InventoryModel> {
+  async findOneById(id: string): Promise<InventoryEntity> {
     return await this.inventoryRepository.findOne({ where: { id: id } });
   }
 
-  async findByIds(ids: string[]): Promise<InventoryModel[]> {
+  async findByIds(ids: string[]): Promise<InventoryEntity[]> {
     return await this.inventoryRepository.find({
       where: { id: In(ids) },
     });
   }
 
-  async create(payload: InventoryEntity): Promise<InventoryModel> {
+  async create(payload: InventoryEntity): Promise<InventoryEntity> {
     const newInventory = this.inventoryRepository.create(payload);
 
     return await this.inventoryRepository.save(newInventory);
   }
 
   async update(
-    inventory: InventoryModel,
+    inventory: InventoryEntity,
     payload: InventoryEntity,
-  ): Promise<InventoryModel> {
+  ): Promise<InventoryEntity> {
     this.inventoryRepository.merge(inventory, payload);
     return await this.inventoryRepository.save(inventory);
   }

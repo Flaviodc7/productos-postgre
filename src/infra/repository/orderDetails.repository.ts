@@ -12,30 +12,30 @@ export class OrderDetailsPostgreRepository implements OrderDetailsRepository {
     private orderRepository: Repository<OrderDetailsModel>,
   ) {}
 
-  async findOneById(id: string): Promise<OrderDetailsModel> {
+  async findOneById(id: string): Promise<OrderDetailsEntity> {
     return await this.orderRepository.findOne({
       where: { id: id },
     });
   }
 
-  async findByIds(ids: string[]): Promise<OrderDetailsModel[]> {
+  async findByIds(ids: string[]): Promise<OrderDetailsEntity[]> {
     return await this.orderRepository.find({
       where: { id: In(ids) },
     });
   }
 
-  async create(payload: OrderDetailsEntity): Promise<OrderDetailsModel> {
+  async create(payload: OrderDetailsEntity): Promise<OrderDetailsEntity> {
     const newOrder = this.orderRepository.create(payload);
 
     return await this.orderRepository.save(newOrder);
   }
 
   async update(
-    category: OrderDetailsModel,
+    orderDetails: OrderDetailsEntity,
     payload: OrderDetailsEntity,
-  ): Promise<OrderDetailsModel> {
-    this.orderRepository.merge(category, payload);
-    return await this.orderRepository.save(category);
+  ): Promise<OrderDetailsEntity> {
+    this.orderRepository.merge(orderDetails, payload);
+    return await this.orderRepository.save(orderDetails);
   }
 
   async delete(id: string): Promise<any> {

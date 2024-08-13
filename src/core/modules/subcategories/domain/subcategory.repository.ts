@@ -1,14 +1,13 @@
 import { SubcategoryEntity } from './entities/subcategory.entity';
-import { SubcategoryModel } from '@models/subcategories.model';
 
 export interface SubcategoryRepository {
-  create: (payload: SubcategoryModel) => Promise<SubcategoryModel>;
-  findOneById(id: string): Promise<SubcategoryModel>;
-  findByIds(ids: string[]): Promise<SubcategoryModel[]>;
-  findAll(): Promise<SubcategoryModel[]>;
+  create: (payload: SubcategoryEntity) => Promise<SubcategoryEntity>;
+  findOneById(id: string): Promise<SubcategoryEntity>;
+  findByIds(ids: string[]): Promise<SubcategoryEntity[]>;
+  findAll(): Promise<SubcategoryEntity[]>;
   update(
-    updatedSubcategory: SubcategoryModel,
+    updatedSubcategory: SubcategoryEntity,
     payload: SubcategoryEntity,
-  ): Promise<SubcategoryModel>;
+  ): Promise<SubcategoryEntity>;
   delete(id: string): Promise<any>;
 }

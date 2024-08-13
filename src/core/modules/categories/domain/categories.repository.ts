@@ -1,11 +1,13 @@
 import { CategoryEntity } from './entities/category.entity';
-import { CategoryModel } from '@models/categories.model';
 
 export interface CategoryRepository {
-  create: (data: CategoryEntity) => Promise<CategoryModel>;
-  findOneById(id: string): Promise<CategoryModel>;
-  findByIds(ids: string[]): Promise<CategoryModel[]>;
-  findAll(): Promise<CategoryModel[]>;
-  update(category: CategoryModel, data: CategoryEntity): Promise<CategoryModel>;
+  create: (data: CategoryEntity) => Promise<CategoryEntity>;
+  findOneById(id: string): Promise<CategoryEntity>;
+  findByIds(ids: string[]): Promise<CategoryEntity[]>;
+  findAll(): Promise<CategoryEntity[]>;
+  update(
+    category: CategoryEntity,
+    data: CategoryEntity,
+  ): Promise<CategoryEntity>;
   delete(id: string): Promise<any>;
 }

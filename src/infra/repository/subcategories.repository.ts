@@ -12,11 +12,11 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
     private subcategoryRepository: Repository<SubcategoryModel>,
   ) {}
 
-  async findAll(): Promise<SubcategoryModel[]> {
+  async findAll(): Promise<SubcategoryEntity[]> {
     return await this.subcategoryRepository.find();
   }
 
-  async findOneById(id: string): Promise<SubcategoryModel> {
+  async findOneById(id: string): Promise<SubcategoryEntity> {
     const subcategory = await this.subcategoryRepository.findOne({
       where: { id: id },
       relations: ['products', 'category'],
@@ -29,20 +29,20 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
     return subcategory;
   }
 
-  async findByIds(ids: string[]): Promise<SubcategoryModel[]> {
+  async findByIds(ids: string[]): Promise<SubcategoryEntity[]> {
     return await this.subcategoryRepository.findBy({ id: In(ids) });
   }
 
-  async create(payload: SubcategoryModel): Promise<SubcategoryModel> {
+  async create(payload: SubcategoryEntity): Promise<SubcategoryEntity> {
     const newSubcategory = this.subcategoryRepository.create(payload);
 
     return await this.subcategoryRepository.save(newSubcategory);
   }
 
   async update(
-    updatedSubcategory: SubcategoryModel,
+    updatedSubcategory: SubcategoryEntity,
     payload: SubcategoryEntity,
-  ): Promise<SubcategoryModel> {
+  ): Promise<SubcategoryEntity> {
     this.subcategoryRepository.merge(updatedSubcategory, payload);
 
     return await this.subcategoryRepository.save(updatedSubcategory);

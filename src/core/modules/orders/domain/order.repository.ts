@@ -1,12 +1,11 @@
 import { CustomerEntity } from '@customersDomain/entities/customer.entity';
 import { OrderEntity } from './entities/order.entity';
-import { OrderModel } from '@models/order.model';
 
 export interface OrderRepository {
-  create: (data: OrderEntity, customer: CustomerEntity) => Promise<OrderModel>;
-  findOneById(id: string): Promise<OrderModel>;
-  findByIds(ids: string[]): Promise<OrderModel[]>;
-  findAll(): Promise<OrderModel[]>;
-  update(category: OrderModel, data: OrderEntity): Promise<OrderModel>;
+  create: (data: OrderEntity, customer: CustomerEntity) => Promise<OrderEntity>;
+  findOneById(id: string): Promise<OrderEntity>;
+  findByIds(ids: string[]): Promise<OrderEntity[]>;
+  findAll(): Promise<OrderEntity[]>;
+  update(category: OrderEntity, data: OrderEntity): Promise<OrderEntity>;
   delete(id: string): Promise<any>;
 }

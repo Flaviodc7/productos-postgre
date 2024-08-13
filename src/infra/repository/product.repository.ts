@@ -12,21 +12,21 @@ export class ProductPostgreRepository implements ProductRepository {
     private productRepository: Repository<ProductModel>,
   ) {}
 
-  async findAll(): Promise<ProductModel[]> {
+  async findAll(): Promise<ProductEntity[]> {
     return await this.productRepository.find();
   }
 
-  async findOneBySku(sku: string): Promise<ProductModel> {
+  async findOneBySku(sku: string): Promise<ProductEntity> {
     return await this.productRepository.findOne({
       where: { sku: sku },
     });
   }
 
-  async findBySkus(skus: string[]): Promise<ProductModel[]> {
+  async findBySkus(skus: string[]): Promise<ProductEntity[]> {
     return await this.productRepository.findBy({ sku: In(skus) });
   }
 
-  async create(payload: ProductEntity): Promise<ProductModel> {
+  async create(payload: ProductEntity): Promise<ProductEntity> {
     const newProduct = this.productRepository.create(payload);
 
     return await this.productRepository.save(newProduct);
@@ -35,13 +35,13 @@ export class ProductPostgreRepository implements ProductRepository {
   async update(
     product: ProductModel,
     payload: ProductEntity,
-  ): Promise<ProductModel> {
+  ): Promise<ProductEntity> {
     this.productRepository.merge(product, payload);
 
     return await this.productRepository.save(product);
   }
 
-  async updateStock(product: ProductModel): Promise<ProductModel> {
+  async updateStock(product: ProductModel): Promise<ProductEntity> {
     return await this.productRepository.save(product);
   }
 

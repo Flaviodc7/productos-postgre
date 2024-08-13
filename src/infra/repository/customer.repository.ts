@@ -12,26 +12,26 @@ export class CustomerPostgreRepository implements CustomerRepository {
     private customerRepository: Repository<CustomerModel>,
   ) {}
 
-  async findAll(): Promise<CustomerModel[]> {
+  async findAll(): Promise<CustomerEntity[]> {
     return await this.customerRepository.find();
   }
 
-  async findOneById(id: string): Promise<CustomerModel> {
+  async findOneById(id: string): Promise<CustomerEntity> {
     return await this.customerRepository.findOne({
       where: { id: id },
     });
   }
 
-  async create(payload: CustomerEntity): Promise<CustomerModel> {
+  async create(payload: CustomerEntity): Promise<CustomerEntity> {
     const newCustomer = this.customerRepository.create(payload);
 
     return await this.customerRepository.save(newCustomer);
   }
 
   async update(
-    customer: CustomerModel,
+    customer: CustomerEntity,
     payload: CustomerEntity,
-  ): Promise<CustomerModel> {
+  ): Promise<CustomerEntity> {
     this.customerRepository.merge(customer, payload);
     return await this.customerRepository.save(customer);
   }

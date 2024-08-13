@@ -1,10 +1,10 @@
-import { InventoryAuditStatusEntity } from "./inventoryAudit.entity";
-import { InventoryProductsEntity } from "./inventoryProducts.entity";
+import { InventoryAuditEntity } from './inventoryAudit.entity';
+import { InventoryProductsEntity } from './inventoryProducts.entity';
 
 export interface InventoryEntity {
   id: string;
   createdAt: string;
-  auditStatus: InventoryAuditStatusEntity[];
+  inventoryAudit: InventoryAuditEntity[];
   inventoryProducts: InventoryProductsEntity[];
   currentStatus: InventoryStatus;
 }

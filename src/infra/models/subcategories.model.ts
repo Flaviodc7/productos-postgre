@@ -6,9 +6,9 @@ import {
   ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { ProductModel } from './product.model';
-import { CategoryModel } from './categories.model';
 import { SubcategoryEntity } from '@src/core/modules/subcategories/domain/entities/subcategory.entity';
+import { CategoryModel } from './categories.model';
+import { ProductModel } from './product.model';
 
 @Entity()
 export class SubcategoryModel implements SubcategoryEntity {

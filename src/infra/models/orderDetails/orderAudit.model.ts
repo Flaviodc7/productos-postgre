@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { OrderDetailsModel } from './orderDetails.model';
 import { OrderAuditEntity } from '@orderDetailsDomain/entities/orderAudit.entity';
+import { OrderDetailsModel } from './orderDetails.model';
 
 @Entity()
 export class OrderAuditModel implements OrderAuditEntity {

@@ -1,5 +1,5 @@
-import { OrderDeliveryEntity } from '@orderDetailsDomain/entities/orderDelivery.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { OrderDeliveryEntity } from '@orderDetailsDomain/entities/orderDelivery.entity';
 
 @Entity()
 export class OrderDeliveryModel implements OrderDeliveryEntity {

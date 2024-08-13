@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
 import { OrderStatus } from '@orderDomain/entities/orderStatus.entity';
 import { OrderDetailsModel } from './orderDetails/orderDetails.model';
-import { CustomerModel } from './customer.model';
 import { OrderEntity } from '@orderDomain/entities/order.entity';
+import { CustomerModel } from './customer.model';
 
 @Entity()
 export class OrderModel implements OrderEntity {

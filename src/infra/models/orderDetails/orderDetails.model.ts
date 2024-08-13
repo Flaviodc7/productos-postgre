@@ -1,25 +1,21 @@
 import {
-  Column,
   Entity,
   OneToOne,
   PrimaryColumn,
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
 import { OrderDeliveryModel } from './orderDelivery.model';
 import { OrderPaymentModel } from './orderPayment.model';
 import { OrderProductModel } from './orderProduct.model';
 import { OrderAuditModel } from './orderAudit.model';
 import { OrderModel } from '../order.model';
-import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
 
 @Entity()
 export class OrderDetailsModel implements OrderDetailsEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  orderId: string;
 
   @OneToMany(() => OrderAuditModel, (audit) => audit.orderDetails, {
     cascade: true,

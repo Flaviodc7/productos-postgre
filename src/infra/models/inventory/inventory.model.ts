@@ -1,7 +1,10 @@
-import { InventoryEntity, InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { InventoryAuditModel } from './inventoryAudit.model';
+import {
+  InventoryEntity,
+  InventoryStatus,
+} from '@inventoryDomain/entities/inventory.entity';
 import { InventoryProductsModel } from './inventoryProducts.model';
+import { InventoryAuditModel } from './inventoryAudit.model';
 
 @Entity()
 export class InventoryModel implements InventoryEntity {
@@ -18,7 +21,7 @@ export class InventoryModel implements InventoryEntity {
       cascade: true,
     },
   )
-  auditStatus: InventoryAuditModel[];
+  inventoryAudit: InventoryAuditModel[];
 
   @OneToMany(
     () => InventoryProductsModel,

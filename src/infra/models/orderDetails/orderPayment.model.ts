@@ -1,6 +1,9 @@
-import { OrderPaymentEntity } from '@orderDetailsDomain/entities/orderPayment.entity';
-import { MethodType, PaymentStatus } from '@src/infra/utils/enum.types';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  MethodType,
+  PaymentStatus,
+} from '@orderDetailsDomain/types/enum.types';
+import { OrderPaymentEntity } from '@orderDetailsDomain/entities/orderPayment.entity';
 
 @Entity()
 export class OrderPaymentModel implements OrderPaymentEntity {

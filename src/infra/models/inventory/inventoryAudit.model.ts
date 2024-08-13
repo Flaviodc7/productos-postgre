@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { InventoryAuditEntity } from '@inventoryDomain/entities/inventoryAudit.entity';
 import { InventoryModel } from './inventory.model';
-import { InventoryAuditStatusEntity } from '@inventoryDomain/entities/inventoryAudit.entity';
 
 @Entity()
-export class InventoryAuditModel implements InventoryAuditStatusEntity {
+export class InventoryAuditModel implements InventoryAuditEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 
@@ -19,6 +19,6 @@ export class InventoryAuditModel implements InventoryAuditStatusEntity {
   @Column({ type: 'varchar', length: 255 })
   updateDate: string;
 
-  @ManyToOne(() => InventoryModel, (inventory) => inventory.auditStatus)
+  @ManyToOne(() => InventoryModel, (inventory) => inventory.inventoryAudit)
   inventory: InventoryModel;
 }

@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { OrderModel } from './order.model';
 import { CustomerEntity } from '@customersDomain/entities/customer.entity';
+import { OrderModel } from './order.model';
 
 @Entity()
 export class CustomerModel implements CustomerEntity {

@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { InventoryModel } from './inventory.model';
 import { InventoryProductsEntity } from '@inventoryDomain/entities/inventoryProducts.entity';
+import { InventoryModel } from './inventory.model';
 
 @Entity()
 export class InventoryProductsModel implements InventoryProductsEntity {

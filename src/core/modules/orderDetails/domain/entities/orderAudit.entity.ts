@@ -1,4 +1,4 @@
-import { OrderDetailsEntity } from "./orderDetails.entity";
+import { OrderDetailsEntity } from './orderDetails.entity';
 
 export interface OrderAuditEntity {
   id: string;

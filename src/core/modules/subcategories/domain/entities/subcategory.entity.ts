@@ -1,5 +1,5 @@
-import { CategoryEntity } from "@categoriesDomain/entities/category.entity";
-import { ProductEntity } from "@productDomain/entities/product.entity";
+import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
+import { ProductEntity } from '@productDomain/entities/product.entity';
 
 export interface SubcategoryEntity {
   id: string;

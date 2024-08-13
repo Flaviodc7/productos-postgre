@@ -1,8 +1,10 @@
-type methodType = 'CASH' | 'DEBIT' | 'CREDIT';
-type paymentStatus = 'Approved' | 'Failed' | 'Pending';
+import {
+  MethodType,
+  PaymentStatus,
+} from '@orderDetailsDomain/types/enum.types';
 
 export interface OrderPaymentEntity {
   id: string;
-  method: methodType;
-  paymentStatus: paymentStatus;
+  method: MethodType;
+  paymentStatus: PaymentStatus;
 }

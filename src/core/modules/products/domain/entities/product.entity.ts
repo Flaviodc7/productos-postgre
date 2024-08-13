@@ -1,4 +1,4 @@
-import { SubcategoryEntity } from "@src/core/modules/subcategories/domain/entities/subcategory.entity";
+import { SubcategoryEntity } from '@subcategoriesDomain/entities/subcategory.entity';
 
 export interface ProductEntity {
   sku: string;

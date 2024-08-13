@@ -1,4 +1,4 @@
-import { OrderEntity } from "@orderDomain/entities/order.entity";
+import { OrderEntity } from '@orderDomain/entities/order.entity';
 
 export interface CustomerEntity {
   id: string;

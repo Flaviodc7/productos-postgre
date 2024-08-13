@@ -6,7 +6,6 @@ import { OrderProductEntity } from './orderProduct.entity';
 
 export interface OrderDetailsEntity {
   id: string;
-  orderId: string;
   audit: OrderAuditEntity[];
   payment: OrderPaymentEntity;
   products: OrderProductEntity[];

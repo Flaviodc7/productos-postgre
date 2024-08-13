@@ -1,5 +1,9 @@
+import { InventoryEntity } from './inventory.entity';
+
 export interface InventoryProductsEntity {
-    sku: string;
-    name: string;
-    quantity: number;
-  }
+  id: string;
+  sku: string;
+  name: string;
+  quantity: number;
+  inventory: InventoryEntity;
+}

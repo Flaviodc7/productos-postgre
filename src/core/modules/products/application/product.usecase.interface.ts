@@ -1,17 +1,17 @@
-import { ProductModel } from '@models/product.model';
+import { ProductEntity } from '@productDomain/entities/product.entity';
 
 export interface IProductUseCase {
-  create: (payload: CreateProductPayload) => Promise<ProductModel>;
-  findOneBySku(sku: string): Promise<ProductModel>;
-  findBySkus(ids: string[]): Promise<ProductModel[]>;
-  findAll(): Promise<ProductModel[]>;
-  update(payload: UpdateProductPayload): Promise<ProductModel>;
+  create: (payload: CreateProductPayload) => Promise<ProductEntity>;
+  findOneBySku(sku: string): Promise<ProductEntity>;
+  findBySkus(ids: string[]): Promise<ProductEntity[]>;
+  findAll(): Promise<ProductEntity[]>;
+  update(payload: UpdateProductPayload): Promise<ProductEntity>;
   updateStockOrder(
     productsOrder: UpdateProductsOrderPayload[],
-  ): Promise<ProductModel[]>;
+  ): Promise<ProductEntity[]>;
   updateStockInventory: (
     productsInventory: UpdateProductsInventoryPayload[],
-  ) => Promise<ProductModel[]>;
+  ) => Promise<ProductEntity[]>;
   delete(sku: string): Promise<any>;
 }
 

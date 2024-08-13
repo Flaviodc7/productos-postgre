@@ -1,9 +1,11 @@
+import { SubcategoryEntity } from '../domain/entities/subcategory.entity';
+
 export interface ISubcategoriesUseCase {
-  create: (payload: CreateSubcategoriesPayload) => Promise<any>;
-  findOneById(id: string): Promise<any>;
-  findByIds(ids: string[]): Promise<any>;
-  findAll(): Promise<any>;
-  update(payload: UpdateSubcategoriesPayload): Promise<any>;
+  create: (payload: CreateSubcategoriesPayload) => Promise<SubcategoryEntity>;
+  findOneById(id: string): Promise<SubcategoryEntity>;
+  findByIds(ids: string[]): Promise<SubcategoryEntity[]>;
+  findAll(): Promise<SubcategoryEntity[]>;
+  update(payload: UpdateSubcategoriesPayload): Promise<SubcategoryEntity>;
 }
 
 export interface CreateSubcategoriesPayload {

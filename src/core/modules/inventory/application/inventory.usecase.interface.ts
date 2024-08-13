@@ -1,15 +1,15 @@
 import {
   InventoryProducts,
+  InventoryEntity,
   InventoryStatus,
 } from '@inventoryDomain/entities/inventory.entity';
-import { InventoryModel } from '@models/inventory/inventory.model';
 
 export interface IInventoryUseCase {
-  create: (payload: CreateInventoryPayload) => Promise<InventoryModel>;
-  findOneById(id: string): Promise<InventoryModel>;
-  findByIds(ids: string[]): Promise<InventoryModel[]>;
-  findAll(): Promise<InventoryModel[]>;
-  update(payload: UpdateInventoryPayload): Promise<InventoryModel>;
+  create: (payload: CreateInventoryPayload) => Promise<InventoryEntity>;
+  findOneById(id: string): Promise<InventoryEntity>;
+  findByIds(ids: string[]): Promise<InventoryEntity[]>;
+  findAll(): Promise<InventoryEntity[]>;
+  update(payload: UpdateInventoryPayload): Promise<InventoryEntity>;
   delete(id: string): Promise<any>;
 }
 

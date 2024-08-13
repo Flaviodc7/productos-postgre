@@ -1,10 +1,10 @@
-import { CustomerModel } from '@models/customer.model';
+import { CustomerEntity } from '@customersDomain/entities/customer.entity';
 
 export interface ICustomerUseCase {
-  create: (payload: CreateCustomerPayload) => Promise<CustomerModel>;
-  findOneById(id: string): Promise<CustomerModel>;
-  findAll(): Promise<CustomerModel[]>;
-  update(payload: UpdateCustomerPayload): Promise<CustomerModel>;
+  create: (payload: CreateCustomerPayload) => Promise<CustomerEntity>;
+  findOneById(id: string): Promise<CustomerEntity>;
+  findAll(): Promise<CustomerEntity[]>;
+  update(payload: UpdateCustomerPayload): Promise<CustomerEntity>;
   delete(id: string): Promise<any>;
 }
 

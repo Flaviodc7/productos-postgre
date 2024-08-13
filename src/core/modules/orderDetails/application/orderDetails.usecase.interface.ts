@@ -1,11 +1,10 @@
 import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
-import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 
 export interface IOrderDetailsUseCase {
-  create: (payload: CreateOrderDetailsPayload) => Promise<OrderDetailsModel>;
-  findOneById(id: string): Promise<OrderDetailsModel>;
-  findByIds(ids: string[]): Promise<OrderDetailsModel[]>;
-  update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsModel>;
+  create: (payload: CreateOrderDetailsPayload) => Promise<OrderDetailsEntity>;
+  findOneById(id: string): Promise<OrderDetailsEntity>;
+  findByIds(ids: string[]): Promise<OrderDetailsEntity[]>;
+  update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsEntity>;
   delete(id: string): Promise<any>;
 }
 

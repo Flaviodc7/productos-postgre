@@ -1,13 +1,13 @@
 import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
+import { OrderEntity } from '@orderDomain/entities/order.entity';
 import { OrderStatus } from '@orderDomain/entities/orderStatus.entity';
-import { OrderModel } from '@models/order.model';
 
 export interface IOrderUseCase {
-  create: (payload: CreateOrderPayload) => Promise<OrderModel>;
-  findOneById(id: string): Promise<OrderModel>;
-  findByIds(ids: string[]): Promise<OrderModel[]>;
-  findAll(): Promise<OrderModel[]>;
-  update(payload: UpdateOrderPayload): Promise<OrderModel>;
+  create: (payload: CreateOrderPayload) => Promise<OrderEntity>;
+  findOneById(id: string): Promise<OrderEntity>;
+  findByIds(ids: string[]): Promise<OrderEntity[]>;
+  findAll(): Promise<OrderEntity[]>;
+  update(payload: UpdateOrderPayload): Promise<OrderEntity>;
   delete(id: string): Promise<any>;
 }
 

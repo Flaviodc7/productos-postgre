@@ -7,8 +7,8 @@ import {
 import { SubcategoryRepository } from '@subcategoriesDomain/subcategory.repository';
 import { CategoryUseCase } from '@categoriesApplication/categories.usecase';
 import { SubcategoryValue } from '@subcategoriesDomain/subcategory.value';
+import { SubcategoryEntity } from '../domain/entities/subcategory.entity';
 import { ProductUseCase } from '@productApplication/product.usecase';
-import { SubcategoryModel } from '@models/subcategories.model';
 
 export class SubcategoryUseCase implements ISubcategoriesUseCase {
   constructor(
@@ -19,30 +19,26 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     private readonly productsUsecase: ProductUseCase,
   ) {}
 
-  async create(payload: CreateSubcategoriesPayload): Promise<SubcategoryModel> {
-    const subcategoryValue = new SubcategoryValue().create(payload);
-    const { categoryId, productIds, ...restSubcategory } = subcategoryValue;
+  async create(
+    payload: CreateSubcategoriesPayload,
+  ): Promise<SubcategoryEntity> {
+    const { categoryId, productIds } = payload;
 
-    const subcategoryFormatted = { ...(restSubcategory as SubcategoryModel) };
+    const [category, products] = await Promise.all([
+      categoryId ? this.categoryUsecase.findOneById(categoryId) : undefined,
+      productIds ? this.productsUsecase.findBySkus(productIds) : [],
+    ]);
 
-    if (categoryId) {
-      const category = await this.categoryUsecase.findOneById(categoryId);
-      if (!category) {
-        throw new NotFoundException(`Category #${categoryId} not found`);
-      }
-      subcategoryFormatted.category = category;
-    }
+    const subcategoryValue = new SubcategoryValue().create(
+      payload,
+      category,
+      products,
+    );
 
-    if (productIds) {
-      const products = await this.productsUsecase.findBySkus(productIds);
-
-      subcategoryFormatted.products = products;
-    }
-
-    return await this.subcategoryRepository.create(subcategoryFormatted);
+    return this.subcategoryRepository.create(subcategoryValue);
   }
 
-  async findOneById(id: string): Promise<SubcategoryModel> {
+  async findOneById(id: string): Promise<SubcategoryEntity> {
     const subcategory = await this.subcategoryRepository.findOneById(id);
 
     if (!subcategory) {
@@ -52,39 +48,33 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     return subcategory;
   }
 
-  async findByIds(ids: string[]): Promise<SubcategoryModel[]> {
+  async findByIds(ids: string[]): Promise<SubcategoryEntity[]> {
     return await this.subcategoryRepository.findByIds(ids);
   }
 
-  async findAll(): Promise<SubcategoryModel[]> {
+  async findAll(): Promise<SubcategoryEntity[]> {
     return await this.subcategoryRepository.findAll();
   }
 
-  async update(payload: UpdateSubcategoriesPayload): Promise<SubcategoryModel> {
-    const { id } = payload;
+  async update(
+    payload: UpdateSubcategoriesPayload,
+  ): Promise<SubcategoryEntity> {
+    const outdatedSubcategory = await this.findOneById(payload.id);
 
-    const updatedSubcategory = (await this.findOneById(id)) as SubcategoryModel;
+    const { categoryId, productIds } = payload;
 
-    if (!updatedSubcategory) {
-      throw new NotFoundException(`Subcategory #${id} not found`);
-    }
+    const [category, products] = await Promise.all([
+      categoryId ? this.categoryUsecase.findOneById(categoryId) : undefined,
+      productIds ? this.productsUsecase.findBySkus(productIds) : [],
+    ]);
 
-    if (payload.categoryId) {
-      const category = await this.categoryUsecase.findOneById(
-        payload.categoryId,
-      );
-      updatedSubcategory.category = category;
-    }
+    const subcategoryValue = new SubcategoryValue().update(
+      payload,
+      category,
+      products,
+    );
 
-    if (payload.productIds) {
-      const products = await this.productsUsecase.findBySkus(
-        payload.productIds,
-      );
-
-      updatedSubcategory.products = products;
-    }
-
-    return await this.subcategoryRepository.update(updatedSubcategory, payload);
+    return this.subcategoryRepository.update(subcategoryValue);
   }
 
   async delete(id: string): Promise<any> {

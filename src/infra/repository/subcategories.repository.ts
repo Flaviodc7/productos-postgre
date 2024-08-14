@@ -41,10 +41,7 @@ export class SubcategoryPostgreRepository implements SubcategoryRepository {
 
   async update(
     updatedSubcategory: SubcategoryEntity,
-    payload: SubcategoryEntity,
   ): Promise<SubcategoryEntity> {
-    this.subcategoryRepository.merge(updatedSubcategory, payload);
-
     return await this.subcategoryRepository.save(updatedSubcategory);
   }
 

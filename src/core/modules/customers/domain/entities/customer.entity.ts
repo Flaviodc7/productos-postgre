@@ -11,5 +11,5 @@ export interface CustomerEntity {
   country: string;
   email: string;
   phone: string;
-  orders: OrderEntity[];
+  orders?: OrderEntity[];
 }

@@ -35,5 +35,5 @@ export class CustomerModel implements CustomerEntity {
   phone: string;
 
   @OneToMany(() => OrderModel, (order) => order.customer)
-  orders: OrderModel[];
+  orders?: OrderModel[];
 }

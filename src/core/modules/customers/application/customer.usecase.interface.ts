@@ -21,4 +21,6 @@ export interface CreateCustomerPayload {
   phone: string;
 }
 
-export interface UpdateCustomerPayload extends CreateCustomerPayload {}
+export interface UpdateCustomerPayload extends CreateCustomerPayload {
+  ordersId: string[];
+}

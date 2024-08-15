@@ -4,20 +4,24 @@ import {
   ICustomerUseCase,
   UpdateCustomerPayload,
 } from './customer.usecase.interface';
+import { CustomerEntity } from '@customersDomain/entities/customer.entity';
 import { CustomerRepository } from '@customersDomain/customer.repository';
 import { CustomerValue } from '@customersDomain/customer.value';
-import { CustomerModel } from '@models/customer.model';
+import { OrderUseCase } from '@orderApplication/order.usecase';
 
 export class CustomerUseCase implements ICustomerUseCase {
-  constructor(private readonly customerRepository: CustomerRepository) {}
+  constructor(
+    private readonly customerRepository: CustomerRepository,
+    private readonly orderUseCase: OrderUseCase,
+  ) {}
 
-  async create(payload: CreateCustomerPayload): Promise<CustomerModel> {
+  async create(payload: CreateCustomerPayload): Promise<CustomerEntity> {
     const customerValue = new CustomerValue().create(payload);
 
-    return await this.customerRepository.create(customerValue);
+    return this.customerRepository.create(customerValue);
   }
 
-  async findOneById(id: string): Promise<CustomerModel> {
+  async findOneById(id: string): Promise<CustomerEntity> {
     const customer = await this.customerRepository.findOneById(id);
 
     if (!customer) {
@@ -27,20 +31,20 @@ export class CustomerUseCase implements ICustomerUseCase {
     return customer;
   }
 
-  async findAll(): Promise<CustomerModel[]> {
+  async findAll(): Promise<CustomerEntity[]> {
     return await this.customerRepository.findAll();
   }
 
-  async update(payload: UpdateCustomerPayload): Promise<CustomerModel> {
-    const { id } = payload;
+  async update(payload: UpdateCustomerPayload): Promise<CustomerEntity> {
+    const { ordersId } = payload;
 
-    const customer = (await this.findOneById(id)) as CustomerModel;
+    await this.findOneById(payload.id);
 
-    if (!customer) {
-      throw new NotFoundException(`Customer #${id} not found`);
-    }
+    const orders = await this.orderUseCase.findByIds(ordersId);
 
-    return await this.customerRepository.update(customer, payload);
+    const customerValue = new CustomerValue().update(payload, orders);
+
+    return await this.customerRepository.update(customerValue);
   }
 
   async delete(id: string) {

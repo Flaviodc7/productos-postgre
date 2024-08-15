@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCustomerDTO {
   @ApiProperty({ description: 'Customer ID' })
@@ -53,4 +53,9 @@ export class CreateCustomerDTO {
   readonly phone: string;
 }
 
-export class UpdateCustomerDTO extends CreateCustomerDTO {}
+export class UpdateCustomerDTO extends CreateCustomerDTO {
+  @ApiPropertyOptional({ description: 'Customer orders' })
+  @IsOptional()
+  @IsString()
+  readonly phone: string;
+}

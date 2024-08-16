@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import { In, Repository } from 'typeorm';
 import { CategoryRepository } from '@categoriesDomain/categories.repository';
 import { CategoryEntity } from '@categoriesDomain/entities/category.entity';
@@ -38,9 +38,9 @@ export class CategoryPostgreRepository implements CategoryRepository {
 
   async update(
     category: CategoryEntity,
-    payload: CategoryEntity,
+    outdatedCategory: CategoryEntity,
   ): Promise<CategoryEntity> {
-    this.categoryRepository.merge(category, payload);
+    this.categoryRepository.merge(category, outdatedCategory);
     return await this.categoryRepository.save(category);
   }
 

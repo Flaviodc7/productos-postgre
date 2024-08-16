@@ -12,9 +12,9 @@ import {
   UpdateProductsOrderPayload,
 } from './product.usecase.interface';
 import { SubcategoryUseCase } from '../../subcategories/application/subcategories.usecase';
+import { ProductEntity } from '@productDomain/entities/product.entity';
 import { ProductRepository } from '@productDomain/product.repository';
 import { ProductValue } from '@productDomain/product.value';
-import { ProductModel } from '@models/product.model';
 
 export class ProductUseCase implements IProductUseCase {
   constructor(
@@ -24,8 +24,8 @@ export class ProductUseCase implements IProductUseCase {
     private readonly subcategoryUsecase: SubcategoryUseCase,
   ) {}
 
-  async create(payload: CreateProductPayload): Promise<ProductModel> {
-    const productValue = new ProductValue().create(payload) as ProductModel;
+  async create(payload: CreateProductPayload): Promise<ProductEntity> {
+    const productValue = new ProductValue().create(payload);
 
     if (payload.subcategoryIds) {
       const subcategories = await this.subcategoryUsecase.findByIds(
@@ -37,7 +37,7 @@ export class ProductUseCase implements IProductUseCase {
     return await this.productRepository.create(productValue);
   }
 
-  async findOneBySku(sku: string): Promise<ProductModel> {
+  async findOneBySku(sku: string): Promise<ProductEntity> {
     const product = await this.productRepository.findOneBySku(sku);
 
     if (!product) {
@@ -47,7 +47,7 @@ export class ProductUseCase implements IProductUseCase {
     return product;
   }
 
-  async findBySkus(skus: string[]): Promise<ProductModel[]> {
+  async findBySkus(skus: string[]): Promise<ProductEntity[]> {
     const products = await this.productRepository.findBySkus(skus);
 
     if (!products || products.length === 0) {
@@ -66,11 +66,11 @@ export class ProductUseCase implements IProductUseCase {
     return products;
   }
 
-  async findAll(): Promise<ProductModel[]> {
+  async findAll(): Promise<ProductEntity[]> {
     return await this.productRepository.findAll();
   }
 
-  async update(payload: UpdateProductPayload): Promise<ProductModel> {
+  async update(payload: UpdateProductPayload): Promise<ProductEntity> {
     const { sku } = payload;
 
     const product = await this.findOneBySku(sku);
@@ -91,8 +91,8 @@ export class ProductUseCase implements IProductUseCase {
 
   async updateStockOrder(
     productsOrder: UpdateProductsOrderPayload[],
-  ): Promise<ProductModel[]> {
-    const updatedProducts: ProductModel[] = [];
+  ): Promise<ProductEntity[]> {
+    const updatedProducts: ProductEntity[] = [];
 
     for (const productDetail of productsOrder) {
       const { sku, quantity } = productDetail;
@@ -121,8 +121,8 @@ export class ProductUseCase implements IProductUseCase {
 
   async updateStockInventory(
     productsInventory: UpdateProductsInventoryPayload[],
-  ): Promise<ProductModel[]> {
-    const updatedProducts: ProductModel[] = [];
+  ): Promise<ProductEntity[]> {
+    const updatedProducts: ProductEntity[] = [];
 
     for (const productDetail of productsInventory) {
       const { sku, quantity } = productDetail;

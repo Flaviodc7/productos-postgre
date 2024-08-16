@@ -7,7 +7,7 @@ export interface CategoryRepository {
   findAll(): Promise<CategoryEntity[]>;
   update(
     category: CategoryEntity,
-    data: CategoryEntity,
+    outdatedCategory: CategoryEntity,
   ): Promise<CategoryEntity>;
   delete(id: string): Promise<any>;
 }

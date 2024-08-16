@@ -74,7 +74,10 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
       products,
     );
 
-    return this.subcategoryRepository.update(subcategoryValue);
+    return this.subcategoryRepository.update(
+      subcategoryValue,
+      outdatedSubcategory,
+    );
   }
 
   async delete(id: string): Promise<any> {

@@ -5,6 +5,9 @@ export interface SubcategoryRepository {
   findOneById(id: string): Promise<SubcategoryEntity>;
   findByIds(ids: string[]): Promise<SubcategoryEntity[]>;
   findAll(): Promise<SubcategoryEntity[]>;
-  update(updatedSubcategory: SubcategoryEntity): Promise<SubcategoryEntity>;
+  update(
+    updatedSubcategory: SubcategoryEntity,
+    outdatedSubcategory: SubcategoryEntity,
+  ): Promise<SubcategoryEntity>;
   delete(id: string): Promise<any>;
 }

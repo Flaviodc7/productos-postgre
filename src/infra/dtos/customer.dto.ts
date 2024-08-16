@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCustomerDTO {
@@ -56,6 +56,7 @@ export class CreateCustomerDTO {
 export class UpdateCustomerDTO extends CreateCustomerDTO {
   @ApiPropertyOptional({ description: 'Customer orders' })
   @IsOptional()
-  @IsString()
-  readonly phone: string;
+  @IsArray()
+  @IsString({ each: true })
+  readonly ordersId?: string[];
 }

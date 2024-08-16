@@ -22,5 +22,5 @@ export interface CreateCustomerPayload {
 }
 
 export interface UpdateCustomerPayload extends CreateCustomerPayload {
-  ordersId: string[];
+  ordersId?: string[];
 }

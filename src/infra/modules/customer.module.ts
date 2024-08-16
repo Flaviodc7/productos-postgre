@@ -12,11 +12,9 @@ import { CustomerModel } from '@models/customer.model';
     CustomerPostgreRepository,
     {
       provide: CustomerUseCase,
-      useFactory: (customerRepo: CustomerPostgreRepository) => {
-        return new CustomerUseCase(customerRepo);
-      },
-      inject: [CustomerPostgreRepository],
+      useClass: CustomerPostgreRepository,
     },
+    CustomerUseCase
   ],
   exports: [CustomerUseCase],
 })

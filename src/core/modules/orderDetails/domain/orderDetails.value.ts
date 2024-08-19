@@ -4,37 +4,45 @@ import {
   UpdateOrderDetailsPayload,
 } from '@orderDetailsApplication/orderDetails.usecase.interface';
 import { OrderDetailsEntity } from './entities/orderDetails.entity';
-import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 import { OrderAuditEntity } from './entities/orderAudit.entity';
+import { OrderEntity } from '@orderDomain/entities/order.entity';
 
 export class OrderDetailsValue {
   public create = (
     orderDetailsPayload: CreateOrderDetailsPayload,
   ): OrderDetailsEntity => {
-    return {
+  
+    const orderDetails: OrderDetailsEntity = {
       id: uuid(),
-      orderId: uuid(),
-      ...orderDetailsPayload,
-      audit: [
-        {
-          id: uuid(),
-          date: new Date().toISOString(),
-          description: 'Created',
-          responsible: 'ADMIN', // TODO: add responsible from token
-        },
-      ],
+      audit: [],
+      ...orderDetailsPayload
     };
+  
+    const audit: OrderAuditEntity = {
+      id: uuid(),
+      date: new Date().toISOString(),
+      description: 'Created',
+      responsible: 'ADMIN', // TODO: add responsible from token
+      orderDetails: orderDetails,
+    };
+  
+    orderDetails.audit.push(audit);
+  
+    return orderDetails;
   };
+
   public update = (
-    orderDetailsModel: OrderDetailsModel,
+    orderDetails: OrderDetailsEntity,
+    order: OrderEntity,
     orderDetailsPayload: UpdateOrderDetailsPayload,
   ): OrderDetailsEntity => {
-    const { audit } = orderDetailsModel;
+    const { audit } = orderDetails;
 
     const auditEntities: OrderAuditEntity[] = audit.map((auditItem) => ({
       id: auditItem.id,
       date: auditItem.date,
       description: auditItem.description,
+      orderDetails,
       responsible: auditItem.responsible,
     }));
 
@@ -42,6 +50,7 @@ export class OrderDetailsValue {
       id: uuid(),
       date: new Date().toISOString(),
       description: 'Update',
+      orderDetails,
       responsible: 'ADMIN', // TODO: add responsible from token
     };
 
@@ -49,6 +58,7 @@ export class OrderDetailsValue {
 
     return {
       ...orderDetailsPayload,
+      order,
       audit: auditEntities,
     };
   };

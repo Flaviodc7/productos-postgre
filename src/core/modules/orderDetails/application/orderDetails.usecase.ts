@@ -4,18 +4,22 @@ import {
   IOrderDetailsUseCase,
   UpdateOrderDetailsPayload,
 } from './orderDetails.usecase.interface';
+import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
 import { OrderDetailsRepository } from '@orderDetailsDomain/orderDetails.repository';
 import { OrderDetailsValue } from '@orderDetailsDomain/orderDetails.value';
-import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 import { ProductUseCase } from '@productApplication/product.usecase';
+import { OrderUseCase } from '@orderApplication/order.usecase';
 
 export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   constructor(
     private readonly orderDetailsRepository: OrderDetailsRepository,
+    private readonly orderUseCase: OrderUseCase,
     private readonly productsUseCase: ProductUseCase,
   ) {}
 
-  async create(payload: CreateOrderDetailsPayload): Promise<OrderDetailsModel> {
+  async create(
+    payload: CreateOrderDetailsPayload,
+  ): Promise<OrderDetailsEntity> {
     const orderDetailsValue = new OrderDetailsValue().create(payload);
 
     await this.productsUseCase.updateStockOrder(payload.products);
@@ -23,7 +27,7 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
     return await this.orderDetailsRepository.create(orderDetailsValue);
   }
 
-  async findOneById(id: string): Promise<OrderDetailsModel> {
+  async findOneById(id: string): Promise<OrderDetailsEntity> {
     const order = await this.orderDetailsRepository.findOneById(id);
 
     if (!order) {
@@ -33,12 +37,14 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
     return order;
   }
 
-  async findByIds(ids: string[]): Promise<OrderDetailsModel[]> {
+  async findByIds(ids: string[]): Promise<OrderDetailsEntity[]> {
     return await this.orderDetailsRepository.findByIds(ids);
   }
 
-  async update(payload: UpdateOrderDetailsPayload): Promise<OrderDetailsModel> {
-    const { id } = payload;
+  async update(
+    payload: UpdateOrderDetailsPayload,
+  ): Promise<OrderDetailsEntity> {
+    const { id, orderId } = payload;
 
     const orderDetails = await this.findOneById(id);
 
@@ -46,8 +52,15 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
       throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
+    const order = await this.orderUseCase.findOneById(orderId);
+
+    if (!order) {
+      throw new NotFoundException(`Order #${id} not found`);
+    }
+
     const updatedOrderDetailsValue = new OrderDetailsValue().update(
       orderDetails,
+      order,
       payload,
     );
 

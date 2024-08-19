@@ -39,5 +39,5 @@ export class OrderDetailsModel implements OrderDetailsEntity {
 
   @OneToOne(() => OrderModel, (order) => order.orderDetails)
   @JoinColumn()
-  order: OrderModel;
+  order?: OrderModel;
 }

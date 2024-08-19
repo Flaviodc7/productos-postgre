@@ -10,5 +10,5 @@ export interface OrderDetailsEntity {
   payment: OrderPaymentEntity;
   products: OrderProductEntity[];
   delivery?: OrderDeliveryEntity;
-  order: OrderEntity;
+  order?: OrderEntity;
 }

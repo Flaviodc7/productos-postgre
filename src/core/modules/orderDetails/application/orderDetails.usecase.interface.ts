@@ -11,7 +11,7 @@ export interface IOrderDetailsUseCase {
 export interface CreateOrderDetailsPayload
   extends Pick<
     OrderDetailsEntity,
-    Exclude<keyof OrderDetailsEntity, 'id' | 'orderId' | 'audit'>
+    Exclude<keyof OrderDetailsEntity, 'id' | 'orderId' | 'audit'| 'order'>
   > {}
 
 export interface UpdateOrderDetailsPayload extends CreateOrderDetailsPayload {

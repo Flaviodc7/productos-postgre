@@ -1,13 +1,12 @@
 import { OrderDetailsEntity } from './entities/orderDetails.entity';
-import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 
 export interface OrderDetailsRepository {
-  create: (data: OrderDetailsEntity) => Promise<OrderDetailsModel>;
-  findOneById(id: string): Promise<OrderDetailsModel>;
-  findByIds(ids: string[]): Promise<OrderDetailsModel[]>;
+  create: (data: OrderDetailsEntity) => Promise<OrderDetailsEntity>;
+  findOneById(id: string): Promise<OrderDetailsEntity>;
+  findByIds(ids: string[]): Promise<OrderDetailsEntity[]>;
   update(
-    category: OrderDetailsModel,
+    orderDetails: OrderDetailsEntity,
     data: OrderDetailsEntity,
-  ): Promise<OrderDetailsModel>;
+  ): Promise<OrderDetailsEntity>;
   delete(id: string): Promise<any>;
 }

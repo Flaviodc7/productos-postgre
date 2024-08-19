@@ -13,9 +13,15 @@ import {
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { MethodType, PaymentStatus } from '../utils/enum.types';
+import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
+import { MethodType, PaymentStatus } from '@orderDetailsDomain/types/enum.types';
 
 class OrderDeliveryDTO {
+  @ApiProperty({ description: 'Delivery ID' })
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
   @ApiProperty({ description: 'Delivery Address' })
   @IsString()
   @IsNotEmpty()
@@ -43,6 +49,11 @@ class OrderDeliveryDTO {
 }
 
 class OrderPaymentDTO {
+  @ApiProperty({ description: 'Payment ID' })
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
   @ApiProperty({ description: 'Payment Method' })
   @IsEnum(MethodType)
   method: MethodType;
@@ -53,6 +64,11 @@ class OrderPaymentDTO {
 }
 
 class OrderProductDTO {
+  @ApiProperty({ description: 'Product ID' })
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
   @ApiProperty({ description: 'Product SKU' })
   @IsString()
   @IsNotEmpty()
@@ -72,6 +88,10 @@ class OrderProductDTO {
   @IsInt()
   @Min(1)
   quantity: number;
+
+  @ApiProperty({ description: 'Product orderDetails' })
+  @IsNotEmpty()
+  orderDetails: OrderDetailsEntity;
 }
 
 export class UpdateOrderDetailsDTO {

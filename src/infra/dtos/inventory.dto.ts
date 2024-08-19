@@ -30,6 +30,11 @@ export class AuditStatusDTO {
 }
 
 export class InventoryProductDTO {
+  @ApiProperty({ description: 'Inventory Product ID' })
+  @IsString()
+  @IsNotEmpty()
+  readonly id: string;
+
   @ApiProperty({ description: 'Inventory Product SKU' })
   @IsString()
   @IsNotEmpty()

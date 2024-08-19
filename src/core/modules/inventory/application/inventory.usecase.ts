@@ -4,6 +4,7 @@ import {
   IInventoryUseCase,
   UpdateInventoryPayload,
 } from './inventory.usecase.interface';
+import { InventoryEntity } from '@inventoryDomain/entities/inventory.entity';
 import { InventoryRepository } from '@inventoryDomain/inventory.repository';
 import { InventoryValue } from '@inventoryDomain/Inventory.value';
 import { InventoryModel } from '@models/inventory/inventory.model';
@@ -15,13 +16,13 @@ export class InventoryUseCase implements IInventoryUseCase {
     private readonly productUsecase: ProductUseCase,
   ) {}
 
-  async create(payload: CreateInventoryPayload): Promise<InventoryModel> {
+  async create(payload: CreateInventoryPayload): Promise<InventoryEntity> {
     const inventoryValue = new InventoryValue().create(payload);
 
     return await this.inventoryRepository.create(inventoryValue);
   }
 
-  async findOneById(id: string): Promise<InventoryModel> {
+  async findOneById(id: string): Promise<InventoryEntity> {
     const inventory = await this.inventoryRepository.findOneById(id);
 
     if (!inventory) {
@@ -31,15 +32,15 @@ export class InventoryUseCase implements IInventoryUseCase {
     return inventory;
   }
 
-  async findByIds(ids: string[]): Promise<InventoryModel[]> {
+  async findByIds(ids: string[]): Promise<InventoryEntity[]> {
     return await this.inventoryRepository.findByIds(ids);
   }
 
-  async findAll(): Promise<InventoryModel[]> {
+  async findAll(): Promise<InventoryEntity[]> {
     return await this.inventoryRepository.findAll();
   }
 
-  async update(payload: UpdateInventoryPayload): Promise<InventoryModel> {
+  async update(payload: UpdateInventoryPayload): Promise<InventoryEntity> {
     const { id, inventoryProducts } = payload;
 
     const inventory = await this.findOneById(id);

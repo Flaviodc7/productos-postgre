@@ -4,7 +4,6 @@ import {
   UpdateInventoryPayload,
 } from '@inventoryApplication/inventory.usecase.interface';
 import { InventoryEntity } from './entities/inventory.entity';
-import { InventoryModel } from '@models/inventory/inventory.model';
 
 export class InventoryValue {
   public create = (
@@ -12,41 +11,47 @@ export class InventoryValue {
   ): InventoryEntity => {
     const createdStatus = 'PENDING';
 
+    const inventory = {
+      id: uuid(),
+      currentStatus: createdStatus,
+      createdAt: new Date().toISOString(),
+      ...inventoryPayload,
+    } as InventoryEntity;
+
     return {
-      auditStatus: [
+      inventoryAudit: [
         {
           id: uuid(),
+          inventory,
           newStatus: createdStatus,
           responsible: 'Admin', // TODO: responsible extracted from authentication user
           updateDate: new Date().toISOString(),
         },
       ],
-      id: uuid(),
-      currentStatus: createdStatus,
-      createdAt: new Date().toISOString(),
-      ...inventoryPayload,
+      ...inventory,
     };
   };
 
   public update = (
-    inventoryModel: InventoryModel,
+    inventory: InventoryEntity,
     inventoryPayload: UpdateInventoryPayload,
   ): InventoryEntity => {
-    const lastItemAuditStatus = inventoryModel.auditStatus.length - 1;
+    const lastItemAuditStatus = inventory.inventoryAudit.length - 1;
 
     const newAuditStatus = {
       id: uuid(),
+      inventory: inventory,
       newStatus: inventoryPayload.currentStatus,
-      previousStatus: inventoryModel.auditStatus[lastItemAuditStatus].newStatus,
+      previousStatus: inventory.inventoryAudit[lastItemAuditStatus].newStatus,
       responsible: 'Admin', // TODO: responsible extracted from authentication user
       updateDate: new Date().toISOString(),
     };
 
-    const updatedAuditStatus = [...inventoryModel.auditStatus, newAuditStatus];
+    const updatedAuditStatus = [...inventory.inventoryAudit, newAuditStatus];
 
     return {
-      ...inventoryPayload,
-      auditStatus: updatedAuditStatus,
+      ...inventory,
+      inventoryAudit: updatedAuditStatus,
     };
   };
 }

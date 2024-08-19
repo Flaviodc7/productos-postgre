@@ -1,8 +1,5 @@
-import {
-  InventoryProducts,
-  InventoryEntity,
-  InventoryStatus,
-} from '@inventoryDomain/entities/inventory.entity';
+import { InventoryEntity, InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
+import { InventoryProductsEntity } from '@inventoryDomain/entities/inventoryProducts.entity';
 
 export interface IInventoryUseCase {
   create: (payload: CreateInventoryPayload) => Promise<InventoryEntity>;
@@ -13,8 +10,15 @@ export interface IInventoryUseCase {
   delete(id: string): Promise<any>;
 }
 
+export interface CreateInventoryProductPayload {
+  id: string;
+  sku: string;
+  name: string;
+  quantity: number;
+}
+
 export interface CreateInventoryPayload {
-  inventoryProducts: InventoryProducts[];
+  inventoryProducts: CreateInventoryProductPayload[];
 }
 
 export interface UpdateInventoryPayload extends CreateInventoryPayload {

@@ -1,5 +1,5 @@
-import { InventoryAuditEntity } from './inventoryAudit.entity';
 import { InventoryProductsEntity } from './inventoryProducts.entity';
+import { InventoryAuditEntity } from './inventoryAudit.entity';
 
 export interface InventoryEntity {
   id: string;

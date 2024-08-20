@@ -10,8 +10,8 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { CustomerUseCase } from '@customersApplication/customer.usecase';
 import { CreateCustomerDTO, UpdateCustomerDTO } from '@dtos/customer.dto';
+import { CustomerUseCase } from '@customersApplication/customer.usecase';
 
 @ApiTags('Customers')
 @Controller('customers')

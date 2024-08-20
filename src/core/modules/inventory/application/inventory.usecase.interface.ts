@@ -1,5 +1,7 @@
-import { InventoryEntity, InventoryStatus } from '@inventoryDomain/entities/inventory.entity';
-import { InventoryProductsEntity } from '@inventoryDomain/entities/inventoryProducts.entity';
+import {
+  InventoryEntity,
+  InventoryStatus,
+} from '@inventoryDomain/entities/inventory.entity';
 
 export interface IInventoryUseCase {
   create: (payload: CreateInventoryPayload) => Promise<InventoryEntity>;

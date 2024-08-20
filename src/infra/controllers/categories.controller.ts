@@ -10,12 +10,12 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { CategoryUseCase } from '@categoriesApplication/categories.usecase';
 import {
   CreateCategoryDTO,
   FindCategoriesDTO,
   UpdateCategoryDTO,
 } from '@dtos/categories.dto';
+import { CategoryUseCase } from '@categoriesApplication/categories.usecase';
 
 @ApiTags('Categories')
 @Controller('categories')

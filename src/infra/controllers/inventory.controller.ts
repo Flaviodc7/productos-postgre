@@ -10,12 +10,12 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { InventoryUseCase } from '@inventoryApplication/inventory.usecase';
 import {
   CreateInventoryDTO,
   FindInventoriesDTO,
   UpdateInventoryDTO,
 } from '@dtos/inventory.dto';
+import { InventoryUseCase } from '@inventoryApplication/inventory.usecase';
 
 @ApiTags('Inventories')
 @Controller('inventories')

@@ -7,7 +7,6 @@ import {
 import { InventoryEntity } from '@inventoryDomain/entities/inventory.entity';
 import { InventoryRepository } from '@inventoryDomain/inventory.repository';
 import { InventoryValue } from '@inventoryDomain/Inventory.value';
-import { InventoryModel } from '@models/inventory/inventory.model';
 import { ProductUseCase } from '@productApplication/product.usecase';
 
 export class InventoryUseCase implements IInventoryUseCase {

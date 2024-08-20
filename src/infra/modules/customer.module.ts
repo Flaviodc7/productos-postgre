@@ -1,8 +1,8 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { CustomerController } from '@controllers/customer.controller';
 import { CustomerPostgreRepository } from '@repository/customer.repository';
 import { CustomerUseCase } from '@customersApplication/customer.usecase';
+import { CustomerController } from '@controllers/customer.controller';
 import { CustomerModel } from '@models/customer.model';
 
 @Module({
@@ -14,7 +14,7 @@ import { CustomerModel } from '@models/customer.model';
       provide: CustomerUseCase,
       useClass: CustomerPostgreRepository,
     },
-    CustomerUseCase
+    CustomerUseCase,
   ],
   exports: [CustomerUseCase],
 })

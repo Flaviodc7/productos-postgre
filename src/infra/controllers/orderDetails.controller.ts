@@ -9,11 +9,11 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.usecase';
 import {
   FindOrderDetailsIdsDTO,
   UpdateOrderDetailsDTO,
 } from '@dtos/orderDetails.dto';
+import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.usecase';
 
 @ApiTags('Order Details')
 @Controller('order-details')

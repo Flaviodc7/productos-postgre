@@ -11,7 +11,11 @@ import {
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { MethodType, OrderStatus, PaymentStatus } from '../utils/enum.types';
+import {
+  MethodType,
+  OrderStatus,
+  PaymentStatus,
+} from '@orderDetailsDomain/types/enum.types';
 
 export class PaymentDetailsDTO {
   @ApiProperty({ description: 'Payment method' })
@@ -114,15 +118,72 @@ export class CreateOrderDTO {
   readonly status: OrderStatus;
 }
 
+export class UpdatePaymentDetailsDTO extends PaymentDetailsDTO {
+  @ApiPropertyOptional({ description: 'Payment ID' })
+  @IsString()
+  @IsOptional()
+  readonly id: string;
+}
+
+export class UpdateProductOrderDTO extends ProductOrderDTO {
+  @ApiPropertyOptional({ description: 'Product Order ID' })
+  @IsString()
+  @IsOptional()
+  readonly id: string;
+}
+
+export class UpdateOrderDeliveryDTO extends OrderDeliveryDTO {
+  @ApiPropertyOptional({ description: 'Delivery ID' })
+  @IsString()
+  @IsOptional()
+  readonly id: string;
+}
+
+export class UpdateOrderDetailsDTO extends OrderDetailsDTO {
+  @ApiProperty({ description: 'Order ID' })
+  @IsString()
+  @IsNotEmpty()
+  readonly id: string;
+
+  @ApiPropertyOptional({ description: 'Payment details' })
+  @ValidateNested()
+  @Type(() => UpdatePaymentDetailsDTO)
+  @IsOptional()
+  readonly payment: UpdatePaymentDetailsDTO;
+
+  @ApiPropertyOptional({
+    description: 'Products in the order',
+    type: [UpdateProductOrderDTO],
+  })
+  @ValidateNested({ each: true })
+  @Type(() => UpdateProductOrderDTO)
+  @IsArray()
+  readonly products: UpdateProductOrderDTO[];
+
+  @ApiPropertyOptional({ description: 'Delivery details' })
+  @ValidateNested()
+  @Type(() => UpdateOrderDeliveryDTO)
+  @IsOptional()
+  readonly delivery?: UpdateOrderDeliveryDTO;
+}
+
 export class UpdateOrderDTO extends CreateOrderDTO {
   @ApiProperty({ description: 'Order ID' })
   @IsString()
   @IsNotEmpty()
   readonly id: string;
+
   @ApiProperty({ description: 'Order Creation Date' })
   @IsString()
   @IsNotEmpty()
   readonly createdAt: string;
+
+  @ApiPropertyOptional({ description: 'Order Details' })
+  @ValidateNested()
+  @Type(() => UpdateOrderDetailsDTO)
+  @IsOptional()
+  readonly details: UpdateOrderDetailsDTO;
+
   @ApiProperty({ description: 'Order Details ID' })
   @IsString()
   @IsNotEmpty()

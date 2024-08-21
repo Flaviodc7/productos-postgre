@@ -13,8 +13,11 @@ import {
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import {
+  MethodType,
+  PaymentStatus,
+} from '@orderDetailsDomain/types/enum.types';
 import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
-import { MethodType, PaymentStatus } from '@orderDetailsDomain/types/enum.types';
 
 class OrderDeliveryDTO {
   @ApiProperty({ description: 'Delivery ID' })

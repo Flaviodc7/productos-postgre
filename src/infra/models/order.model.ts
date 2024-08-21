@@ -16,7 +16,7 @@ export class OrderModel implements OrderEntity {
   status: OrderStatus;
 
   @OneToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.order)
-  orderDetails: OrderDetailsModel;
+  details: OrderDetailsModel;
 
   @ManyToOne(() => CustomerModel, (customer) => customer.orders)
   customer: CustomerModel;

@@ -20,5 +20,5 @@ export class OrderProductModel implements OrderProductEntity {
   quantity: number;
 
   @ManyToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.products)
-  orderDetails: OrderDetailsModel;
+  details: OrderDetailsModel;
 }

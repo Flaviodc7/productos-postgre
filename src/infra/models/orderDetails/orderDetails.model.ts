@@ -17,7 +17,7 @@ export class OrderDetailsModel implements OrderDetailsEntity {
   @PrimaryColumn({ type: 'varchar', length: 255, unique: true })
   id: string;
 
-  @OneToMany(() => OrderAuditModel, (audit) => audit.orderDetails, {
+  @OneToMany(() => OrderAuditModel, (audit) => audit.details, {
     cascade: true,
     eager: true,
   })
@@ -27,7 +27,7 @@ export class OrderDetailsModel implements OrderDetailsEntity {
   @JoinColumn()
   payment: OrderPaymentModel;
 
-  @OneToMany(() => OrderProductModel, (product) => product.orderDetails, {
+  @OneToMany(() => OrderProductModel, (product) => product.details, {
     cascade: true,
     eager: true,
   })
@@ -37,7 +37,7 @@ export class OrderDetailsModel implements OrderDetailsEntity {
   @JoinColumn()
   delivery?: OrderDeliveryModel;
 
-  @OneToOne(() => OrderModel, (order) => order.orderDetails)
+  @OneToOne(() => OrderModel, (order) => order.details)
   @JoinColumn()
   order?: OrderModel;
 }

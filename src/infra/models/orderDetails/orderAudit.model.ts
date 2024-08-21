@@ -17,5 +17,5 @@ export class OrderAuditModel implements OrderAuditEntity {
   responsible: string;
 
   @ManyToOne(() => OrderDetailsModel, (orderDetails) => orderDetails.audit)
-  orderDetails: OrderDetailsModel;
+  details: OrderDetailsModel;
 }

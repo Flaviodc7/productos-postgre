@@ -5,11 +5,10 @@ import {
   UpdateOrderPayload,
 } from './order.usecase.interface';
 import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.usecase';
-import { CustomerEntity } from '@customersDomain/entities/customer.entity';
 import { CustomerUseCase } from '@customersApplication/customer.usecase';
 import { OrderRepository } from '@orderDomain/order.repository';
 import { OrderValue } from '@orderDomain/order.value';
-import { OrderModel } from '@models/order.model';
+import { OrderEntity } from '@orderDomain/entities/order.entity';
 
 export class OrderUseCase implements IOrderUseCase {
   constructor(
@@ -18,12 +17,10 @@ export class OrderUseCase implements IOrderUseCase {
     private readonly customerUseCase: CustomerUseCase,
   ) {}
 
-  async create(payload: CreateOrderPayload): Promise<OrderModel> {
+  async create(payload: CreateOrderPayload): Promise<OrderEntity> {
     const { details, customerId } = payload;
 
-    const customer = (await this.customerUseCase.findOneById(
-      customerId,
-    )) as CustomerEntity;
+    const customer = await this.customerUseCase.findOneById(customerId);
 
     if (!customer) {
       throw new NotFoundException(`Customer #${customerId} not found`);
@@ -31,12 +28,12 @@ export class OrderUseCase implements IOrderUseCase {
 
     const orderDetails = await this.orderDetailsUseCase.create(details);
 
-    const orderValue = new OrderValue().create(payload, orderDetails.id);
+    const orderValue = new OrderValue().create(payload, customer, orderDetails);
 
-    return await this.orderRepository.create(orderValue, customer);
+    return await this.orderRepository.create(orderValue);
   }
 
-  async findOneById(id: string): Promise<OrderModel> {
+  async findOneById(id: string): Promise<OrderEntity> {
     const order = await this.orderRepository.findOneById(id);
 
     if (!order) {
@@ -46,24 +43,32 @@ export class OrderUseCase implements IOrderUseCase {
     return order;
   }
 
-  async findByIds(ids: string[]): Promise<OrderModel[]> {
+  async findByIds(ids: string[]): Promise<OrderEntity[]> {
     return await this.orderRepository.findByIds(ids);
   }
 
-  async findAll(): Promise<OrderModel[]> {
+  async findAll(): Promise<OrderEntity[]> {
     return await this.orderRepository.findAll();
   }
 
-  async update(payload: UpdateOrderPayload): Promise<OrderModel> {
-    const { id } = payload;
+  async update(payload: UpdateOrderPayload): Promise<OrderEntity> {
+    const { id, customerId, orderDetailsId } = payload;
 
-    const order = (await this.findOneById(id)) as OrderModel;
+    const order = await this.findOneById(id);
 
-    if (!order) {
-      throw new NotFoundException(`Order #${id} not found`);
-    }
+    const customer = await this.customerUseCase.findOneById(customerId);
 
-    return await this.orderRepository.update(order, payload);
+    const orderDetails =
+      await this.orderDetailsUseCase.findOneById(orderDetailsId);
+
+    const orderValue = new OrderValue().update(
+      payload,
+      order,
+      customer,
+      orderDetails,
+    );
+
+    return await this.orderRepository.update(order, orderValue);
   }
 
   async delete(id: string) {

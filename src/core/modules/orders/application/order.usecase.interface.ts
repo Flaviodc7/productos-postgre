@@ -1,4 +1,6 @@
-import { OrderDetailsEntity } from '@orderDetailsDomain/entities/orderDetails.entity';
+import { OrderDeliveryEntity } from '@orderDetailsDomain/entities/orderDelivery.entity';
+import { OrderPaymentEntity } from '@orderDetailsDomain/entities/orderPayment.entity';
+import { OrderProductEntity } from '@orderDetailsDomain/entities/orderProduct.entity';
 import { OrderEntity } from '@orderDomain/entities/order.entity';
 import { OrderStatus } from '@orderDomain/entities/orderStatus.entity';
 
@@ -11,20 +13,29 @@ export interface IOrderUseCase {
   delete(id: string): Promise<any>;
 }
 
-export interface OrderDetailsPayload
-  extends Pick<
-    OrderDetailsEntity,
-    Exclude<keyof OrderDetailsEntity, 'id' | 'orderId' | 'audit'>
-  > {}
+export interface OrderPaymentCreatePayload
+  extends Omit<OrderPaymentEntity, 'id'> {}
+
+export interface OrderProductCreatePayload
+  extends Omit<OrderProductEntity, 'id' | 'details'> {}
+
+export interface OrderDeliveryCreatePayload
+  extends Omit<OrderDeliveryEntity, 'id'> {}
+
+export interface OrderDetailsCreatePayload {
+  payment: OrderPaymentCreatePayload;
+  products: OrderProductCreatePayload[];
+  delivery?: OrderDeliveryCreatePayload;
+}
 
 export interface CreateOrderPayload {
   customerId: string;
-  status: OrderStatus;
-  details: OrderDetailsPayload;
+  details: OrderDetailsCreatePayload;
 }
 
 export interface UpdateOrderPayload extends CreateOrderPayload {
   id: string;
   createdAt: string;
   orderDetailsId: string;
+  status: OrderStatus;
 }

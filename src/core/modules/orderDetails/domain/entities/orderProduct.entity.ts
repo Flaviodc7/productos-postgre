@@ -6,5 +6,5 @@ export interface OrderProductEntity {
   name: string;
   price: number;
   quantity: number;
-  orderDetails: OrderDetailsEntity;
+  details: OrderDetailsEntity;
 }

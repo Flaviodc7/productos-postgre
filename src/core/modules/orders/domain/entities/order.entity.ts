@@ -6,6 +6,6 @@ export interface OrderEntity {
   id: string;
   createdAt: string;
   status: OrderStatus;
-  orderDetails: OrderDetailsEntity;
+  details: OrderDetailsEntity;
   customer: CustomerEntity;
 }

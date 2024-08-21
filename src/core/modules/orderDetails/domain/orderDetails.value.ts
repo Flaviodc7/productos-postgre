@@ -11,46 +11,84 @@ export class OrderDetailsValue {
   public create = (
     orderDetailsPayload: CreateOrderDetailsPayload,
   ): OrderDetailsEntity => {
-  
+    const { payment, delivery, products, ...restPayload } = orderDetailsPayload
+
+    const orderPayment = {
+      ...payment,
+      id: uuid(),
+    }
+
+    const orderDelivery = {
+      id: uuid(),
+      ...delivery
+    }
+
     const orderDetails: OrderDetailsEntity = {
       id: uuid(),
       audit: [],
-      ...orderDetailsPayload
+      delivery: orderDelivery,
+      payment: orderPayment,
+      products: [],
+      ...restPayload,
     };
-  
+
+    const orderProducts = products.map(product => {
+      return {
+        id: uuid(),
+        sku: product.sku,
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+        details: orderDetails
+      };
+    });
+
+    orderDetails.products = orderProducts;
+
     const audit: OrderAuditEntity = {
       id: uuid(),
       date: new Date().toISOString(),
       description: 'Created',
       responsible: 'ADMIN', // TODO: add responsible from token
-      orderDetails: orderDetails,
+      details: orderDetails,
     };
-  
+
     orderDetails.audit.push(audit);
-  
+
     return orderDetails;
   };
 
   public update = (
-    orderDetails: OrderDetailsEntity,
+    details: OrderDetailsEntity,
     order: OrderEntity,
     orderDetailsPayload: UpdateOrderDetailsPayload,
   ): OrderDetailsEntity => {
-    const { audit } = orderDetails;
+    const { audit } = details;
 
     const auditEntities: OrderAuditEntity[] = audit.map((auditItem) => ({
       id: auditItem.id,
       date: auditItem.date,
       description: auditItem.description,
-      orderDetails,
+      details,
       responsible: auditItem.responsible,
     }));
+
+    const orderProducts = orderDetailsPayload.products.map(product => {
+      return {
+        id: product.id || uuid(),
+        sku: product.sku,
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+        details
+      }
+    })
 
     const newAudit = {
       id: uuid(),
       date: new Date().toISOString(),
       description: 'Update',
-      orderDetails,
+      details,
       responsible: 'ADMIN', // TODO: add responsible from token
     };
 
@@ -59,6 +97,7 @@ export class OrderDetailsValue {
     return {
       ...orderDetailsPayload,
       order,
+      products: orderProducts,
       audit: auditEntities,
     };
   };

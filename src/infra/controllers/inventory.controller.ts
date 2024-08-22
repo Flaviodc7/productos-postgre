@@ -24,7 +24,7 @@ export class InventoryController {
 
   @ApiOperation({ summary: 'Get all inventories' })
   @Get()
-  getAllInventorys() {
+  getAllInventories() {
     return this.inventoryUseCase.findAll();
   }
 

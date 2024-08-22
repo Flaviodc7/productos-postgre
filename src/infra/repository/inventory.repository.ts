@@ -13,9 +13,7 @@ export class InventoryPostgreRepository implements InventoryRepository {
   ) {}
 
   async findAll(): Promise<InventoryEntity[]> {
-    return await this.inventoryRepository.find({
-      relations: ['subcategories'],
-    });
+    return await this.inventoryRepository.find();
   }
 
   async findOneById(id: string): Promise<InventoryEntity> {

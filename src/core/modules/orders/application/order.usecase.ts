@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateOrderPayload,
   IOrderUseCase,
@@ -12,8 +12,11 @@ import { OrderEntity } from '@orderDomain/entities/order.entity';
 
 export class OrderUseCase implements IOrderUseCase {
   constructor(
+    @Inject('OrderRepository')
     private readonly orderRepository: OrderRepository,
+    @Inject(forwardRef(() => OrderDetailsUseCase))
     private readonly orderDetailsUseCase: OrderDetailsUseCase,
+    @Inject(forwardRef(() => CustomerUseCase))
     private readonly customerUseCase: CustomerUseCase,
   ) {}
 

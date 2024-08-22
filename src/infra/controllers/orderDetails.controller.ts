@@ -20,6 +20,13 @@ import { OrderDetailsUseCase } from '@orderDetailsApplication/orderDetails.useca
 export class OrderDetailsController {
   constructor(private readonly orderDetailsUseCase: OrderDetailsUseCase) {}
 
+  @ApiOperation({ summary: 'Get all orders' })
+  @Get()
+  getAllOrders() {
+    return this.orderDetailsUseCase.findAll();
+  }
+
+
   @ApiOperation({ summary: 'Get an order Details by ID' })
   @Get(':orderDetailsId')
   @HttpCode(HttpStatus.ACCEPTED)

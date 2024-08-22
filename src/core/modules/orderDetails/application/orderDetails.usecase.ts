@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateOrderDetailsPayload,
   IOrderDetailsUseCase,
@@ -12,7 +12,9 @@ import { OrderUseCase } from '@orderApplication/order.usecase';
 
 export class OrderDetailsUseCase implements IOrderDetailsUseCase {
   constructor(
+    @Inject('OrderDetailsRepository')
     private readonly orderDetailsRepository: OrderDetailsRepository,
+    @Inject(forwardRef(() => OrderUseCase))
     private readonly orderUseCase: OrderUseCase,
     private readonly productsUseCase: ProductUseCase,
   ) {}
@@ -39,6 +41,10 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
 
   async findByIds(ids: string[]): Promise<OrderDetailsEntity[]> {
     return await this.orderDetailsRepository.findByIds(ids);
+  }
+
+  async findAll(): Promise<OrderDetailsEntity[]> {
+    return await this.orderDetailsRepository.findAll();
   }
 
   async update(

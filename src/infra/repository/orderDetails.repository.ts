@@ -9,36 +9,40 @@ import { OrderDetailsModel } from '@models/orderDetails/orderDetails.model';
 export class OrderDetailsPostgreRepository implements OrderDetailsRepository {
   constructor(
     @InjectRepository(OrderDetailsModel)
-    private orderRepository: Repository<OrderDetailsModel>,
+    private orderDetailsRepository: Repository<OrderDetailsModel>,
   ) {}
 
   async findOneById(id: string): Promise<OrderDetailsEntity> {
-    return await this.orderRepository.findOne({
+    return await this.orderDetailsRepository.findOne({
       where: { id: id },
     });
   }
 
   async findByIds(ids: string[]): Promise<OrderDetailsEntity[]> {
-    return await this.orderRepository.find({
+    return await this.orderDetailsRepository.find({
       where: { id: In(ids) },
     });
   }
 
-  async create(payload: OrderDetailsEntity): Promise<OrderDetailsEntity> {
-    const newOrder = this.orderRepository.create(payload);
+  async findAll(): Promise<OrderDetailsEntity[]> {
+    return await this.orderDetailsRepository.find();
+  }
 
-    return await this.orderRepository.save(newOrder);
+  async create(payload: OrderDetailsEntity): Promise<OrderDetailsEntity> {
+    const newOrder = this.orderDetailsRepository.create(payload);
+
+    return await this.orderDetailsRepository.save(newOrder);
   }
 
   async update(
     orderDetails: OrderDetailsEntity,
     payload: OrderDetailsEntity,
   ): Promise<OrderDetailsEntity> {
-    this.orderRepository.merge(orderDetails, payload);
-    return await this.orderRepository.save(orderDetails);
+    this.orderDetailsRepository.merge(orderDetails, payload);
+    return await this.orderDetailsRepository.save(orderDetails);
   }
 
   async delete(id: string): Promise<any> {
-    return await this.orderRepository.delete(id);
+    return await this.orderDetailsRepository.delete(id);
   }
 }

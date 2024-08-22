@@ -9,10 +9,12 @@ import { OrderPaymentModel } from '@models/orderDetails/orderPayment.model';
 import { OrderProductModel } from '@models/orderDetails/orderProduct.model';
 import { OrderAuditModel } from '@models/orderDetails/orderAudit.model';
 import { ProductModule } from './products.module';
+import { OrderModule } from './order.module';
 
 @Module({
   imports: [
     forwardRef(() => ProductModule),
+    forwardRef(() => OrderModule),
     TypeOrmModule.forFeature([
       OrderDetailsModel,
       OrderAuditModel,
@@ -20,6 +22,7 @@ import { ProductModule } from './products.module';
       OrderPaymentModel,
       OrderProductModel,
     ]),
+
   ],
   controllers: [OrderDetailsController],
   providers: [

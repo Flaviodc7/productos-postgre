@@ -1,6 +1,21 @@
-version: '3.3'
-
 services:
+  datadog:
+    image: gcr.io/datadoghq/agent:latest
+    pid: host
+    environment:
+     - DD_API_KEY=${DD_APIKEY}
+     - DD_LOGS_ENABLED=true
+     - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+     - DD_APM_ENABLED=true
+     - DD_APM_NON_LOCAL_TRAFFIC=true
+     - DD_AGENT_HOST=dd-agent
+     - DD_SITE=datadoghq.com
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /proc/:/host/proc/:ro
+     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+     - /var/lib/docker/containers:/var/lib/docker/containers:ro
+
   postgres:
     image: postgres:13
     environment:
@@ -11,6 +26,8 @@ services:
     - '5432:5432'
     volumes:
     - ./postgres_data:/var/lib/postgresql/data
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "postgres", "service": "postgres"}]'
     
   pgadmin:
     image: dpage/pgadmin4
@@ -19,3 +36,5 @@ services:
     - PGADMIN_DEFAULT_PASSWORD=admin789
     ports:
     - "5050:80"
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "pgadmin", "service": "pgadmin"}]'

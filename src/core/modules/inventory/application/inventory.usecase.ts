@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateInventoryPayload,
@@ -27,6 +28,7 @@ export class InventoryUseCase implements IInventoryUseCase {
     const inventory = await this.inventoryRepository.findOneById(id);
 
     if (!inventory) {
+      logger.log('error', `GET /inventories/:inventoryId: Inventory #${id} not found`);
       throw new NotFoundException(`Inventory #${id} not found`);
     }
 
@@ -47,6 +49,7 @@ export class InventoryUseCase implements IInventoryUseCase {
     const inventory = await this.findOneById(id);
 
     if (!inventory) {
+      logger.log('error', `PUT /inventories/: Inventory #${id} not found`);
       throw new NotFoundException(`Inventory #${id} not found`);
     }
 
@@ -63,7 +66,8 @@ export class InventoryUseCase implements IInventoryUseCase {
     const result = await this.inventoryRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundException(`Product #${id} not found`);
+      logger.log('error', `DELETE /inventories/:inventoryId: Inventory #${id} not found`);
+      throw new NotFoundException(`Inventory #${id} not found`);
     }
 
     return result;

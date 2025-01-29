@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateOrderDetailsPayload,
@@ -33,6 +34,7 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
     const order = await this.orderDetailsRepository.findOneById(id);
 
     if (!order) {
+      logger.log('error', `GET /order-details/:orderDetailsId: Order Detail #${id} not found`);
       throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
@@ -55,12 +57,14 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
     const orderDetails = await this.findOneById(id);
 
     if (!orderDetails) {
+      logger.log('error', `PUT /order-details/: Order Detail #${id} not found`);
       throw new NotFoundException(`Order Detail #${id} not found`);
     }
 
     const order = await this.orderUseCase.findOneById(orderId);
 
     if (!order) {
+      logger.log('error', `GET /order/:orderId: Order #${id} not found`);
       throw new NotFoundException(`Order #${id} not found`);
     }
 
@@ -80,6 +84,7 @@ export class OrderDetailsUseCase implements IOrderDetailsUseCase {
     const result = await this.orderDetailsRepository.delete(id);
 
     if (result.affected === 0) {
+      logger.log('error', `DELETE /order-details/:productId: Order Detail #${id} not found`);
       throw new NotFoundException(`Product #${id} not found`);
     }
 

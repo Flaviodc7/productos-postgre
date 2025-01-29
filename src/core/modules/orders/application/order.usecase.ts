@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateOrderPayload,
@@ -26,6 +27,7 @@ export class OrderUseCase implements IOrderUseCase {
     const customer = await this.customerUseCase.findOneById(customerId);
 
     if (!customer) {
+      logger.log('error', `Customer #${customerId} not found`);
       throw new NotFoundException(`Customer #${customerId} not found`);
     }
 
@@ -40,6 +42,7 @@ export class OrderUseCase implements IOrderUseCase {
     const order = await this.orderRepository.findOneById(id);
 
     if (!order) {
+      logger.log('error', `Order #${id} not found`);
       throw new NotFoundException(`Order #${id} not found`);
     }
 
@@ -78,6 +81,7 @@ export class OrderUseCase implements IOrderUseCase {
     const result = await this.orderRepository.delete(id);
 
     if (result.affected === 0) {
+      logger.log('error', `Product #${id} not found`);
       throw new NotFoundException(`Product #${id} not found`);
     }
 

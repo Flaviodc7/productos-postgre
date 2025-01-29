@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import { NotFoundException } from '@nestjs/common';
 import {
   CreateCategoriesPayload,
@@ -21,6 +22,7 @@ export class CategoryUseCase implements ICategoriesUseCase {
     const category = await this.categoryRepository.findOneById(id);
 
     if (!category) {
+      logger.log('error', `GET /categories/:categoryId: Category #${id} not found`);
       throw new NotFoundException(`Category #${id} not found`);
     }
 
@@ -41,6 +43,7 @@ export class CategoryUseCase implements ICategoriesUseCase {
     const outdatedCategory = await this.findOneById(id);
 
     if (!outdatedCategory) {
+      logger.log('error', `PUT /categories/: Category #${id} not found`);
       throw new NotFoundException(`Category #${id} not found`);
     }
 
@@ -51,7 +54,8 @@ export class CategoryUseCase implements ICategoriesUseCase {
     const result = await this.categoryRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundException(`Product #${id} not found`);
+      logger.log('error', `DELETE /categories/:categoryId: #${id} not found`);
+      throw new NotFoundException(`DELETE #${id} not found`);
     }
 
     return result;

@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import {
   BadRequestException,
   Inject,
@@ -41,6 +42,7 @@ export class ProductUseCase implements IProductUseCase {
     const product = await this.productRepository.findOneBySku(sku);
 
     if (!product) {
+      logger.log('error', `GET /products/:productSku: Product #${sku} not found`);
       throw new NotFoundException(`Product #${sku} not found`);
     }
 
@@ -76,6 +78,7 @@ export class ProductUseCase implements IProductUseCase {
     const product = await this.findOneBySku(sku);
 
     if (!product) {
+      logger.log('error', `PUT /products/: Product #${sku} not found`);
       throw new NotFoundException(`Product #${sku} not found`);
     }
 
@@ -99,11 +102,13 @@ export class ProductUseCase implements IProductUseCase {
       const product = await this.findOneBySku(sku);
 
       if (!product) {
+        logger.log('error', `PUT /products/:productSku: Product #${sku} not found`);
         throw new NotFoundException(`Product #${sku} not found`);
       }
       product.stock -= quantity;
 
       if (product.stock < 0) {
+        logger.log('error', `PUT /products/:productSku: Product #${sku} has not enough stock`);
         throw new BadRequestException(`Product #${sku} has not enough stock`);
       }
 
@@ -129,6 +134,7 @@ export class ProductUseCase implements IProductUseCase {
       const product = await this.findOneBySku(sku);
 
       if (!product) {
+        logger.log('error', `Product #${sku} not found`);
         throw new NotFoundException(`Product #${sku} not found`);
       }
       product.stock += quantity;
@@ -148,6 +154,7 @@ export class ProductUseCase implements IProductUseCase {
     const result = await this.productRepository.delete(sku);
 
     if (result.affected === 0) {
+      logger.log('error', `DELETE /products/:productSku: Product #${sku} not found`);
       throw new NotFoundException(`Product #${sku} not found`);
     }
 

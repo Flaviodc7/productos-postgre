@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateCustomerPayload,
@@ -27,6 +28,7 @@ export class CustomerUseCase implements ICustomerUseCase {
     const customer = await this.customerRepository.findOneById(id);
 
     if (!customer) {
+      logger.log('error', `GET /customers/:customerId: Customer #${id} not found`);
       throw new NotFoundException(`Customer #${id} not found`);
     }
 
@@ -53,7 +55,8 @@ export class CustomerUseCase implements ICustomerUseCase {
     const result = await this.customerRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundException(`Product #${id} not found`);
+      logger.log('error', `DELETE /customers/:customerId: Customer #${id} not found`);
+      throw new NotFoundException(`Customer #${id} not found`);
     }
 
     return result;

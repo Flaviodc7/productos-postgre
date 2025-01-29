@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import { Inject, NotFoundException, forwardRef } from '@nestjs/common';
 import {
   CreateSubcategoriesPayload,
@@ -42,6 +43,7 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     const subcategory = await this.subcategoryRepository.findOneById(id);
 
     if (!subcategory) {
+      logger.log('error', `GET /subcategories/:subcategoryId: Subcategory #${id} not found`);
       throw new NotFoundException(`Subcategory #${id} not found`);
     }
 
@@ -84,7 +86,8 @@ export class SubcategoryUseCase implements ISubcategoriesUseCase {
     const result = await this.subcategoryRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundException(`Product #${id} not found`);
+      logger.log('error', `DELETE /subcategories/:subcategoryId: Subcategory #${id} not found`);
+      throw new NotFoundException(`Subcategory #${id} not found`);
     }
 
     return result;

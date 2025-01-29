@@ -1,3 +1,5 @@
+import "./tracer";
+import logger from "./logger";
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -5,6 +7,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  logger.log('info', 'Service productos-postgre launched!');
 
   const config = new DocumentBuilder()
     .setTitle('ProductAPI')
